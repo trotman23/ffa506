@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: scrape
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Jake
+Built-By: Isaac
 Implementation-Vendor-Id: com.example
-Build-Jdk: 1.8.0_71
+Build-Jdk: 1.8.0_31
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 
