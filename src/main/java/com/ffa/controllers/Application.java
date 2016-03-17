@@ -1,9 +1,12 @@
-package com.ffa;
+package com.ffa.controllers;
 
+import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import com.mchange.v2.c3p0.DriverManagerDataSource;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
@@ -15,5 +18,17 @@ public class Application extends SpringBootServletInitializer {
 	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
+	}
+	
+	@Bean
+	public DataSource getDataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		
+		dataSource.setDriverClass("com.mysql.jdbc.Driver");
+		dataSource.setJdbcUrl("");
+		dataSource.setUser("");
+		dataSource.setPassword("");
+		
+		return dataSource;
 	}
 }
