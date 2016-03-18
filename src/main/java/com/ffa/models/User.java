@@ -8,6 +8,8 @@ public class User {
 	private String email;
 	private String userId;
 	private List<League> leagues;
+	private List<LeagueTeam> userTeams;
+	
 	
 	public User(){
 		
@@ -22,11 +24,11 @@ public class User {
 	}
 	
 	public void addNewTeam(League currLeague){
-		
+		//TODO
 	}
 	
-	public List<LeagueTeam> getUserTeams(){
-		
+	public List<LeagueTeam> getUserTeams() {
+		return userTeams;
 	}
 	
 	public void setDefaultLeague(League defaultLeague) {
