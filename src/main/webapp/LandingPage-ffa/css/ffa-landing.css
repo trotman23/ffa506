@@ -1,7 +1,8 @@
 /*!
- * Start Bootstrap - Freelancer Bootstrap Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ * Fantasy Football Analysts
+ *  Landing Page CSS
+ *  Author: Benjamin Chang
+ *  Last Modified: March 18
  */
 
 body {
@@ -22,7 +23,7 @@ a:focus,
 a:active,
 a.active {
     outline: 0;
-    color: #18bc9c;
+    color: #222;
 }
 
 h1,
@@ -63,15 +64,15 @@ hr.star-light {
 
 hr.star-light:after {
     color: #fff;
-    background-color: #18bc9c;
+    background-color: #222;
 }
 
 hr.star-primary {
-    border-color: #2c3e50;
+    border-color: #000000;
 }
 
 hr.star-primary:after {
-    color: #2c3e50;
+    color: #000000;
     background-color: #fff;
 }
 
@@ -82,7 +83,7 @@ hr.star-primary:after {
 header {
     text-align: center;
     color: #fff;
-    background: #18bc9c;
+    background: #222;
 }
 
 header .container {
@@ -181,7 +182,7 @@ section h2 {
 
 section.success {
     color: #fff;
-    background: #18bc9c;
+    background: #222;
 }
 
 section.success a,
@@ -190,7 +191,7 @@ section.success a:focus,
 section.success a:active,
 section.success a.active {
     outline: 0;
-    color: #2c3e50;
+    color: #000000;
 }
 
 @media(max-width:767px) {
@@ -203,12 +204,6 @@ section.success a.active {
     }
 }
 
-
-
-@media(min-width:767px) {
-    #portfolio .portfolio-item {
-        margin: 0 0 30px;
-    }
 }
 
 .btn-outline {
@@ -225,7 +220,7 @@ section.success a.active {
 .btn-outline:active,
 .btn-outline.active {
     border: solid 2px #fff;
-    color: #18bc9c;
+    color: #222;
     background: #fff;
 }
 
@@ -278,7 +273,7 @@ section.success a.active {
 }
 
 .floating-label-form-group-with-focus label {
-    color: #18bc9c;
+    color: #222;
 }
 
 form .row:first-child .floating-label-form-group {
