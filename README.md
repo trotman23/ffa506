@@ -1,5 +1,6 @@
 # ffa506
 506 project
+
 This project users spring boot and maven to build and deploy. 
 
 Current requirments are:
