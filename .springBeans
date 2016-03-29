@@ -7,9 +7,9 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>java:com.ffa.controllers.Application</config>
 	</configs>
 	<autoconfigs>
-		<config>java:com.example.ScrapeApplication</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
