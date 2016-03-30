@@ -2,8 +2,16 @@ package com.ffa.models;
 
 import java.util.*;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ch.qos.logback.core.net.ObjectWriter;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -17,6 +25,8 @@ public class FtjStats {
 	public String position;
 	public int positionRank;
 	public int overallRank;
+	public int teamID;
+	public String teamName;
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost/ffadb";
@@ -28,12 +38,11 @@ public class FtjStats {
 	
 	public FtjStats(){
 		
-	}
+	}	
 	
 	
-	
-	public Map<Integer, String> LeagueTeams(int LeagueID){
-		Map<Integer, String> teams = new HashMap<Integer, String>();
+	public List<FtjStats> LeagueTeams(int LeagueID){
+		List<FtjStats> teams = new ArrayList<FtjStats>();
 		Connection conn = null;
 		Statement stmt = null;
 		try{
@@ -47,7 +56,10 @@ public class FtjStats {
 			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				teams.put(rs.getInt(1), rs.getString(5));
+				FtjStats temp = new FtjStats();
+				temp.teamID = rs.getInt(1);
+				temp.teamName = rs.getString(5);
+				teams.add(temp);
 			}
 			conn.close();
 			rs.close();
@@ -57,7 +69,15 @@ public class FtjStats {
 		} finally{
 
 		}
-		
+		com.fasterxml.jackson.databind.ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try {
+			String json = ow.writeValueAsString(teams);
+			System.out.println(json);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
 		return teams;
 	}
 }

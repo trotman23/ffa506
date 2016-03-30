@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head></head>
+ <!-- Body tag augmented with ngController directive  -->
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+ <body>
+	<h2>Select the teams that are going to do a trade, then select the players</h2>
+	<div ng-controller="FTJController">
+		<div>
+			{{list1}}
+			<select ng-model="selectedTeam1" ng-options="item as item.teamName for item in teams track by item.teamID" ng-change="getRoster1(selectedTeam1)">
+				<option value="">Team 1</option>
+			</select>
+			<table>
+				<tr>
+					<td>PlayerID</td>
+					<td>FFATeamID</td>
+					<td>Users_UserID</td>
+					<td>Leagues_LeagueID</td>
+					<td>InjuryCode</td>
+					<td>Slot</td>
+					<td>WeekID</td>
+					<td>Starter</td>
+					<td>SeasonID</td>
+					<td>Name</td>
+					<td>Position</td>
+					<td>NFLTeamName</td>
+					<td>NFLTeamID</td>
+				</tr>
+				<tr ng-repeat="player in roster1">
+					<td>{{player.Players_PlayerID}}</td>
+					<td>{{player.Teams_FFATeamID}}</td>
+					<td>{{player.Teams_Users_UserID}}</td>
+					<td>{{player.Teams_Leagues_LeagueID}}</td>
+					<td>{{player.InjuryCode}}</td>
+					<td>{{player.Slot}}</td>
+					<td>{{player.WeekID}}</td>
+					<td>{{player.Starter}}</td>
+					<td>{{player.SeasonID}}</td>
+					<td>{{player.Name}}</td>
+					<td>{{player.Position}}</td>
+					<td>{{player.NFLTeamName}}</td>
+					<td>{{player.NFLTeam_NFLTeamID}}</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<div>
+			{{list2}}
+			<select ng-model="selectedTeam2" ng-options="item as item.teamName for item in teams track by item.teamID" ng-change="getRoster2(selectedTeam2)">
+				<option value="">Team 2</option>
+			</select>
+			<table>
+				<tr>
+					<td>PlayerID</td>
+					<td>FFATeamID</td>
+					<td>Users_UserID</td>
+					<td>Leagues_LeagueID</td>
+					<td>InjuryCode</td>
+					<td>Slot</td>
+					<td>WeekID</td>
+					<td>Starter</td>
+					<td>SeasonID</td>
+					<td>Name</td>
+					<td>Position</td>
+					<td>NFLTeamName</td>
+					<td>NFLTeamID</td>
+				</tr>
+				<tr ng-repeat="player in roster2">
+					<td>{{player.Players_PlayerID}}</td>
+					<td>{{player.Teams_FFATeamID}}</td>
+					<td>{{player.Teams_Users_UserID}}</td>
+					<td>{{player.Teams_Leagues_LeagueID}}</td>
+					<td>{{player.InjuryCode}}</td>
+					<td>{{player.Slot}}</td>
+					<td>{{player.WeekID}}</td>
+					<td>{{player.Starter}}</td>
+					<td>{{player.SeasonID}}</td>
+					<td>{{player.Name}}</td>
+					<td>{{player.Position}}</td>
+					<td>{{player.NFLTeamName}}</td>
+					<td>{{player.NFLTeam_NFLTeamID}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+   
+   <script>
+   //going to attempt select lists via @ng-app
+	var myApp = angular.module('myApp',[]);
+	myApp.controller('FTJController', function($scope, $http) {
+		$scope.list1 = 'Select Team 1';
+		$scope.list2 = 'Select Team 2';
+		//$scope.selectedTeam = null;
+		$scope.teams = [];
+		$scope.roster1 = null;
+		$scope.roster2 = null;
+		$http({
+            method: 'GET',
+            url: 'http://localhost:8080/rest/LeagueTeams?LeagueID=1682132'
+        }).success(function (result) {
+        $scope.teams = result;
+		});
+		console.log("in contorller");
+		$scope.getRoster1 = function(selectedTeam){
+			console.log("in getRoster with teamID = " + selectedTeam.teamID);
+			$http({
+				method: 'GET',
+				url: 'http://localhost:8080/rest/Roster?LeagueID=1682132&TeamID=' +selectedTeam.teamID + '&Week=1&Year=2015'
+			}).then(function (result){
+				$scope.roster1 = result.data;
+			});
+			
+		}
+		
+		//duplicating for now, should change to use the same method for both rosters
+		$scope.getRoster2 = function(selectedTeam){
+			console.log("in getRoster with teamID = " + selectedTeam.teamID);
+			$http({
+				method: 'GET',
+				url: 'http://localhost:8080/rest/Roster?LeagueID=1682132&TeamID=' +selectedTeam.teamID + '&Week=1&Year=2015'
+			}).then(function (result){
+				$scope.roster2 = result.data;
+			});
+			
+		}
+	});
+	
+   </script>
+
+ </body>
+
+</html>

@@ -1,5 +1,6 @@
 package com.ffa.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,11 +12,13 @@ public class APIController {
 
 	private static final String rest = "/rest/";
 	
+	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "NFLTeam")
     public NFLTeam team(@RequestParam(value="TeamID", defaultValue = "1") String id) {
         return new NFLTeam(Integer.parseInt(id));
     }
 	
+	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "Roster")
 	public List<Roster> roster(
 			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID, 
@@ -27,9 +30,10 @@ public class APIController {
 		return r.getRoster(LeagueID, TeamID, Week, Year);
 	}
 	
-	//Fair Trade Judge
+	//Fair Trade Judge stuffs
+	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "LeagueTeams")
-	public Map<Integer, String> LeagueTeams(
+	public List<FtjStats> LeagueTeams(
 			@RequestParam(value="LeagueID", defaultValue = "1682132") String LeagueID
 			){
 		FtjStats ftj = new FtjStats();
