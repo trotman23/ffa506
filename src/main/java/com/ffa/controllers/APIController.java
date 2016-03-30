@@ -1,6 +1,5 @@
 package com.ffa.controllers;
 
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +25,15 @@ public class APIController {
 			) {
 		Roster r = new Roster();
 		return r.getRoster(LeagueID, TeamID, Week, Year);
+	}
+	
+	//Fair Trade Judge
+	@RequestMapping(rest + "LeagueTeams")
+	public Map<Integer, String> LeagueTeams(
+			@RequestParam(value="LeagueID", defaultValue = "1682132") String LeagueID
+			){
+		FtjStats ftj = new FtjStats();
+		return ftj.LeagueTeams(Integer.parseInt(LeagueID));
+		
 	}
 }
