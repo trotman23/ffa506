@@ -12,4 +12,8 @@ public class LandingPageController {
 		return "index";
 	}
 	
+	@RequestMapping("/ftj")
+	public String ftj(Model model){
+		return "ftj";
+	}
 }

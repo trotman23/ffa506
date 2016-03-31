@@ -40,4 +40,15 @@ public class APIController {
 		return ftj.LeagueTeams(Integer.parseInt(LeagueID));
 		
 	}
+	@CrossOrigin //fortesting only
+	@RequestMapping(rest + "FTJ")
+	public boolean FTJ(
+			@RequestParam(value="PlayerID1", defaultValue = "1") String PlayerID1,
+			@RequestParam(value="PlayerID2", defaultValue = "1") String PlayerID2
+			){
+		FtjStats ftj = new FtjStats();
+		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
+		
+	}
+	
 }

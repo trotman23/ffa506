@@ -80,4 +80,10 @@ public class FtjStats {
 		}
 		return teams;
 	}
+	
+	public boolean isFair(int tid1, int tid2){
+		//TODO: implement fair trade judge algorithm, compare lots of stats
+		boolean test = tid1>tid2;
+		return tid1 > tid2;
+	}
 }
