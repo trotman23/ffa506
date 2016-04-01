@@ -21,7 +21,7 @@ public class APIController {
 	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "Roster")
 	public List<Roster> roster(
-			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID, 
+			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
 			@RequestParam(value = "TeamID", defaultValue = "1") String TeamID,
 			@RequestParam(value = "Week", defaultValue = "1") String Week,
 			@RequestParam(value = "Year", defaultValue = "1") String Year
