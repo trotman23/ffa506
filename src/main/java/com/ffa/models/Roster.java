@@ -1,8 +1,10 @@
 package com.ffa.models;
 
 import java.util.*;
-import java.sql.*;
 
+import com.ffa.controllers.DbSource;
+
+import java.sql.*;
 
 public class Roster {
 	
@@ -38,7 +40,6 @@ public class Roster {
 		Connection pConn = null;
 		Statement pStmt = null;
 		try{
-
 			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DriverManager.getConnection(DB_URL,USER,PASS);
 			pStmt = pConn.createStatement();
