@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ffa.controllers.DbSource;
 
 import ch.qos.logback.core.net.ObjectWriter;
 import javafx.util.Pair;
@@ -27,20 +28,20 @@ public class FtjStats {
 	public int overallRank;
 	public int teamID;
 	public String teamName;
-	
+
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost/ffadb";
 
 	//  Database credentials
 	static final String USER = "root";
 	static final String PASS = "eric2mad";
-	
-	
+
+
 	public FtjStats(){
-		
+
 	}	
-	
-	
+
+
 	public List<FtjStats> LeagueTeams(int LeagueID){
 		List<FtjStats> teams = new ArrayList<FtjStats>();
 		Connection conn = null;
@@ -76,14 +77,44 @@ public class FtjStats {
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
 		return teams;
 	}
-	
+
 	public boolean isFair(int tid1, int tid2){
 		//TODO: implement fair trade judge algorithm, compare lots of stats
-		boolean test = tid1>tid2;
-		return tid1 > tid2;
+		int p1pts = getPlayerPoints(tid1);
+		int p2pts = getPlayerPoints(tid2);
+		
+	    double percentDiff = (double) p1pts/((double) p1pts+p2pts);
+	    
+	    if(percentDiff>0.4 && percentDiff<0.6)
+	    	return true;
+	    			
+		return false;
+	}
+
+	public int getPlayerPoints(int pID){
+		Connection conn = null;
+		Statement stmt = null;
+		try{
+
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
+
+			String sql= "select sum(FantasyPointsScore) "
+					+ "from players p "
+					+ "join weeklyscores ws"
+					+ " on p.PlayerID = ws.PLayers_PlayerID"
+					+ "where p.PlayerID = "+pID;
+			return ((ResultSet) stmt.executeQuery(sql)).getInt(1);
+
+
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }
