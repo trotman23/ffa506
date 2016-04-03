@@ -28,8 +28,8 @@ public class FtjStats {
 	public FtjStats(){
 		
 	}	
-
-
+	
+	
 	public List<FtjStats> LeagueTeams(int LeagueID){
 		List<FtjStats> teams = new ArrayList<FtjStats>();
 		Connection conn = null;
