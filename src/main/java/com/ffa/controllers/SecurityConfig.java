@@ -8,9 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.*;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     
-	@Override
+	/*@Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
@@ -23,11 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .permitAll();
-    }
+    }*/
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user@test.com").password("password").roles("USER");
+                .withUser("user").password("password").roles("USER");
     }
 }
