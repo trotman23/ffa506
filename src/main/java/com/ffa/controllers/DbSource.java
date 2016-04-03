@@ -20,8 +20,8 @@ public final class DbSource {
 		DATA_SOURCE = new ComboPooledDataSource();
 		try {
 			DATA_SOURCE.setDriverClass("com.mysql.jdbc.Driver");
-			DATA_SOURCE.setJdbcUrl("jdbc:mysql://localhost/ffadb");
-			DATA_SOURCE.setUser("root");
+			DATA_SOURCE.setJdbcUrl("jdbc:mysql://aaxd0xqcmiqmgi.c0fxx6pghrju.us-west-2.rds.amazonaws.com/ffadb");
+			DATA_SOURCE.setUser("master");
 			DATA_SOURCE.setPassword("eric2mad");
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();

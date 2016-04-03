@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: test
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Isaac
+Built-By: Jake
 Implementation-Vendor-Id: com.ffa
-Build-Jdk: 1.8.0_31
+Build-Jdk: 1.8.0_74
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

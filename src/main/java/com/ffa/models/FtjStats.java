@@ -1,18 +1,15 @@
 package com.ffa.models;
 
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import ch.qos.logback.core.net.ObjectWriter;
-import javafx.util.Pair;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.*;
+import com.ffa.controllers.DbSource;
 
 
 
@@ -28,14 +25,6 @@ public class FtjStats {
 	public int teamID;
 	public String teamName;
 	
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost/ffadb";
-
-	//  Database credentials
-	static final String USER = "root";
-	static final String PASS = "eric2mad";
-	
-	
 	public FtjStats(){
 		
 	}	
@@ -48,7 +37,7 @@ public class FtjStats {
 		try{
 
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			conn = DbSource.getDataSource().getConnection();
 			stmt = conn.createStatement();
 			//select on team name, given team id
 
