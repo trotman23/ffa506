@@ -6,6 +6,9 @@ import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.ffa.controllers.DbSource;
+
 import java.sql.*;
 import java.util.*;
 
@@ -16,15 +19,6 @@ public class NFLTeam {
 	public int Losses;
 	public int Ties;
 	
-	// djdbc driver name and database
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost/ffadb";
-
-	//  Database credentials
-	static final String USER = "root";
-	static final String PASS = "eric2mad";
-	
-	
 	public NFLTeam(int id){
 		this.NFLTeamID = id;
 		Connection pConn = null;
@@ -32,7 +26,7 @@ public class NFLTeam {
 		try{
 
 			Class.forName("com.mysql.jdbc.Driver");
-			pConn = DriverManager.getConnection(DB_URL,USER,PASS);
+			pConn = DbSource.getDataSource().getConnection();
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
