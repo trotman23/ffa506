@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head></head>
+ <!-- Body tag augmented with ngController directive  -->
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+ <script src="/js/dashboard.js"></script>
+ <style type="text/css">
+ div.team{
+	width:45%;
+	display: inline-block;
+	padding: 10px;
+	height: 100%;
+ }
+ 
+ div.teamWrapper{
+	width: 100%;
+	margin: auto;
+ }
+ table{
+	border: 1px solid black;
+ }
+ table td{
+	border: 1px solid grey;
+ }
+ div.button{
+ displa: block;
+ }
+ </style>
+ <body>
+	<h2>Select the teams that are going to do a trade, then select the players</h2>
+	<form ng-controller="FTJController" class="teamWrapper">
+		<div class="team" style="float: left;">
+			{{list1}}
+			<select ng-model="selectedTeam1" ng-options="item as item.teamName for item in teams track by item.teamID" ng-change="getRoster1(selectedTeam1)">
+				<option value="">Team 1</option>
+			</select>
+			<table>
+				<tr>
+					<td></td>
+					<td>Name</td>
+					<td>Position</td>
+					<td>NFLTeamName</td>
+					<td>InjuryCode</td>
+				</tr>
+				<tr ng-repeat="player1 in roster1">
+					<td><input type="radio" ng-value="{{player1.PlayerID}}" ng-model="selected1" ng-change="addID1(selected1)" name="selected1"/></td>
+					<td>{{player1.Name}}</td>
+					<td>{{player1.Position}}</td>
+					<td>{{player1.NFLTeamName}}</td>
+					<td>{{player1.InjuryCode}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="team">
+			{{list2}}
+			<select ng-model="selectedTeam2" ng-options="item as item.teamName for item in teams track by item.teamID" ng-change="getRoster2(selectedTeam2)">
+				<option value="">Team 2</option>
+			</select>
+			<table>
+				<tr>
+					<td></td>
+					<td>Name</td>
+					<td>Position</td>
+					<td>NFLTeamName</td>
+					<td>InjuryCode</td>
+				</tr>
+				<tr ng-repeat="player2 in roster2" >
+					<td><input type="radio" ng-value="{{player2.PlayerID}}" ng-model="selected2" ng-change="addID2(selected2)" name="selected2"/></td>
+					<td>{{player2.Name}}</td>
+					<td>{{player2.Position}}</td>
+					<td>{{player2.NFLTeamName}}</td>
+					<td>{{player2.InjuryCode}}</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<div class="button">
+			<input type="button" value="compare players" ng-click="comparePlayers()" />
+			<div>Is this trade fair? {{FTJ}}</div>
+		</div>
+	</form>
+
+ </body>
+
+</html>
