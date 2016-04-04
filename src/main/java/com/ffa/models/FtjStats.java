@@ -92,11 +92,12 @@ public class FtjStats {
 			conn = DbSource.getDataSource().getConnection();
 			stmt = conn.createStatement();
 
-			String sql= "select sum(FantasyPointsScore) "
+			String sql= "select sum(ws.FantasyPointsScore) "
 					+ "from players p "
-					+ "join weeklyscores ws"
-					+ " on p.PlayerID = ws.PLayers_PlayerID"
-					+ "where p.PlayerID = "+pID;
+					+ "join weeklyscores ws "
+					+ "on p.PlayerID = ws.Players_PlayerID "
+					+ "where p.PlayerID = "+pID + ";";
+			System.out.println(sql);
 			return ((ResultSet) stmt.executeQuery(sql)).getInt(1);
 
 

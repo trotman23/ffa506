@@ -12,8 +12,8 @@ public class LandingPageController {
 		return "index";
 	}
 	
-	@RequestMapping("/ftj")
-	public String ftj(Model model){
-		return "ftj";
+	@RequestMapping("/dashboard")
+	public String dashboard(Model model){
+		return "dashboard";
 	}
 }

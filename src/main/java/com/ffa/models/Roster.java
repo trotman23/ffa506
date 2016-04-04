@@ -24,24 +24,14 @@ public class Roster {
 	public int NFLTeam_NFLTeamID;
 	
 	public Roster(){
-	};
-	
-	//db stuff, will need to replace with db configs in the future
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost/ffadb";
-
-	//  Database credentials
-	static final String USER = "root";
-	static final String PASS = "eric2mad";
-	
-	
+	};	
 	public List<Roster> getRoster(String LeagueID, String TeamID, String Week, String Year){
 		List<Roster> lr = new ArrayList<Roster>();
 		Connection pConn = null;
 		Statement pStmt = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			pConn = DriverManager.getConnection(DB_URL,USER,PASS);
+			pConn = DbSource.getDataSource().getConnection();
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
@@ -55,7 +45,7 @@ public class Roster {
 			 * 
 			 * 
 			 */
-			String sql = "SELECT * FROM Roster r JOIN Players p ON r.Players_PlayerID = p.PlayerID WHERE " + 
+			String sql = "SELECT * FROM roster r JOIN players p ON r.Players_PlayerID = p.PlayerID WHERE " + 
 					"r.weekID = " + Week + " and " + 
 					"r.SeasonID = " + Year + " and " + 
 					"r.Teams_FFATeamID = " + TeamID + " and " + 
