@@ -12,6 +12,11 @@ public class LandingPageController {
 		return "index";
 	}
 	
+	@RequestMapping("/signin")
+	public String signin(){
+		return "signin";
+	}
+	
 	@RequestMapping("/dashboard")
 	public String dashboard(Model model){
 		return "dashboard";
