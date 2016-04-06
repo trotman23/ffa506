@@ -47,6 +47,8 @@ public class APIController {
 			@RequestParam(value="PlayerID2", defaultValue = "1") String PlayerID2
 			){
 		FtjStats ftj = new FtjStats();
+		int temp1 = Integer.parseInt(PlayerID1);
+		int temp2 = Integer.parseInt(PlayerID2);
 		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
 		
 	}
