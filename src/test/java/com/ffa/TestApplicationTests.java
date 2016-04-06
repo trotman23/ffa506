@@ -78,9 +78,11 @@ public class TestApplicationTests {
 			for(week=INTIAL_WEEK; week<=SEASON_LENGTH; week++){
 				tr=testRoster.getRoster(League_ID, 
 						Integer.toString(team_id),Integer.toString(week), YEAR);
+				
+				assertTrue( tr.size()>=0);
+
 				for(Roster currPlayer: tr){
 					assertNotNull(currPlayer);
-					assertTrue(tr.size()== ROSTER_SIZE ||tr.size()== ROSTER_SIZE+1);
 
 					//Check valid values
 					assertEquals(currPlayer.Teams_FFATeamID,team_id);
