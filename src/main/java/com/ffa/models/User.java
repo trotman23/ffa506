@@ -4,14 +4,22 @@ import java.util.List;
 
 public class User {
 
-	private League defaultLeague;
-	private String email;
 	private Long id;
+	private String email;
+	private String password;
+	private League defaultLeague;
 	private List<League> leagues;
 	private List<LeagueTeam> userTeams;
 	
 	
-	public User(){
+	public User(Long id, String email, String password, League defaultLeague,
+			List<League> leagues, List<LeagueTeam> userTeams){
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.defaultLeague = defaultLeague;
+		this.leagues = leagues;
+		this.userTeams = userTeams;
 		
 	}
 	
@@ -53,6 +61,14 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	public void removeLeague(League league){
