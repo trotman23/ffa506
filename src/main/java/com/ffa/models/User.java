@@ -6,7 +6,7 @@ public class User {
 
 	private League defaultLeague;
 	private String email;
-	private String userId;
+	private Long id;
 	private List<League> leagues;
 	private List<LeagueTeam> userTeams;
 	
@@ -39,12 +39,12 @@ public class User {
 		return defaultLeague;
 	}
 	
-	public String getUserId() {
-		return userId;
+	public Long getId() {
+		return id;
 	}
 	
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public String getEmail() {
