@@ -74,6 +74,7 @@ public class FtjStats {
 		//TODO: implement fair trade judge algorithm, compare lots of stats
 		int p1pts = getPlayerPoints(tid1);
 		int p2pts = getPlayerPoints(tid2);
+		System.out.println("player1"+p1pts+"player2"+p2pts);
 		
 	    double percentDiff = (double) p1pts/((double) p1pts+p2pts);
 	    
