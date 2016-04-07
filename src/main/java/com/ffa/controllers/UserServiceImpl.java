@@ -119,9 +119,10 @@ public class UserServiceImpl implements UserService{
 					"(name, email, password) VALUES (?, ?, ?)";
 			System.out.println(sql);
 			pStmt = pConn.prepareStatement(sql);
-			pStmt.setInt(1, (int)counter.incrementAndGet());
+			pStmt.setString(1, user.getName());
 		    pStmt.setString(2, user.getEmail());
 		    pStmt.setString(3, user.getPassword());
+		    pStmt.execute();
 		    
 			pConn.close();
 

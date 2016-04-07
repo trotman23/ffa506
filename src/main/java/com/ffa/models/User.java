@@ -14,6 +14,9 @@ public class User {
 	private List<LeagueTeam> userTeams;
 	*/
 	
+	public User() {
+	}
+	
 	
 	public User(int userId, String name, String email, String password){
 		this.userId = userId;
