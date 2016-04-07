@@ -415,83 +415,94 @@
 					</div>
 					<div class="tab-pane" id="tab5">
 						<h3>Insult Generator</h3>
+						<h2>Select a team to insult!</h2>
+						<form ng-controller="INSULTController" class="teamWrapper">
+							<div class="team" style="float: left;">
+								{{list}} <select ng-model="selectedTeam"
+									ng-options="item as item.teamName for item in teams track by item.teamID"
+									ng-change="insult(selectedTeam)">
+									<option value="">Team</option>
+								</select>
+								<p>{{outputInsult}}</p>
+							</div>
+						</form>
 					</div>
-					<div class="tab-pane" id="tab6">
-						<h3>League Poll</h3>
-					</div>
-					<div class="tab-pane" id="tab7">
-						<h3>Smart Rankings</h3>
-						<div ng-controller="SRController">
-							<p>Week:</p>
-							<!-- use the pills when we enhance the UI in iteration 3
+				</div>
+				<div class="tab-pane" id="tab6">
+					<h3>League Poll</h3>
+				</div>
+				<div class="tab-pane" id="tab7">
+					<h3>Smart Rankings</h3>
+					<div ng-controller="SRController">
+						<p>Week:</p>
+						<!-- use the pills when we enhance the UI in iteration 3
 							ul class="nav nav-pills nav-justified">
 								<li ng-repeat="week in weeks"><a href="#w{{week}}">{{week}}</a></li>
 							</ul>
 							item as item.teamName for item in teams track by item.teamID
 							-->
-							<select ng-model="srWeek"
-								ng-options="item as item.week for item in weeks"
-								ng-change="updateSmartRankings(srWeek)">
-								<option value="">Week #</option>
-							</select>
-							<div class="row">
-								<div class="col-md-4">
-									<b>Ranking</b>
-								</div>
-								<div class="col-md-4">
-									<b>Team Name</b>
-								</div>
-								<div class="col-md-4">
-									<b>FFA Rank Score</b>
-								</div>
+						<select ng-model="srWeek"
+							ng-options="item as item.week for item in weeks"
+							ng-change="updateSmartRankings(srWeek)">
+							<option value="">Week #</option>
+						</select>
+						<div class="row">
+							<div class="col-md-4">
+								<b>Ranking</b>
 							</div>
-							<div class="row" ng-repeat="ranking in smartrankings">
-								<div class="col-md-4">{{ranking.rankScore}}</div>
-								<div class="col-md-4">{{ranking.teamName}}</div>
-								<div class="col-md-4">{{ranking.ffaPoints}}</div>
+							<div class="col-md-4">
+								<b>Team Name</b>
+							</div>
+							<div class="col-md-4">
+								<b>FFA Rank Score</b>
 							</div>
 						</div>
-					</div>
-					<div class="tab-pane" id="tab8">
-						<h3>Composite Rankings</h3>
-						<div ng-controller="CPController">
-							<select ng-model="cpWeek"
-								ng-options="item as item.week for item in weeks"
-								ng-change="updateCPRankings(cpWeek)"
-								ng-init="cpWeek = 17">
-								<option value="">Week #</option>
-								
-							</select>
-							<div class="row">
-								<div class="col-md-1">&nbsp;</div>
-								<div class="col-md-2">Rank</div>
-								<div class="col-md-2">Team Name</div>
-								<div class="col-md-2">Owner</div>
-								<div class="col-md-2">W-L-T</div>
-								<div class="col-md-2">Avg(W-L-T)</div>
-								<div class="col-md-1">&nbsp;</div>
-							</div>
-							<div ng-repeat="rank in comprankings" class="row">
-								<div class="col-md-1">&nbsp;</div>
-								<div class="col-md-2">{{rank.cRank}}</div>
-								<div class="col-md-2">{{rank.teamName}}</div>
-								<div class="col-md-2">{{rank.ownerName}}</div>
-								<div class="col-md-2">{{rank.cWins}}-{{rank.cLosses}}-{{rank.cTies}}</div>
-								<div class="col-md-2">{{rank.avgWins}}-{{rank.avgLosses}}-{{rank.avgTies}}</div>
-								<div class="col-md-1">&nbsp;</div>
-							</div>
+						<div class="row" ng-repeat="ranking in smartrankings">
+							<div class="col-md-4">{{ranking.rankScore}}</div>
+							<div class="col-md-4">{{ranking.teamName}}</div>
+							<div class="col-md-4">{{ranking.ffaPoints}}</div>
 						</div>
-					</div>
-					<div class="tab-pane" id="tab8">
-						<h3>Waiver Wire Pickup</h3>
 					</div>
 				</div>
+				<div class="tab-pane" id="tab8">
+					<h3>Composite Rankings</h3>
+					<div ng-controller="CPController">
+						<select ng-model="cpWeek"
+							ng-options="item as item.week for item in weeks"
+							ng-change="updateCPRankings(cpWeek)" ng-init="cpWeek = 17">
+							<option value="">Week #</option>
 
+						</select>
+						<div class="row">
+							<div class="col-md-1">&nbsp;</div>
+							<div class="col-md-2">Rank</div>
+							<div class="col-md-2">Team Name</div>
+							<div class="col-md-2">Owner</div>
+							<div class="col-md-2">W-L-T</div>
+							<div class="col-md-2">Avg(W-L-T)</div>
+							<div class="col-md-1">&nbsp;</div>
+						</div>
+						<div ng-repeat="rank in comprankings" class="row">
+							<div class="col-md-1">&nbsp;</div>
+							<div class="col-md-2">{{rank.cRank}}</div>
+							<div class="col-md-2">{{rank.teamName}}</div>
+							<div class="col-md-2">{{rank.ownerName}}</div>
+							<div class="col-md-2">{{rank.cWins}}-{{rank.cLosses}}-{{rank.cTies}}</div>
+							<div class="col-md-2">{{rank.avgWins}}-{{rank.avgLosses}}-{{rank.avgTies}}</div>
+							<div class="col-md-1">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab8">
+					<h3>Waiver Wire Pickup</h3>
+				</div>
 			</div>
-			<!-- /.container-fluid -->
 
 		</div>
-		<!-- /#page-wrapper -->
+		<!-- /.container-fluid -->
+
+	</div>
+	<!-- /#page-wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
