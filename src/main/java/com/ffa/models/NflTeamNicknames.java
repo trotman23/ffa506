@@ -40,4 +40,8 @@ public class NflTeamNicknames {
 		nicknames.put("TB", "Tampa Bay Buccaneers");
 		
 	}
+	
+	public Map<String, String> getNicknames(){
+		return nicknames;
+	}
 }
