@@ -11,8 +11,8 @@
 <!-- Custom CSS -->
 <link href="/css/sb-admin.css" rel="stylesheet" />
 
-<!-- Custom Fonts -->
-<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- Custom CSS -->
+<link href="/css/dashboard.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body ng-app="myApp">
@@ -121,9 +121,12 @@
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab0">
+						<h2>Select a tool! ^^^</h2>
+					</div>
+					<div class="tab-pane" id="tab1">
 						<h2>Select the teams that are going to do a trade, then
 							select the players</h2>
-						<form ng-controller="FTJController" class="teamWrapper">
+						<div ng-controller="FTJController" class="teamWrapper">
 							<div class="col-md-6 team" style="float: left;">
 								{{list1}} <select ng-model="selectedTeam1"
 									ng-options="item as item.teamName for item in teams track by item.teamID"
@@ -180,11 +183,96 @@
 									ng-click="comparePlayers()" />
 								<div>Is this trade fair? {{FTJ}}</div>
 							</div>
-						</form>
-
+						</div>
 					</div>
-					<div class="tab-pane" id="tab1">1</div>
-					<div class="tab-pane" id="tab2">2</div>
+					<div class="tab-pane" id="tab2">
+						<h3>Weekly Awards</h3>
+						<div ng-controller="AwardsController" class="awards">
+							<p>Week:</p>
+							<!-- use the pills when we enhance the UI in iteration 3 -->
+							<select ng-model="aWeek"
+								ng-options="item as item.week for item in weeks"
+								ng-change="updateAwards(aWeek)">
+								<option value="">Week #</option>
+							</select>
+							<div class="row">
+								<h4>Top Weekly Overall Score</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span> {{awards.topOverallScore}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span>
+									{{awards.topOverallScoreTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Points:</span>
+									{{awards.topOverallScoreOwner}}
+								</div>
+								<div class="col-md-3">&nbsp;</div>
+							</div>
+							<div class="row">
+								<h4>Top Scorer: Individual Player</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span>
+									{{awards.topScorerPlayerPoints}}
+								</div>
+								<div class="col-md-3">
+									<span>Player Name:</span>
+									{{awards.topScorerPlayerName}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span>
+									{{awards.topScorerPlayerTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Owner:</span>
+									{{awards.topScorerPlayerOwner}}
+								</div>
+							</div>
+							<div class="row">
+								<h4>Most Points left on Bench</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span> {{awards.mostBenchPoints}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span>
+									{{awards.mostBenchPointsTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Owner:</span>
+									{{awards.mostBenchPointsOwner}}
+								</div>
+								<div class="col-md-3">&nbsp;</div>
+							</div>
+							<div class="row">
+								<h4>Most points left on bench: Individual Player</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span>
+									{{awards.mostBenchPointsIndividualPlayerPoints}}
+								</div>
+								<div class="col-md-3">
+									<span>Player Name:</span>
+									{{awards.mostBenchPointsIndividualPlayerName}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span>
+									{{awards.mostBenchPointsIndividualPlayerTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Owner:</span>
+									{{awards.mostBenchPointsIndividualPlayerOwner}}
+								</div>
+							</div>
+						</div>
+					</div>
 
 					<!--Draft Buddy-->
 					<div class="tab-pane" id="tab3">
@@ -300,7 +388,7 @@
 					<div class="tab-pane" id="tab4"></div>
 					<div class="tab-pane" id="tab5">5</div>
 					<div class="tab-pane" id="tab6">6</div>
-										<div class="tab-pane" id="tab7">
+					<div class="tab-pane" id="tab7">
 						<h3>Smart Rankings</h3>
 						<div ng-controller="SRController">
 							<p>Week:</p>
@@ -316,9 +404,15 @@
 								<option value="">Week #</option>
 							</select>
 							<div class="row">
-								<div class="col-md-4"><b>Ranking</b></div>
-								<div class="col-md-4"><b>Team Name</b></div>
-								<div class="col-md-4"><b>FFA Rank Score</b></div>
+								<div class="col-md-4">
+									<b>Ranking</b>
+								</div>
+								<div class="col-md-4">
+									<b>Team Name</b>
+								</div>
+								<div class="col-md-4">
+									<b>FFA Rank Score</b>
+								</div>
 							</div>
 							<div class="row" ng-repeat="ranking in smartrankings">
 								<div class="col-md-4">{{ranking.rankScore}}</div>

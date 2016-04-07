@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ffa.models.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.util.*;
 
 @RestController
@@ -65,6 +68,27 @@ public class APIController {
 		return sr.getSmartRankingsList(Integer.parseInt(LeagueID), Integer.parseInt(Week));
 		
 	}
-	
+	@RequestMapping(rest + "Awards")
+	public String Awards(
+			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
+			@RequestParam(value="Week", defaultValue = "1") String Week
+			){
+		//stuff is being weird with serializing the Award object, going to try and use jackson
+		
+		//Award a =  new Award(Integer.parseInt(LeagueID), Integer.parseInt(Week));
+		
+		Award a =  new Award(Integer.parseInt(LeagueID), Integer.parseInt(Week));
+		ObjectMapper mapper = new ObjectMapper();
+		String json = "";
+		try {
+			json = mapper.writeValueAsString(a);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//For testing
+		return json;
+		
+	}
 	
 }
