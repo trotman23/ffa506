@@ -207,8 +207,6 @@ public class TestApplicationTests {
 			int el = ftj.getPlayerPoints(eddieLacy);
 			assertEquals(el, ELPOINTS);
 
-
-
 			System.out.println("FTJ player points passes");	
 		}
 		
