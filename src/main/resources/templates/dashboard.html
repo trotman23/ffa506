@@ -415,6 +415,18 @@
 					</div>
 					<div class="tab-pane" id="tab5">
 						<h3>Insult Generator</h3>
+						<h2>Select a team to insult!</h2>
+						<form ng-controller="INSULTController" class="teamWrapper">
+							<div class="team" style="float: left;">
+								{{list}} <select ng-model="selectedTeam"
+									ng-options="item as item.teamName for item in teams track by item.teamID"
+									ng-change="insult(selectedTeam)">
+									<option value="">Team</option>
+								</select>
+								<p>{{outputInsult}}</p>
+							</div>
+						</form>
+
 					</div>
 					<div class="tab-pane" id="tab6">
 						<h3>League Poll</h3>
@@ -457,10 +469,9 @@
 						<div ng-controller="CPController">
 							<select ng-model="cpWeek"
 								ng-options="item as item.week for item in weeks"
-								ng-change="updateCPRankings(cpWeek)"
-								ng-init="cpWeek = 17">
+								ng-change="updateCPRankings(cpWeek)" ng-init="cpWeek = 17">
 								<option value="">Week #</option>
-								
+
 							</select>
 							<div class="row">
 								<div class="col-md-1">&nbsp;</div>
