@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-	
-	<title>FFA Fantasy Dashboard</title>
-	
-	<!-- Bootstrap Core CSS -->
-	<link href="/css/bootstrap.min.css" rel="stylesheet" />
-	
-	<!-- Custom CSS -->
-	<link href="/css/sb-admin.css" rel="stylesheet" />
-	
-	<!-- Custom Fonts -->
-	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<title>FFA Fantasy Dashboard</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="/css/sb-admin.css" rel="stylesheet" />
+
+<!-- Custom Fonts -->
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body ng-app="myApp">
@@ -119,9 +119,13 @@
 					<li><a href="#tab8" data-toggle="tab">Waiver Wire Pickup
 							Aid</a></li>
 				</ul>
+
 				<div class="tab-content">
-					<div class="tab-pane active" id="tab0">
-					<h2>Select the teams that are going to do a trade, then select the players</h2>
+					<div class="tab-pane" id="tab0">TEST</div>
+
+					<div class="tab-pane active" id="tab1">
+						<h2>Select the teams that are going to do a trade, then
+							select the players</h2>
 						<form ng-controller="FTJController" class="teamWrapper">
 							<div class="team" style="float: left;">
 								{{list1}} <select ng-model="selectedTeam1"
@@ -180,13 +184,24 @@
 								<div>Is this trade fair? {{FTJ}}</div>
 							</div>
 						</form>
-
 					</div>
 					<div class="tab-pane" id="tab1">1</div>
 					<div class="tab-pane" id="tab2">2</div>
 					<div class="tab-pane" id="tab3">3</div>
 					<div class="tab-pane" id="tab4"></div>
-					<div class="tab-pane" id="tab5">5</div>
+					<div class="tab-pane" id="tab5">
+						<h2>Select a team to insult!</h2>
+						<form ng-controller="INSULTController" class="teamWrapper">
+							<div class="team" style="float: left;">
+								{{list}} <select ng-model="selectedTeam"
+									ng-options="item as item.teamName for item in teams track by item.teamID"
+									ng-change="insult(selectedTeam)">
+									<option value="">Team</option>
+								</select>
+								<p>{{outputInsult}}</p>
+							</div>
+						</form>
+					</div>
 					<div class="tab-pane" id="tab6">6</div>
 					<div class="tab-pane" id="tab7">7</div>
 					<div class="tab-pane" id="tab8">8</div>
@@ -194,10 +209,8 @@
 
 			</div>
 			<!-- /.container-fluid -->
-
 		</div>
 		<!-- /#page-wrapper -->
-
 	</div>
 	<!-- /#wrapper -->
 	<!-- jQuery -->
@@ -205,7 +218,8 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Angular -->
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script src="/js/dashboard.js"></script>
 </body>
 

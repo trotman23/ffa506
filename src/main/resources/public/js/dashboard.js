@@ -68,3 +68,31 @@ myApp.controller('FTJController', function($scope, $http) {
 		console.log($scope.players2);
 	};
 });
+
+myApp.controller('INSULTController', function($scope, $http) {
+	$scope.list = 'Select Team';
+	$scope.teams = [];
+	$scope.outputInsult =null;
+
+
+	$http({
+		method: 'GET',
+		url: './rest/LeagueTeams?LeagueID=1682132'
+	}).success(function (result) {
+		$scope.teams = result;
+	});
+
+	$scope.insult = function(selectedTeam){
+		console.log(selectedTeam.teamID);
+		$http({
+			method: 'GET',
+			url: './rest/LeagueInsult?TeamID=' +selectedTeam.teamID 
+		}).then(function (result) {
+			console.log('return from insult controller');
+			$scope.outputInsult = result.data.key;
+		});
+	}
+
+});
+
+
