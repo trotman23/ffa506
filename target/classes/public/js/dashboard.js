@@ -234,6 +234,3 @@ myApp.controller('INSULTController', function($scope, $http) {
 
 });
 
-
-
-
