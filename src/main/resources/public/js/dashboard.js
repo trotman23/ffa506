@@ -25,7 +25,6 @@ myApp.controller('FTJController', function($scope, $http) {
 		});
 
 	}
-
 	//duplicating for now, should change to use the same method for both rosters
 	$scope.getRoster2 = function(selectedTeam){
 		console.log("in getRoster with teamID = " + selectedTeam.teamID);
@@ -68,3 +67,28 @@ myApp.controller('FTJController', function($scope, $http) {
 		console.log($scope.players2);
 	};
 });
+
+//Draft Buddy Controller
+myApp.controller('DraftBuddyController', function($scope, $http) {
+	$scope.players =[];
+	$scope.player = "Insult here";
+	$http({
+		method: 'GET',
+		url: './rest/DraftBuddy'
+	}).success(function (result) {
+		$scope.players = result;
+		//console.log(result);
+		console.log('success');
+	});
+
+	angular.forEach($scope.players, function(value, key) {
+  		console.log(key);
+	});
+
+
+});
+
+
+
+
+

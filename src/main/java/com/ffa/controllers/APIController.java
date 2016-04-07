@@ -40,6 +40,15 @@ public class APIController {
 		return ftj.LeagueTeams(Integer.parseInt(LeagueID));
 		
 	}
+	
+	//Draft Buddy Service
+	@CrossOrigin //fortesting only
+	@RequestMapping(rest + "DraftBuddy")
+	public List<List<Player>> Players(){
+		DraftBuddy draftBuddy = new DraftBuddy();
+		return draftBuddy.Players();
+	}
+	
 	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "FTJ")
 	public boolean FTJ(
@@ -50,7 +59,6 @@ public class APIController {
 		int temp1 = Integer.parseInt(PlayerID1);
 		int temp2 = Integer.parseInt(PlayerID2);
 		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
-		
 	}
 	
 }
