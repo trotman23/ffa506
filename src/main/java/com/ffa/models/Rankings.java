@@ -43,16 +43,14 @@ public class Rankings /*implements Comparator<Rankings>*/{
 			Rankings r = new Rankings();
 			r.teamID = lt.get(i).teamID;
 			r.teamName = lt.get(i).teamName;
-			for (int j = 1; j <= Week; j++){
-				r.ffaPoints += getTeamWeeklyScore(LeagueID, Week, r.teamID);
-			}
+			r.ffaPoints = getTeamWeeklySumScore(LeagueID, Week, r.teamID);
 			lr.add(r);
 		}
 		return lr;
 		
 	}
 	
-	private static int getTeamWeeklyScore(int leagueID, int week, int teamID){
+	private static int getTeamWeeklySumScore(int leagueID, int week, int teamID){
 		Connection conn = null;
 		Statement stmt = null;
 		int score = 0;
@@ -63,8 +61,8 @@ public class Rankings /*implements Comparator<Rankings>*/{
 			"JOIN roster r ON r.Players_PlayerID = ws.Players_PlayerID " + 
 			"WHERE r.Teams_Leagues_LeagueID = " + leagueID + " " +
 			"AND r.Teams_FFATeamID = " + teamID + " " +
-			"AND r.WeekID = " + week + " " +
-			"AND ws.Week = " + week + " " +
+			"AND r.WeekID > 0 AND r.WeekID <= " + week + " " +
+			"AND ws.Week > 0 AND ws.Week <= " + week + " " +
 			"AND r.Starter = true;";
 			ResultSet rs = stmt.executeQuery(sql);
 			
