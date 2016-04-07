@@ -23,6 +23,7 @@ public class RunScrape {
 
 	public static void doRunScrape(){
 		
+		//TODO: break this awful code down into modules for testing, and runnability from the web app
 		
 		//testing for api
 		/*Connection pConn = null;

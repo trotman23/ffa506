@@ -1,14 +1,11 @@
 package com.ffa.controllers;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ffa.models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
 import java.util.*;
 
 @RestController
@@ -74,9 +71,6 @@ public class APIController {
 			@RequestParam(value="Week", defaultValue = "1") String Week
 			){
 		//stuff is being weird with serializing the Award object, going to try and use jackson
-		
-		//Award a =  new Award(Integer.parseInt(LeagueID), Integer.parseInt(Week));
-		
 		Award a =  new Award(Integer.parseInt(LeagueID), Integer.parseInt(Week));
 		ObjectMapper mapper = new ObjectMapper();
 		String json = "";
@@ -86,9 +80,17 @@ public class APIController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//For testing
 		return json;
-		
 	}
+	
+	@RequestMapping(rest + "CompositeRank")
+	public List<CompositeRankings> CompositeRank(
+			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
+			@RequestParam(value="Week", defaultValue = "1") String Week
+			){
+		CompositeRankings cr = new CompositeRankings();
+		return cr.getCompositeRankings(Integer.parseInt(LeagueID), Integer.parseInt(Week));	
+	}
+	
 	
 }

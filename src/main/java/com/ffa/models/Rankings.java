@@ -12,7 +12,7 @@ public class Rankings /*implements Comparator<Rankings>*/{
 	private int rankScore;
 	public int ffaPoints;
 	public int teamID;
-	
+	public String ownerName;
 
 	
 	private static final int weeks = 17;
