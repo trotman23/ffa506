@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-
+    console.log("cunt");
     angular
         .module('app')
         .controller('UserController', UserController);
@@ -19,13 +19,15 @@
             loadCurrentUser();
             loadAllUsers();
         }
-
+        
+        /*
         function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
+            UserService.GetByEmail($rootScope.globals.currentUser.email)
                 .then(function (user) {
                     vm.user = user;
                 });
         }
+        */
 
         function loadAllUsers() {
             UserService.GetAll()
