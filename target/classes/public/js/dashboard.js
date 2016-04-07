@@ -77,6 +77,7 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		url: './rest/DraftBuddy'
 	}).success(function (result) {
 		$scope.players = result;
+<<<<<<< HEAD
 		console.log('success');
 	});
 
@@ -91,6 +92,16 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 			
 		});
 	}
+=======
+		//console.log(result);
+		console.log('success');
+	});
+
+	angular.forEach($scope.players, function(value, key) {
+  		console.log(key);
+	});
+
+>>>>>>> bdbb72b2fca3d124546101d0d7492ee712a8f14c
 
 });
 

@@ -46,3 +46,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /target/
+bin/target/
+target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
