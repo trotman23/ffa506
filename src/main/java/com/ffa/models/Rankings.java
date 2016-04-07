@@ -77,27 +77,6 @@ public class Rankings /*implements Comparator<Rankings>*/{
 		}
 		return score;
 	}
-
-	/*public static Comparator<Rankings> CompareRankings = new Comparator<Rankings>(){
-		public int compare(Rankings r1, Rankings r2) {
-			//java comparator didn't like primitive type of int
-			Integer r1i = (Integer) r1.getFfaPoints();
-			Integer r2i = (Integer) r2.getFfaPoints();
-			return r1i.compareTo(r2i);
-		}
-	};
-	@Override
-	public int compare(Rankings r1, Rankings r2) {
-		//java comparator didn't like primitive type of int
-		Integer r1i = (Integer) r1.getFfaPoints();
-		Integer r2i = (Integer) r2.getFfaPoints();
-		return r1i.compareTo(r2i);
-	}
-	*/
 	
-	/*public List<Rankings> SmartRank(int LeagueID){
-		List<Rankings> lr = new ArrayList<Rankings>();
-		
-		return lr;
-	}*/
+	
 }
