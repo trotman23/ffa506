@@ -1,0 +1,12 @@
+div.awards{
+	padding: 2em;
+}
+
+div.awards h4{
+	text-decoration: underline;
+}
+
+div.awards span{
+	text-decoration: underline;
+	display: block;
+}

@@ -6,9 +6,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 
-@Configuration
 @EnableWebSecurity
-public class SecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
 	/*@Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -24,6 +23,11 @@ public class SecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
             .logout()
                 .permitAll();
     }*/
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+		.csrf().disable();
+	}
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth

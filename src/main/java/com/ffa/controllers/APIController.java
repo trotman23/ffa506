@@ -1,6 +1,5 @@
 package com.ffa.controllers;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,17 +12,12 @@ import java.util.*;
 public class APIController {
 
 	private static final String rest = "/rest/";
-	@CrossOrigin //fortesting only
+	
 	@RequestMapping(rest + "NFLTeam")
-	public NFLTeam team(@RequestParam(value="TeamID", defaultValue = "1") String id) {
-		return new NFLTeam(Integer.parseInt(id));
-	}
-
-	@CrossOrigin //fortesting only
-	public NFLTeam team(@RequestParam(value="TeamID", defaultValue = "1") String id) {
-		return new NFLTeam(Integer.parseInt(id));
-	}
-
+    public NFLTeam team(@RequestParam(value="TeamID", defaultValue = "1") String id) {
+        return new NFLTeam(Integer.parseInt(id));
+    }
+	
 	@RequestMapping(rest + "Roster")
 	public List<Roster> roster(
 			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
@@ -34,7 +28,7 @@ public class APIController {
 		Roster r = new Roster();
 		return r.getRoster(LeagueID, TeamID, Week, Year);
 	}
-
+	
 	//Fair Trade Judge stuffs
 	@RequestMapping(rest + "LeagueTeams")
 	public List<FtjStats> LeagueTeams(
@@ -42,16 +36,16 @@ public class APIController {
 			){
 		FtjStats ftj = new FtjStats();
 		return ftj.LeagueTeams(Integer.parseInt(LeagueID));
-
+		
 	}
-
+	
 	//Draft Buddy Service
 	@RequestMapping(rest + "DraftBuddy")
 	public List<List<Player>> Players(){
 		DraftBuddy draftBuddy = new DraftBuddy();
 		return draftBuddy.Players();
 	}
-
+	
 	@RequestMapping(rest + "FTJ")
 	public boolean FTJ(
 			@RequestParam(value="PlayerID1", defaultValue = "1") String PlayerID1,
@@ -61,7 +55,6 @@ public class APIController {
 		int temp1 = Integer.parseInt(PlayerID1);
 		int temp2 = Integer.parseInt(PlayerID2);
 		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
-
 	}
 	@RequestMapping(rest + "SmartRank")
 	public List<SmartRankings> SmartRank(
@@ -70,18 +63,8 @@ public class APIController {
 			){
 		SmartRankings sr = new SmartRankings();
 		return sr.getSmartRankingsList(Integer.parseInt(LeagueID), Integer.parseInt(Week));
+		
 	}
-
-	@RequestMapping(rest + "LeagueInsult")
-	public   Map<String,String> LeagueInsult(
-			@RequestParam(value = "TeamID", defaultValue = "1") String TeamID
-			){
-		InsultGenerator inst = new InsultGenerator(TeamID);
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("key", inst.getInsults() );
-		return map;
-	}
-
 	@RequestMapping(rest + "Awards")
 	public String Awards(
 			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
@@ -99,7 +82,7 @@ public class APIController {
 		}
 		return json;
 	}
-
+	
 	@RequestMapping(rest + "CompositeRank")
 	public List<CompositeRankings> CompositeRank(
 			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
@@ -108,5 +91,6 @@ public class APIController {
 		CompositeRankings cr = new CompositeRankings();
 		return cr.getCompositeRankings(Integer.parseInt(LeagueID), Integer.parseInt(Week));	
 	}
-
+	
+	
 }
