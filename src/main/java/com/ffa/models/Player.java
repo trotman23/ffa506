@@ -8,9 +8,18 @@ public class Player {
 	public String NFLTeamName;
 	public boolean Injured;
 	public int NFLTeam_NFLTeamID;
+	
+	public Player(){
+
+	}
+	
 	public Player(int playerID, String Name, String Position, String NFLTeamName, boolean Injured, int NFLTeam_NFLTeamID){
 		this.PlayerID = playerID;
-		
+		this.Name = Name;
+		this.Position = Position;
+		this.NFLTeamName = NFLTeamName;
+		this.Injured = Injured;
+		this.NFLTeam_NFLTeamID = NFLTeam_NFLTeamID;
 	}
 	/*@Override
 	public String toString(){
