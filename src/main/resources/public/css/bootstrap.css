@@ -256,6 +256,7 @@ th {
   }
   .table {
     border-collapse: collapse !important;
+    width:100% ;
   }
   .table td,
   .table th {
@@ -2308,6 +2309,7 @@ th {
 }
 .table-bordered {
   border: 1px solid #ecf0f1;
+  width:100%;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,

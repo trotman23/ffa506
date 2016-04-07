@@ -1,85 +1,519 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
-<head></head>
- <!-- Body tag augmented with ngController directive  -->
- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
- <script src="/js/dashboard.js"></script>
- <style type="text/css">
- div.team{
-	width:45%;
-	display: inline-block;
-	padding: 10px;
-	height: 100%;
- }
- 
- div.teamWrapper{
-	width: 100%;
-	margin: auto;
- }
- table{
-	border: 1px solid black;
- }
- table td{
-	border: 1px solid grey;
- }
- div.button{
- displa: block;
- }
- </style>
- <body>
-	<h2>Select the teams that are going to do a trade, then select the players</h2>
-	<form ng-controller="FTJController" class="teamWrapper">
-		<div class="team" style="float: left;">
-			{{list1}}
-			<select ng-model="selectedTeam1" ng-options="item as item.teamName for item in teams track by item.teamID" ng-change="getRoster1(selectedTeam1)">
-				<option value="">Team 1</option>
-			</select>
-			<table>
-				<tr>
-					<td></td>
-					<td>Name</td>
-					<td>Position</td>
-					<td>NFLTeamName</td>
-					<td>InjuryCode</td>
-				</tr>
-				<tr ng-repeat="player1 in roster1">
-					<td><input type="radio" ng-value="{{player1.PlayerID}}" ng-model="selected1" ng-change="addID1(selected1)" name="selected1"/></td>
-					<td>{{player1.Name}}</td>
-					<td>{{player1.Position}}</td>
-					<td>{{player1.NFLTeamName}}</td>
-					<td>{{player1.InjuryCode}}</td>
-				</tr>
-			</table>
-		</div>
-		<div class="team">
-			{{list2}}
-			<select ng-model="selectedTeam2" ng-options="item as item.teamName for item in teams track by item.teamID" ng-change="getRoster2(selectedTeam2)">
-				<option value="">Team 2</option>
-			</select>
-			<table>
-				<tr>
-					<td></td>
-					<td>Name</td>
-					<td>Position</td>
-					<td>NFLTeamName</td>
-					<td>InjuryCode</td>
-				</tr>
-				<tr ng-repeat="player2 in roster2" >
-					<td><input type="radio" ng-value="{{player2.PlayerID}}" ng-model="selected2" ng-change="addID2(selected2)" name="selected2"/></td>
-					<td>{{player2.Name}}</td>
-					<td>{{player2.Position}}</td>
-					<td>{{player2.NFLTeamName}}</td>
-					<td>{{player2.InjuryCode}}</td>
-				</tr>
-			</table>
-		</div>
-		<br />
-		<div class="button">
-			<input type="button" value="compare players" ng-click="comparePlayers()" />
-			<div>Is this trade fair? {{FTJ}}</div>
-		</div>
-	</form>
+<html lang="en">
 
- </body>
+<head>
+
+<title>FFA Fantasy Dashboard</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="/css/sb-admin.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="/css/dashboard.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body ng-app="myApp">
+	<div id="wrapper">
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+			<!-- This will make the navbar when the screen size changes or is smaller -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+
+					<!-- This will create the three bars (like a menu) for the nav button -->
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">FFA Home</a>
+			</div>
+
+			<!-- Account Settings -->
+			<ul class="nav navbar-right top-nav">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+						class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><i class="fa fa-fw fa-user"></i> Account</a>
+						</li>
+						<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+						</li>
+						<li class="divider"></li>
+						<li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log
+								Out</a></li>
+					</ul></li>
+			</ul>
+
+			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav side-nav">
+					<li class="active"><a href="index.html"><i
+							class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+					<li><a href="top-performers.html"><i
+							class="fa fa-fw fa-bar-chart-o"></i> Top Performers</a></li>
+					<li><a href="fantasy-news.html"><i
+							class="fa fa-newspaper-o"></i> Fantasy News</a></li>
+					<li><a href="javascript:;" data-toggle="collapse"
+						data-target="#demo"><i class="fa fa-fw fa-wrench"></i> Fantasy
+							Tools <i class="fa fa-fw fa-caret-down"></i></a>
+						<ul id="demo" class="collapse">
+							<li><a href="fantasy-tools.html">Add a League</a></li>
+							<li><a href="fantasy-tools.html">Awards</a></li>
+							<li><a href="fantasy-tools.html">Draft Buddy</a></li>
+							<li><a href="fantasy-tools.html">Fair Trade Judge</a></li>
+							<li><a href="fantasy-tools.html">Insult Generator</a></li>
+							<li><a href="fantasy-tools.html">League Poll</a></li>
+							<li><a href="fantasy-tools.html">Smart Rankings</a></li>
+							<li><a href="fantasy-tools.html">Waiver Wire Pickup Aid</a>
+							</li>
+						</ul></li>
+					<li><a href="help.html"><i class="fa fa-question"></i>
+							Help</a></li>
+					<li><a href="request-feature.html"><i
+							class="fa fa-fw fa-edit"></i> Request Feature</a></li>
+					<li><a href="report-bug.html"><i
+							class="fa fa-exclamation-triangle"></i> Report Bug</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</nav>
+
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12" style="margin-top: 40px">
+						<h1 class="page-header">
+							Fantasy Tools <small>(These are the Tools we offer to
+								help you gain the advantage)</small>
+						</h1>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="index.html">Home</a>
+							</li>
+							<li class="active"><i class="fa fa-fw fa-wrench"></i>
+								Fantasy Tools</li>
+						</ol>
+					</div>
+				</div>
+				<!-- /.row -->
+
+
+				<ul class="nav nav-pills" id="my-pill">
+					<li class="active"><a href="#tab0" data-toggle="tab">Tools
+							Home</a></li>
+					<li><a href="#tab1" data-toggle="tab">Fair Trade Judge</a></li>
+					<li><a href="#tab2" data-toggle="tab">Awards</a></li>
+					<li><a href="#tab3" data-toggle="tab">Draft Buddy</a></li>
+					<li><a href="#tab4" data-toggle="tab">Add A League</a></li>
+					<li><a href="#tab5" data-toggle="tab">Insult Generator</a></li>
+					<li><a href="#tab6" data-toggle="tab">League Poll</a></li>
+					<li><a href="#tab7" data-toggle="tab">Smart Rankings</a></li>
+					<li><a href="#tab8" data-toggle="tab">Composite Rankings</a></li>
+					<li><a href="#tab9" data-toggle="tab">Waiver Wire Pickup
+							Aid</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab0">
+						<div class="row">
+							<div class="col-md-12">
+								<h2>Tool Descriptions</h2>
+								<h3>Fair Trade Judge</h3>
+								<p>This tool will help you decide whether or not a proposed
+									trade is fair</p>
+								<h3>Awards</h3>
+								<p>Weekly awards given out to teams who have the best, and
+									worst weeks in the league</p>
+								<h3>Draft Buddy</h3>
+								<p>Use this tool to aid you during your big draft day</p>
+								<h3>Add A League</h3>
+								<p>This isn't really a tool, and doesn't fit on the
+									dashboard</p>
+								<h3>Insult Generator</h3>
+								<p>Let our team analysis algorithm pick apart any team in
+									your league with relevant insults</p>
+								<h3>League Poll</h3>
+								<p>Rank every team in your league on a weekly basis. Overall
+									rankings will be calculated based on the poll</p>
+								<h3>Smart Rankings</h3>
+								<p>This tool ranks every team in your league based on
+									complex rankings algorithm, that factors in more than just your
+									W-L-T record</p>
+								<h3>Composite Rankings</h3>
+								<p>Ever wonder what your record would be if you played every
+									team every week instead of the head to head match-up style?
+									This tool will tell you what your overall record would be</p>
+								<h3>Waiver Wire Pickup Aid</h3>
+								<p>See who our analysis of your team determines you should
+									pick up off of the waiver wire this week</p>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab1">
+						<h2>Select the teams that are going to do a trade, then
+							select the players</h2>
+						<div ng-controller="FTJController" class="teamWrapper">
+							<div class="col-md-6 team" style="float: left;">
+								{{list1}} <select ng-model="selectedTeam1"
+									ng-options="item as item.teamName for item in teams track by item.teamID"
+									ng-change="getRoster1(selectedTeam1)">
+									<option value="">Team 1</option>
+								</select>
+								<table class="table-striped" style="width: 100%">
+									<tr>
+										<td></td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player1 in roster1">
+										<td><input type="radio" ng-value="{{player1.PlayerID}}"
+											ng-model="selected1" ng-change="addID1(selected1)"
+											name="selected1" /></td>
+										<td>{{player1.Name}}</td>
+										<td>{{player1.Position}}</td>
+										<td>{{player1.NFLTeamName}}</td>
+										<td>{{player1.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-offset-6 team">
+								{{list2}} <select ng-model="selectedTeam2"
+									ng-options="item as item.teamName for item in teams track by item.teamID"
+									ng-change="getRoster2(selectedTeam2)">
+									<option value="">Team 2</option>
+								</select>
+								<table class="table-striped" style="width: 100%">
+									<tr>
+										<td></td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player2 in roster2">
+										<td><input type="radio" ng-value="{{player2.PlayerID}}"
+											ng-model="selected2" ng-change="addID2(selected2)"
+											name="selected2" /></td>
+										<td>{{player2.Name}}</td>
+										<td>{{player2.Position}}</td>
+										<td>{{player2.NFLTeamName}}</td>
+										<td>{{player2.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+							<br />
+							<div class="button">
+								<input type="button" value="compare players"
+									ng-click="comparePlayers()" />
+								<div>Is this trade fair? {{FTJ}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab2">
+						<h3>Weekly Awards</h3>
+						<div ng-controller="AwardsController" class="awards">
+							<p>Week:</p>
+							<!-- use the pills when we enhance the UI in iteration 3 -->
+							<select ng-model="aWeek"
+								ng-options="item as item.week for item in weeks"
+								ng-change="updateAwards(aWeek)">
+								<option value="">Week #</option>
+							</select>
+							<div class="row">
+								<h4>Top Weekly Overall Score</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span> {{awards.topOverallScore}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span> {{awards.topOverallScoreTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Points:</span> {{awards.topOverallScoreOwner}}
+								</div>
+								<div class="col-md-3">&nbsp;</div>
+							</div>
+							<div class="row">
+								<h4>Top Scorer: Individual Player</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span> {{awards.topScorerPlayerPoints}}
+								</div>
+								<div class="col-md-3">
+									<span>Player Name:</span> {{awards.topScorerPlayerName}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span> {{awards.topScorerPlayerTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Owner:</span> {{awards.topScorerPlayerOwner}}
+								</div>
+							</div>
+							<div class="row">
+								<h4>Most Points left on Bench</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span> {{awards.mostBenchPoints}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span> {{awards.mostBenchPointsTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Owner:</span> {{awards.mostBenchPointsOwner}}
+								</div>
+								<div class="col-md-3">&nbsp;</div>
+							</div>
+							<div class="row">
+								<h4>Most points left on bench: Individual Player</h4>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<span>Points:</span>
+									{{awards.mostBenchPointsIndividualPlayerPoints}}
+								</div>
+								<div class="col-md-3">
+									<span>Player Name:</span>
+									{{awards.mostBenchPointsIndividualPlayerName}}
+								</div>
+								<div class="col-md-3">
+									<span>Team:</span>
+									{{awards.mostBenchPointsIndividualPlayerTeam}}
+								</div>
+								<div class="col-md-3">
+									<span>Owner:</span>
+									{{awards.mostBenchPointsIndividualPlayerOwner}}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Draft Buddy-->
+					<div class="tab-pane" id="tab3">
+						<div class="col-md-12">
+							<span class="span8" style="margin-bottom: 20p">
+								<h2>Start draft, and then enter names to see who's been
+									drafted</h2>
+							</span>
+
+							<button type="button pull-left" class="btn btn-success">Start
+								Draft</button>
+							<button type="button pull-left" class="btn btn-danger">End
+								Draft</button>
+
+
+							<div class="col-md-8 pull-right" style="padding-left: 15px;">
+
+								<span> <!-- <form ng-submit="search(playerName)">
+	      							<input ng-model="player" style="width:100%" type="text" class="form-control" placeholder="Search for..."></input>
+	      							</form> -->
+
+									<form ng-controller="DraftBuddyController"
+										ng-submit="searchPlayer()">
+										<input type="text" ng-model="playerName" tyle="width:100%"
+											class="form-control" placeholder="Search for player" />
+									</form>
+
+								</span>
+							</div>
+
+
+						</div>
+						<form ng-controller="DraftBuddyController" class="">
+							<div class="col-md-12" style="margin: 10px"></div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>QB's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[1]">
+										<td></td>
+										<td>{{player.Name}}</td>
+										<td>{{player.Position}}</td>
+										<td>{{player.NFLTeamName}}</td>
+										<td>{{player.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>RB's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[0]">
+										<td></td>
+										<td>{{player.Name}}</td>
+										<td>{{player.Position}}</td>
+										<td>{{player.NFLTeamName}}</td>
+										<td>{{player.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>WR's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[1]">
+										<td></td>
+										<td>{{player.Name}}</td>
+										<td>{{player.Position}}</td>
+										<td>{{player.NFLTeamName}}</td>
+										<td>{{player.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>TE's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[2]">
+										<td></td>
+										<td>{{player.Name}}</td>
+										<td>{{player.Position}}</td>
+										<td>{{player.NFLTeamName}}</td>
+										<td>{{player.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+						</form>
+					</div>
+					<div class="tab-pane" id="tab4">
+						<h3>Add a league</h3>
+					</div>
+					<div class="tab-pane" id="tab5">
+						<h3>Insult Generator</h3>
+						<h2>Select a team to insult!</h2>
+						<form ng-controller="INSULTController" class="teamWrapper">
+							<div class="team" style="float: left;">
+								{{list}} <select ng-model="selectedTeam"
+									ng-options="item as item.teamName for item in teams track by item.teamID"
+									ng-change="insult(selectedTeam)">
+									<option value="">Team</option>
+								</select>
+								<p>{{outputInsult}}</p>
+							</div>
+						</form>
+
+					</div>
+					<div class="tab-pane" id="tab6">
+						<h3>League Poll</h3>
+					</div>
+					<div class="tab-pane" id="tab7">
+						<h3>Smart Rankings</h3>
+						<div ng-controller="SRController">
+							<p>Week:</p>
+							<!-- use the pills when we enhance the UI in iteration 3
+							ul class="nav nav-pills nav-justified">
+								<li ng-repeat="week in weeks"><a href="#w{{week}}">{{week}}</a></li>
+							</ul>
+							item as item.teamName for item in teams track by item.teamID
+							-->
+							<select ng-model="srWeek"
+								ng-options="item as item.week for item in weeks"
+								ng-change="updateSmartRankings(srWeek)">
+								<option value="">Week #</option>
+							</select>
+							<div class="row">
+								<div class="col-md-4">
+									<b>Ranking</b>
+								</div>
+								<div class="col-md-4">
+									<b>Team Name</b>
+								</div>
+								<div class="col-md-4">
+									<b>FFA Rank Score</b>
+								</div>
+							</div>
+							<div class="row" ng-repeat="ranking in smartrankings">
+								<div class="col-md-4">{{ranking.rankScore}}</div>
+								<div class="col-md-4">{{ranking.teamName}}</div>
+								<div class="col-md-4">{{ranking.ffaPoints}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab8">
+						<h3>Composite Rankings</h3>
+						<div ng-controller="CPController">
+							<select ng-model="cpWeek"
+								ng-options="item as item.week for item in weeks"
+								ng-change="updateCPRankings(cpWeek)" ng-init="cpWeek = 17">
+								<option value="">Week #</option>
+
+							</select>
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">Rank</div>
+								<div class="col-md-2">Team Name</div>
+								<div class="col-md-2">Owner</div>
+								<div class="col-md-2">W-L-T</div>
+								<div class="col-md-2">Avg(W-L-T)</div>
+								<div class="col-md-1">&nbsp;</div>
+							</div>
+							<div ng-repeat="rank in comprankings" class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">{{rank.cRank}}</div>
+								<div class="col-md-2">{{rank.teamName}}</div>
+								<div class="col-md-2">{{rank.ownerName}}</div>
+								<div class="col-md-2">{{rank.cWins}}-{{rank.cLosses}}-{{rank.cTies}}</div>
+								<div class="col-md-2">{{rank.avgWins}}-{{rank.avgLosses}}-{{rank.avgTies}}</div>
+								<div class="col-md-1">&nbsp;</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab8">
+						<h3>Waiver Wire Pickup</h3>
+					</div>
+				</div>
+
+			</div>
+			<!-- /.container-fluid -->
+
+		</div>
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Angular -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script src="/js/dashboard.js"></script>
+</body>
 
 </html>

@@ -74,6 +74,7 @@ public class FtjStats {
 		//TODO: implement fair trade judge algorithm, compare lots of stats
 		int p1pts = getPlayerPoints(tid1);
 		int p2pts = getPlayerPoints(tid2);
+		System.out.println("player1"+p1pts+"player2"+p2pts);
 		
 	    double percentDiff = (double) p1pts/((double) p1pts+p2pts);
 	    
@@ -88,20 +89,29 @@ public class FtjStats {
 		Statement stmt = null;
 		try{
 
-			Class.forName("com.mysql.jdbc.Driver");
+			//Class.forName("com.mysql.jdbc.Driver");
 			conn = DbSource.getDataSource().getConnection();
 			stmt = conn.createStatement();
 
-			String sql= "select sum(ws.FantasyPointsScore) "
-					+ "from players p "
-					+ "join weeklyscores ws "
-					+ "on p.PlayerID = ws.Players_PlayerID "
-					+ "where p.PlayerID = "+pID + ";";
+			String sql= "SELECT SUM(ws.FantasyPointsScore) "
+					+ "FROM players p "
+					+ "JOIN weeklyscores ws "
+					+ "ON p.PlayerID = ws.Players_PlayerID "
+					+ "WHERE p.PlayerID = "+pID + ";";
 			System.out.println(sql);
-			return ((ResultSet) stmt.executeQuery(sql)).getInt(1);
+			ResultSet rs = stmt.executeQuery(sql);
+			//testing
+			int scoreSum = 0;
+			while(rs.next()){
+				scoreSum = rs.getInt(1);	
+			}
+			conn.close();
+			rs.close();
+			return scoreSum;
 
 
 		}catch (Exception e){
+			System.out.println("Caught exceptionz");
 			e.printStackTrace();
 			return 0;
 		}
