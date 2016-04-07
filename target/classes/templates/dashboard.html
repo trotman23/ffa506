@@ -116,12 +116,34 @@
 					<li><a href="#tab5" data-toggle="tab">Insult Generator</a></li>
 					<li><a href="#tab6" data-toggle="tab">League Poll</a></li>
 					<li><a href="#tab7" data-toggle="tab">Smart Rankings</a></li>
-					<li><a href="#tab8" data-toggle="tab">Waiver Wire Pickup
-							Aid</a></li>
+					<li><a href="#tab8" data-toggle="tab">Composite Rankings</a></li>
+					<li><a href="#tab9" data-toggle="tab">Waiver Wire Pickup Aid</a></li>
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab0">
-						<h2>Select a tool! ^^^</h2>
+						<div class="row">
+							<div class="col-md-12">
+								<h2>Tool Descriptions</h2>
+								<h3>Fair Trade Judge</h3>
+								<p>This tool will help you decide whether or not a proposed trade is fair</p>
+								<h3>Awards</h3>
+								<p>Weekly awards given out to teams who have the best, and worst weeks in the league</p>
+								<h3>Draft Buddy</h3>
+								<p>Use this tool to aid you during your big draft day</p>
+								<h3>Add A League</h3>
+								<p>This isn't really a tool, and doesn't fit on the dashboard</p>
+								<h3>Insult Generator</h3>
+								<p>Let our team analysis algorithm pick apart any team in your league with relevant insults</p>
+								<h3>League Poll</h3>
+								<p>Rank every team in your league on a weekly basis. Overall rankings will be calculated based on the poll</p>
+								<h3>Smart Rankings</h3>
+								<p>This tool ranks every team in your league based on complex rankings algorithm, that factors in more than just your W-L-T record</p>
+								<h3>Composite Rankings</h3>
+								<p>Ever wonder what your record would be if you played every team every week instead of the head to head match-up style? This tool will tell you what your overall record would be</p>
+								<h3>Waiver Wire Pickup Aid</h3>
+								<p>See who our analysis of your team determines you should pick up off of the waiver wire this week</p>
+							</div>
+						</div>
 					</div>
 					<div class="tab-pane" id="tab1">
 						<h2>Select the teams that are going to do a trade, then
@@ -203,12 +225,10 @@
 									<span>Points:</span> {{awards.topOverallScore}}
 								</div>
 								<div class="col-md-3">
-									<span>Team:</span>
-									{{awards.topOverallScoreTeam}}
+									<span>Team:</span> {{awards.topOverallScoreTeam}}
 								</div>
 								<div class="col-md-3">
-									<span>Points:</span>
-									{{awards.topOverallScoreOwner}}
+									<span>Points:</span> {{awards.topOverallScoreOwner}}
 								</div>
 								<div class="col-md-3">&nbsp;</div>
 							</div>
@@ -217,20 +237,16 @@
 							</div>
 							<div class="row">
 								<div class="col-md-3">
-									<span>Points:</span>
-									{{awards.topScorerPlayerPoints}}
+									<span>Points:</span> {{awards.topScorerPlayerPoints}}
 								</div>
 								<div class="col-md-3">
-									<span>Player Name:</span>
-									{{awards.topScorerPlayerName}}
+									<span>Player Name:</span> {{awards.topScorerPlayerName}}
 								</div>
 								<div class="col-md-3">
-									<span>Team:</span>
-									{{awards.topScorerPlayerTeam}}
+									<span>Team:</span> {{awards.topScorerPlayerTeam}}
 								</div>
 								<div class="col-md-3">
-									<span>Owner:</span>
-									{{awards.topScorerPlayerOwner}}
+									<span>Owner:</span> {{awards.topScorerPlayerOwner}}
 								</div>
 							</div>
 							<div class="row">
@@ -241,12 +257,10 @@
 									<span>Points:</span> {{awards.mostBenchPoints}}
 								</div>
 								<div class="col-md-3">
-									<span>Team:</span>
-									{{awards.mostBenchPointsTeam}}
+									<span>Team:</span> {{awards.mostBenchPointsTeam}}
 								</div>
 								<div class="col-md-3">
-									<span>Owner:</span>
-									{{awards.mostBenchPointsOwner}}
+									<span>Owner:</span> {{awards.mostBenchPointsOwner}}
 								</div>
 								<div class="col-md-3">&nbsp;</div>
 							</div>
@@ -385,9 +399,9 @@
 							</div>
 						</form>
 					</div>
-					<div class="tab-pane" id="tab4"></div>
-					<div class="tab-pane" id="tab5">5</div>
-					<div class="tab-pane" id="tab6">6</div>
+					<div class="tab-pane" id="tab4"><h3>Add a league</h3></div>
+					<div class="tab-pane" id="tab5"><h3>Insult Generator</h3></div>
+					<div class="tab-pane" id="tab6"><h3>League Poll</h3></div>
 					<div class="tab-pane" id="tab7">
 						<h3>Smart Rankings</h3>
 						<div ng-controller="SRController">
@@ -421,7 +435,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane" id="tab8">8</div>
+					<div class="tab-pane" id="tab8"><h3>Composite Rankings</h3></div>
+					<div class="tab-pane" id="tab8"><h3>Waiver Wire Pickup</h3></div>
 				</div>
 
 			</div>
