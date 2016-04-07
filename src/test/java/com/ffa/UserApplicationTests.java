@@ -29,22 +29,17 @@ public class UserApplicationTests {
 	@Test
 	public void testUserModel(){
 		//TODO: Should grab a mock user from database and use those values as expected
-		final Long EXPECTED_ID = (long) 1;
+		final int EXPECTED_ID = 1;
+		final String EXPECTED_NAME = "test";
 		final String EXPECTED_EMAIL = "test@email.com";
 		final String EXPECTED_PASSWORD = "password";
-		final League EXPECTED_DEFAULT_LEAGUE = null;
-		final List<League> EXPECTED_LEAGUES = null;
-		final List<LeagueTeam> EXPECTED_USER_TEAMS = null;
 
-		User testUser = new User(EXPECTED_ID, EXPECTED_EMAIL, EXPECTED_PASSWORD,
-				EXPECTED_DEFAULT_LEAGUE, EXPECTED_LEAGUES, EXPECTED_USER_TEAMS);
+		User testUser = new User(EXPECTED_ID, EXPECTED_NAME, EXPECTED_EMAIL, EXPECTED_PASSWORD);
 
 		assertEquals(EXPECTED_ID, testUser.getUserId());
+		assertEquals(EXPECTED_NAME, testUser.getName());
         assertEquals(EXPECTED_EMAIL, testUser.getEmail());
         assertEquals(EXPECTED_PASSWORD, testUser.getPassword());
-        assertEquals(EXPECTED_DEFAULT_LEAGUE, testUser.getDefaultLeague());
-        assertEquals(EXPECTED_LEAGUES, testUser.getLeagues());
-        assertEquals(EXPECTED_USER_TEAMS, testUser.getUserTeams());
         
         System.out.println("User Model Tests Success.");
 	}
