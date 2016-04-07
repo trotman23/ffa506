@@ -1,14 +1,17 @@
-package com.ffa.services;
+package com.ffa.controllers;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
  
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
- 
+
 import com.ffa.models.User;
- 
+
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService{
@@ -23,12 +26,45 @@ public class UserServiceImpl implements UserService{
     }*/
  
     public List<User> findAllUsers() {
-        return users;
+		Connection pConn = null;
+		Statement pStmt = null;
+		try{
+
+			Class.forName("com.mysql.jdbc.Driver");
+			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
+			//select on team name, given team id
+
+			String sql = "SELECT * FROM users;";
+			System.out.println(sql);
+			ResultSet rs = pStmt.executeQuery(sql);
+			while(rs.next()){
+				  Long id = rs.getLong("userid");
+				  String email = rs.getString("email");
+				  String password = rs.getString("password");
+				  
+				  System.out.print(id + " " + email + " " + password);
+				  System.out.println();
+
+				  //Assuming you have a user object
+				  User user = new User(id, email, password, null, null, null);
+				  //users.add(user);
+			}
+			pConn.close();
+			rs.close();
+
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+
+		}
+		
+		return users;
     }
      
-    public User findById(long id) {
+    public User findById(long userId) {
         for(User user : users){
-            if(user.getId() == id){
+            if(user.getUserId() == userId){
                 return user;
             }
         }
@@ -54,11 +90,11 @@ public class UserServiceImpl implements UserService{
         users.set(index, user);
     }
  
-    public void deleteUserById(long id) {
+    public void deleteUserById(long userId) {
          
         for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
             User user = iterator.next();
-            if (user.getId() == id) {
+            if (user.getUserId() == userId) {
                 iterator.remove();
             }
         }

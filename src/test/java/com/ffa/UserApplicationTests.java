@@ -39,7 +39,7 @@ public class UserApplicationTests {
 		User testUser = new User(EXPECTED_ID, EXPECTED_EMAIL, EXPECTED_PASSWORD,
 				EXPECTED_DEFAULT_LEAGUE, EXPECTED_LEAGUES, EXPECTED_USER_TEAMS);
 
-		assertEquals(EXPECTED_ID, testUser.getId());
+		assertEquals(EXPECTED_ID, testUser.getUserId());
         assertEquals(EXPECTED_EMAIL, testUser.getEmail());
         assertEquals(EXPECTED_PASSWORD, testUser.getPassword());
         assertEquals(EXPECTED_DEFAULT_LEAGUE, testUser.getDefaultLeague());
