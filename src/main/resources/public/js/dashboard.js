@@ -77,14 +77,20 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		url: './rest/DraftBuddy'
 	}).success(function (result) {
 		$scope.players = result;
-		//console.log(result);
 		console.log('success');
 	});
 
-	angular.forEach($scope.players, function(value, key) {
-  		console.log(key);
-	});
 
+	$scope.searchPlayer = function(){
+		
+		$scope.playerName = "";
+		var i = 0;
+		angular.forEach($scope.players, function(filterObj , filterKey){
+			console.log('Searching for player:' + $scope.playerName);
+			i++;
+		});
+
+	}
 
 });
 
