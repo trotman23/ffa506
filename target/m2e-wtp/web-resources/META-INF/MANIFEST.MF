@@ -1,15 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: test
 Implementation-Version: 0.0.1-SNAPSHOT
-<<<<<<< HEAD
 Built-By: APuente
 Implementation-Vendor-Id: com.ffa
 Build-Jdk: 1.8.0_51
-=======
-Built-By: josephbauer
-Implementation-Vendor-Id: com.ffa
-Build-Jdk: 1.8.0_73
->>>>>>> dda8a77655eb04f6472c774e3abd2917c5e2453f
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

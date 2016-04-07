@@ -1,6 +1,7 @@
 package com.ffa.controllers;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -44,8 +45,7 @@ public class UserServiceImpl implements UserService{
     }
      
     public void saveUser(User user) {
-        user.setId((int)counter.incrementAndGet());
-        users.add(user);
+        insertUser(user);
     }
  
     public void updateUser(User user) {
@@ -104,5 +104,27 @@ public class UserServiceImpl implements UserService{
 
 		}
 		return users;
+    }
+    private static void insertUser(User user) {
+		Connection pConn = null;
+		PreparedStatement pStmt = null;
+		try{
+			pConn = DbSource.getDataSource().getConnection();
+			
+			String sql = "INSERT INTO users " +
+					"(name, email, password) VALUES (?, ?, ?)";
+			System.out.println(sql);
+			pStmt = pConn.prepareStatement(sql);
+			pStmt.setInt(1, (int)counter.incrementAndGet());
+		    pStmt.setString(2, user.getEmail());
+		    pStmt.setString(3, user.getPassword());
+		    
+			pConn.close();
+
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			users.add(user);
+		}
     }
 }
