@@ -82,7 +82,7 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 
 
 	$scope.searchPlayer = function(){
-		
+
 		$scope.playerName = "";
 		var i = 0;
 		angular.forEach($scope.players, function(filterObj , filterKey){
@@ -152,7 +152,7 @@ myApp.controller("AwardsController", function($scope, $http){
 	                {"week": 15},
 	                {"week": 16},
 	                {"week": 17}];
-	
+
 	$http({
 		method: 'GET',
 		url: './rest/Awards?LeagueID=1682132&Week=1'
@@ -167,6 +167,43 @@ myApp.controller("AwardsController", function($scope, $http){
 			url: './rest/Awards?LeagueID=1682132&Week=' + week.week
 		}).then(function (result){
 			$scope.awards = result.data;
+		});
+	};
+});
+
+myApp.controller("CPController", function($scope, $http){
+	$scope.weeks = [{"week": 1},
+	                {"week": 2},
+	                {"week": 3},
+	                {"week": 4},
+	                {"week": 5},
+	                {"week": 6},
+	                {"week": 7},
+	                {"week": 8},
+	                {"week": 9},
+	                {"week": 10},
+	                {"week": 11},
+	                {"week": 12},
+	                {"week": 13},
+	                {"week": 14},
+	                {"week": 15},
+	                {"week": 16},
+	                {"week": 17}];
+	$http({
+		method: 'GET',
+		url: './rest/CompositeRank?LeagueID=1682132&Week=17'
+	}).then(function (result){
+		$scope.comprankings = result.data;
+		console.log($scope.comprankings);
+	});
+	$scope.updateCPRankings = function(week){
+		console.log(week);
+		$http({
+			method: 'GET',
+			url: './rest/CompositeRank?LeagueID=1682132&Week=' + week.week
+		}).then(function (result){
+			$scope.comprankings = result.data;
+			console.log(result.data);
 		});
 	};
 });
