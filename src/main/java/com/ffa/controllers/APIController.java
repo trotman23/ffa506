@@ -64,7 +64,4 @@ public class APIController {
 		map.put("key", inst.getInsults() );
 		return map;
 	}
-
-
-
 }
