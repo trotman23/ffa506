@@ -11,6 +11,7 @@ import com.ffa.controllers.Application;
 
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -29,10 +30,27 @@ public class TestControllersTests {
 		final String VIKINGS="26";
 
 		
+		//ftj
 		assertFalse(testContr.FTJ(adrianPeterson, eddieLacy));
+		//leagueTeams
 		assertEquals(testContr.LeagueTeams(LEAGUE_ID).size(), 12);
+		//rosters
 		assertNotNull(testContr.roster(LEAGUE_ID, INTIAL_TEAM, INTIAL_WEEK, YEAR));
+		//team
 		assertNotNull(testContr.team(VIKINGS));
+		//awards
+		assertNotNull(testContr.Awards(LEAGUE_ID, INTIAL_WEEK));
+		//compositeRank
+		assertNotNull(testContr.CompositeRank(LEAGUE_ID, INTIAL_WEEK));
+		//leagueInsult
+		assertNotNull(testContr.LeagueInsult(INTIAL_TEAM));
+		//leagueTeams
+		assertNotNull(testContr.LeagueTeams(LEAGUE_ID));
+		//draft buddy
+		assertNotNull(testContr.DraftBuddy());
+		//SmartRanking
+		assertNotNull(testContr.SmartRank(LEAGUE_ID, INTIAL_WEEK));
+
 	}
 	
 }
