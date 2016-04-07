@@ -26,4 +26,31 @@ public class LandingPageController {
 	public String LandingPage(Model model){
 		return "LandingPage";
 	}
+	
+	@RequestMapping("/fantasy-news")
+	public String fantasyNews(){
+		return "fantasy-news";
+	}
+	
+	@RequestMapping("/help")
+	public String help(){
+		return "help";
+	}
+	
+	@RequestMapping("/request-feature")
+	public String requestFeature(){
+		return "request-feature";
+	}
+	
+	@RequestMapping("/report-bug")
+	public String reportBug(){
+		return "report-bug";
+	}
+	
+	@RequestMapping("/top-performers")
+	public String topPerformers(){
+		return "top-performers";
+	}
+	
+	
 }
