@@ -100,17 +100,11 @@ public class DraftBuddy {
 	
 	public static void selectPlayer(int playerID){
 		//remove player from array
-	
-		
 	}
 	
 	public static void addPlayer(int PlayerID){
 		
 		
 	}
-	
-//    public static void main(String[] args) {
-//    	Players();
-//    }
 
 }

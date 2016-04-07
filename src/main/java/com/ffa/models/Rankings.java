@@ -50,7 +50,7 @@ public class Rankings /*implements Comparator<Rankings>*/{
 		
 	}
 	
-	private static int getTeamWeeklySumScore(int leagueID, int week, int teamID){
+	public static int getTeamWeeklySumScore(int leagueID, int week, int teamID){
 		Connection conn = null;
 		Statement stmt = null;
 		int score = 0;
