@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
  
 import com.ffa.models.User;
-import com.ffa.services.UserService;
-  
+
 @RestController
 public class UserController {
   
-    //@Autowired
+    @Autowired
     UserService userService;  //Service which will do all data retrieval/manipulation work
   
      
@@ -66,7 +65,7 @@ public class UserController {
         userService.saveUser(user);
   
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getUserId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   
