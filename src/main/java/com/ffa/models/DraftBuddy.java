@@ -18,7 +18,7 @@ public class DraftBuddy {
 	public int positionRank;
 	public int overallRank;
 	
-	public static List<Player> players = new ArrayList<Player>();
+	public static List<List<Player>> players = new ArrayList<List<Player>>();
 	public static List<Player> wideOuts = new ArrayList<Player>();
 	public static List<Player> quartBacks = new ArrayList<Player>();
 	public static List<Player> runBacks = new ArrayList<Player>();
@@ -50,7 +50,7 @@ public class DraftBuddy {
 				player.Position = rs.getString(3);
 				player.PlayerID = rs.getInt(1);
 				player.NFLTeam_NFLTeamID = rs.getInt(6);
-				players.add(player);
+//				players.add(player);
 				
 				//add to respective arrays
 				switch(player.Position){
@@ -79,7 +79,6 @@ public class DraftBuddy {
 			players.add(quartBacks);
 			players.add(kickers);
 			players.add(runBacks);
-			
 			
 			pConn.close();
 			rs.close();

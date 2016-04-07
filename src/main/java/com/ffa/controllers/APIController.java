@@ -44,7 +44,7 @@ public class APIController {
 	//Draft Buddy Service
 	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "DraftBuddy")
-	public List<Player> Players(){
+	public List<List<Player>> Players(){
 		DraftBuddy draftBuddy = new DraftBuddy();
 		return draftBuddy.Players();
 	}
@@ -59,7 +59,6 @@ public class APIController {
 		int temp1 = Integer.parseInt(PlayerID1);
 		int temp2 = Integer.parseInt(PlayerID2);
 		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
-		
 	}
 	
 }

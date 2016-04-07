@@ -71,6 +71,7 @@ myApp.controller('FTJController', function($scope, $http) {
 //Draft Buddy Controller
 myApp.controller('DraftBuddyController', function($scope, $http) {
 	$scope.players =[];
+	$scope.player = "Insult here";
 	$http({
 		method: 'GET',
 		url: './rest/DraftBuddy'
