@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ffa.models.*;
+
 import java.util.*;
 
 @RestController
@@ -12,13 +13,11 @@ public class APIController {
 
 	private static final String rest = "/rest/";
 	
-	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "NFLTeam")
     public NFLTeam team(@RequestParam(value="TeamID", defaultValue = "1") String id) {
         return new NFLTeam(Integer.parseInt(id));
     }
 	
-	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "Roster")
 	public List<Roster> roster(
 			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
@@ -31,7 +30,6 @@ public class APIController {
 	}
 	
 	//Fair Trade Judge stuffs
-	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "LeagueTeams")
 	public List<FtjStats> LeagueTeams(
 			@RequestParam(value="LeagueID", defaultValue = "1682132") String LeagueID
@@ -42,14 +40,12 @@ public class APIController {
 	}
 	
 	//Draft Buddy Service
-	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "DraftBuddy")
 	public List<List<Player>> Players(){
 		DraftBuddy draftBuddy = new DraftBuddy();
 		return draftBuddy.Players();
 	}
 	
-	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "FTJ")
 	public boolean FTJ(
 			@RequestParam(value="PlayerID1", defaultValue = "1") String PlayerID1,
@@ -60,5 +56,15 @@ public class APIController {
 		int temp2 = Integer.parseInt(PlayerID2);
 		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
 	}
+	@RequestMapping(rest + "SmartRank")
+	public List<SmartRankings> SmartRank(
+			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
+			@RequestParam(value="Week", defaultValue = "1") String Week
+			){
+		SmartRankings sr = new SmartRankings();
+		return sr.getSmartRankingsList(Integer.parseInt(LeagueID), Integer.parseInt(Week));
+		
+	}
+	
 	
 }

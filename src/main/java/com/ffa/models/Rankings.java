@@ -9,7 +9,7 @@ import com.ffa.models.*;
 public class Rankings /*implements Comparator<Rankings>*/{
 
 	public String teamName;
-	public int rankScore;
+	private int rankScore;
 	public int ffaPoints;
 	public int teamID;
 	
@@ -27,7 +27,13 @@ public class Rankings /*implements Comparator<Rankings>*/{
 	public void setFfaPoints(int points){
 		this.ffaPoints = points;
 	}
-	
+	public int getRankScore(){
+		return this.rankScore;
+	}
+	public void setRankScore(int rs)
+	{
+		this.rankScore = rs;
+	}
 	public List<Rankings> Rank(int LeagueID, int Week){
 		List<Rankings> lr = new ArrayList<Rankings>();
 		FtjStats temp = new FtjStats();
@@ -65,9 +71,11 @@ public class Rankings /*implements Comparator<Rankings>*/{
 			while (rs.next()){
 				score = rs.getInt(1);
 			}
-			
+			stmt.close();
+			conn.close();
 		} catch (Exception e){
 			e.printStackTrace();
+			
 		}
 		return score;
 	}

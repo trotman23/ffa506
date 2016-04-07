@@ -77,7 +77,6 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		url: './rest/DraftBuddy'
 	}).success(function (result) {
 		$scope.players = result;
-<<<<<<< HEAD
 		console.log('success');
 	});
 
@@ -86,25 +85,51 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		
 		$scope.playerName = "";
 		var i = 0;
-		angular.forEach($scope.players[i], function(filterObj , filterKey){
+		angular.forEach($scope.players, function(filterObj , filterKey){
 			console.log('Searching for player:' + $scope.playerName);
-			i ++;
-			
+			i++;
 		});
+
 	}
-=======
-		//console.log(result);
-		console.log('success');
-	});
-
-	angular.forEach($scope.players, function(value, key) {
-  		console.log(key);
-	});
-
->>>>>>> bdbb72b2fca3d124546101d0d7492ee712a8f14c
 
 });
 
+//smart ranking controller
+myApp.controller("SRController", function($scope, $http){
+	$scope.weeks = [{"week": 1},
+	                {"week": 2},
+	                {"week": 3},
+	                {"week": 4},
+	                {"week": 5},
+	                {"week": 6},
+	                {"week": 7},
+	                {"week": 8},
+	                {"week": 9},
+	                {"week": 10},
+	                {"week": 11},
+	                {"week": 12},
+	                {"week": 13},
+	                {"week": 14},
+	                {"week": 15},
+	                {"week": 16},
+	                {"week": 17}];;
+	$http({
+		method: 'GET',
+		url: './rest/SmartRank?LeagueID=1682132&Week=1'
+	}).then(function (result){
+		$scope.smartrankings = result.data;
+		console.log($scope.smartrankings);
+	});
+	$scope.updateSmartRankings = function(week){
+		console.log(week);
+		$http({
+			method: 'GET',
+			url: './rest/SmartRank?LeagueID=1682132&Week=' + week.week
+		}).then(function (result){
+			$scope.smartrankings = result.data;
+		});
+	};
+});
 
 
 

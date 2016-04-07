@@ -21,6 +21,10 @@ public class SmartRankings extends Rankings implements Comparable<SmartRankings>
 			lsr.add(sr);
 		}
 		Collections.sort(lsr);
+		for (int j = 0; j < lsr.size(); j++){
+			lsr.get(j).setRankScore(j + 1);
+			this.smartRank = lsr.get(j).getRankScore();
+		}
 		return lsr;
 	}
 

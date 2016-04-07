@@ -82,12 +82,10 @@ public class UserServiceImpl implements UserService{
     }
      
     public void saveUser(User user) {
-<<<<<<< HEAD
-        user.setId(counter.incrementAndGet());
-        users.add(user);
-=======
-        insertUser(user);
->>>>>>> bdbb72b2fca3d124546101d0d7492ee712a8f14c
+    	//commenting out because errors with git
+        //user.setId(counter.incrementAndGet());
+        //users.add(user);
+       // insertUser(user);
     }
  
     public void updateUser(User user) {
@@ -124,7 +122,7 @@ public class UserServiceImpl implements UserService{
 <<<<<<< HEAD
  */
  
-=======
+//=======
     private static void insertUser(User user) {
 		Connection pConn = null;
 		PreparedStatement pStmt = null;
@@ -147,5 +145,4 @@ public class UserServiceImpl implements UserService{
 			users.add(user);
 		}
     }
->>>>>>> bdbb72b2fca3d124546101d0d7492ee712a8f14c
 }

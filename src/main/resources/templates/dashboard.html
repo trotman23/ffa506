@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-	
-	<title>FFA Fantasy Dashboard</title>
-	
-	<!-- Bootstrap Core CSS -->
-	<link href="/css/bootstrap.min.css" rel="stylesheet" />
-	
-	<!-- Custom CSS -->
-	<link href="/css/sb-admin.css" rel="stylesheet" />
-	
-	<!-- Custom Fonts -->
-	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<title>FFA Fantasy Dashboard</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="/css/sb-admin.css" rel="stylesheet" />
+
+<!-- Custom Fonts -->
+<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body ng-app="myApp">
@@ -90,8 +90,8 @@
 
 				<!-- Page Heading -->
 				<div class="row">
-					<div class="col-lg-12" style="margin-top:40px">
-						<h1 class="page-header" >
+					<div class="col-lg-12" style="margin-top: 40px">
+						<h1 class="page-header">
 							Fantasy Tools <small>(These are the Tools we offer to
 								help you gain the advantage)</small>
 						</h1>
@@ -121,7 +121,8 @@
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab0">
-					<h2>Select the teams that are going to do a trade, then select the players</h2>
+						<h2>Select the teams that are going to do a trade, then
+							select the players</h2>
 						<form ng-controller="FTJController" class="teamWrapper">
 							<div class="col-md-6 team" style="float: left;">
 								{{list1}} <select ng-model="selectedTeam1"
@@ -129,7 +130,7 @@
 									ng-change="getRoster1(selectedTeam1)">
 									<option value="">Team 1</option>
 								</select>
-								<table class="table-striped" style="width:100%">
+								<table class="table-striped" style="width: 100%">
 									<tr>
 										<td></td>
 										<td>Name</td>
@@ -154,7 +155,7 @@
 									ng-change="getRoster2(selectedTeam2)">
 									<option value="">Team 2</option>
 								</select>
-								<table class="table-striped" style="width:100%">
+								<table class="table-striped" style="width: 100%">
 									<tr>
 										<td></td>
 										<td>Name</td>
@@ -188,108 +189,144 @@
 					<!--Draft Buddy-->
 					<div class="tab-pane" id="tab3">
 						<div class="col-md-12">
-							<span class="span8" style="margin-bottom:20p"> <h2>Start draft, and then enter names to see who's been drafted </h2></span>
+							<span class="span8" style="margin-bottom: 20p">
+								<h2>Start draft, and then enter names to see who's been
+									drafted</h2>
+							</span>
 
-	    					<button type="button pull-left" class="btn btn-success">Start Draft</button>
-	    					<button type="button pull-left" class="btn btn-danger">End Draft</button>
+							<button type="button pull-left" class="btn btn-success">Start
+								Draft</button>
+							<button type="button pull-left" class="btn btn-danger">End
+								Draft</button>
 
 
-	    					<div class="col-md-8 pull-right" style="padding-left:15px;">
+							<div class="col-md-8 pull-right" style="padding-left: 15px;">
 
-	      						<span>
-	      							<!-- <form ng-submit="search(playerName)">
+								<span> <!-- <form ng-submit="search(playerName)">
 	      							<input ng-model="player" style="width:100%" type="text" class="form-control" placeholder="Search for..."></input>
 	      							</form> -->
 
-	      							 <form ng-controller="DraftBuddyController" ng-submit="searchPlayer()">
-                				   		 <input type="text" ng-model="playerName" tyle="width:100%" class="form-control" placeholder="Search for player"/>
-              						  </form>
-	      						
-	      						</span>
-	    					</div>
+									<form ng-controller="DraftBuddyController"
+										ng-submit="searchPlayer()">
+										<input type="text" ng-model="playerName" tyle="width:100%"
+											class="form-control" placeholder="Search for player" />
+									</form>
+
+								</span>
+							</div>
 
 
-	    				</div>
-	    				<form ng-controller="DraftBuddyController" class="">
-		    				<div class="col-md-12" style="margin:10px"></div>
-		    				<div class="col-md-3" style="text-align:center"> <h4>QB's</h4>
-	    					<table class="table-bordered">
-		    						<tr>
-											<td>Rank</td>
-											<td>Name</td>
-											<td>Position</td>
-											<td>NFLTeamName</td>
-											<td>InjuryCode</td>
-										</tr>
-										<tr ng-repeat="player in players[1]">
-										<td></td>
-										<td>{{player.Name}}</td>
-										<td>{{player.Position}}</td>
-										<td>{{player.NFLTeamName}}</td>
-										<td>{{player.InjuryCode}}</td>
-									</tr>
-		    					</table>
-		    				</div>
-		    				<div class="col-md-3" style="text-align:center"> <h4>RB's</h4>
-		    					<table class="table-bordered">
+						</div>
+						<form ng-controller="DraftBuddyController" class="">
+							<div class="col-md-12" style="margin: 10px"></div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>QB's</h4>
+								<table class="table-bordered">
 									<tr>
-											<td>Rank</td>
-											<td>Name</td>
-											<td>Position</td>
-											<td>NFLTeamName</td>
-											<td>InjuryCode</td>
-										</tr>
-										<tr ng-repeat="player in players[0]">
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[1]">
 										<td></td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
 										<td>{{player.InjuryCode}}</td>
 									</tr>
-		    					</table>
-		    				</div>
-		    				<div class="col-md-3" style="text-align:center"> <h4>WR's</h4>
-		    					<table class="table-bordered">
-		    						<tr>
-											<td>Rank</td>
-											<td>Name</td>
-											<td>Position</td>
-											<td>NFLTeamName</td>
-											<td>InjuryCode</td>
-										</tr>
-											<tr ng-repeat="player in players[1]">
+								</table>
+							</div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>RB's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[0]">
 										<td></td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
 										<td>{{player.InjuryCode}}</td>
 									</tr>
-		    					</table>
-		    				</div>
-		    				<div class="col-md-3" style="text-align:center"> <h4>TE's</h4>
-		    					<table class="table-bordered">
-		    						<tr>
-											<td>Rank</td>
-											<td>Name</td>
-											<td>Position</td>
-											<td>NFLTeamName</td>
-											<td>InjuryCode</td>
-										</tr>
-										<tr ng-repeat="player in players[2]">
+								</table>
+							</div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>WR's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[1]">
 										<td></td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
 										<td>{{player.InjuryCode}}</td>
 									</tr>
-		    					</table>
-		    				</div>
-		    			</form>
+								</table>
+							</div>
+							<div class="col-md-3" style="text-align: center">
+								<h4>TE's</h4>
+								<table class="table-bordered">
+									<tr>
+										<td>Rank</td>
+										<td>Name</td>
+										<td>Position</td>
+										<td>NFLTeamName</td>
+										<td>InjuryCode</td>
+									</tr>
+									<tr ng-repeat="player in players[2]">
+										<td></td>
+										<td>{{player.Name}}</td>
+										<td>{{player.Position}}</td>
+										<td>{{player.NFLTeamName}}</td>
+										<td>{{player.InjuryCode}}</td>
+									</tr>
+								</table>
+							</div>
+						</form>
 					</div>
 					<div class="tab-pane" id="tab4"></div>
 					<div class="tab-pane" id="tab5">5</div>
 					<div class="tab-pane" id="tab6">6</div>
-					<div class="tab-pane" id="tab7">7</div>
+										<div class="tab-pane" id="tab7">
+						<h3>Smart Rankings</h3>
+						<div ng-controller="SRController">
+							<p>Week:</p>
+							<!-- use the pills when we enhance the UI in iteration 3
+							ul class="nav nav-pills nav-justified">
+								<li ng-repeat="week in weeks"><a href="#w{{week}}">{{week}}</a></li>
+							</ul>
+							item as item.teamName for item in teams track by item.teamID
+							-->
+							<select ng-model="srWeek"
+								ng-options="item as item.week for item in weeks"
+								ng-change="updateSmartRankings(srWeek)">
+								<option value="">Week #</option>
+							</select>
+							<div class="row">
+								<div class="col-md-4"><b>Ranking</b></div>
+								<div class="col-md-4"><b>Team Name</b></div>
+								<div class="col-md-4"><b>FFA Rank Score</b></div>
+							</div>
+							<div class="row" ng-repeat="ranking in smartrankings">
+								<div class="col-md-4">{{ranking.rankScore}}</div>
+								<div class="col-md-4">{{ranking.teamName}}</div>
+								<div class="col-md-4">{{ranking.ffaPoints}}</div>
+							</div>
+						</div>
+					</div>
 					<div class="tab-pane" id="tab8">8</div>
 				</div>
 
@@ -306,7 +343,8 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Angular -->
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script src="/js/dashboard.js"></script>
 </body>
 
