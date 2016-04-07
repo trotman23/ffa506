@@ -40,6 +40,15 @@ public class APIController {
 		return ftj.LeagueTeams(Integer.parseInt(LeagueID));
 		
 	}
+	
+	//Draft Buddy Service
+	@CrossOrigin //fortesting only
+	@RequestMapping(rest + "DraftBuddy")
+	public List<Player> Players(){
+		DraftBuddy draftBuddy = new DraftBuddy();
+		return draftBuddy.Players();
+	}
+	
 	@CrossOrigin //fortesting only
 	@RequestMapping(rest + "FTJ")
 	public boolean FTJ(
