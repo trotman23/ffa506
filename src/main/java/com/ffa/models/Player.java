@@ -8,7 +8,8 @@ public class Player {
 	public String NFLTeamName;
 	public boolean Injured;
 	public int NFLTeam_NFLTeamID;
-	public Player(){
+	public Player(int playerID, String Name, String Position, String NFLTeamName, boolean Injured, int NFLTeam_NFLTeamID){
+		this.PlayerID = playerID;
 		
 	}
 	@Override
