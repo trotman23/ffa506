@@ -70,6 +70,7 @@ myApp.controller('FTJController', function($scope, $http) {
 
 //Draft Buddy Controller
 myApp.controller('DraftBuddyController', function($scope, $http) {
+	$scope.sortType = 'Name'
 	$scope.players =[];
 	$scope.player = "Insult here";
 	$http({
@@ -77,20 +78,9 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		url: './rest/DraftBuddy'
 	}).success(function (result) {
 		$scope.players = result;
+		console.log(result);
 		console.log('success');
 	});
-
-
-	$scope.searchPlayer = function(){
-
-		$scope.playerName = "";
-		var i = 0;
-		angular.forEach($scope.players, function(filterObj , filterKey){
-			console.log('Searching for player:' + $scope.playerName);
-			i++;
-		});
-
-	}
 
 });
 

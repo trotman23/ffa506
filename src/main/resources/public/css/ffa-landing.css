@@ -300,3 +300,7 @@ form .row:first-child .floating-label-form-group {
 .scroll-top .btn:focus {
     outline: 0;
 }
+
+.selected tr {
+  background-color: red;
+}

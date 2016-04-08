@@ -18,14 +18,14 @@ public class DraftBuddy {
 	public int positionRank;
 	public int overallRank;
 	
-	public static List<List<Player>> players = new ArrayList<List<Player>>();
+	public static List<Player> players = new ArrayList<Player>();
 	public static List<Player> wideOuts = new ArrayList<Player>();
 	public static List<Player> quartBacks = new ArrayList<Player>();
 	public static List<Player> runBacks = new ArrayList<Player>();
 	public static List<Player> tightEnds = new ArrayList<Player>();
 	public static List<Player> kickers = new ArrayList<Player>();
 	
-	public static List<List<Player>> Players(){
+	public static List<Player> Players(){
 		Connection pConn = null;
 		Statement pStmt = null;
 		try{
@@ -35,7 +35,7 @@ public class DraftBuddy {
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 	
-			String sql = "SELECT * FROM players ORDER BY position desc";
+			String sql = "SELECT * FROM players ORDER BY position desc"; //eventually make it order by rank
 			ResultSet rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Player player = new Player();
@@ -50,33 +50,34 @@ public class DraftBuddy {
 				player.Position = rs.getString(3);
 				player.PlayerID = rs.getInt(1);
 				player.NFLTeam_NFLTeamID = rs.getInt(6);
+				players.add(player);
 				//add to respective arrays
-				switch(player.Position){
-				case "WR":
-					wideOuts.add(player);
-					break;
-				case "TE":
-					tightEnds.add(player);
-					break;
-				case "QB":
-					quartBacks.add(player);
-					break;
-				case "K":
-					kickers.add(player);
-					break;
-				case "RB":
-					runBacks.add(player);
-					break;
-				default:
-					break;
-				}
+//				switch(player.Position){
+//				case "WR":
+//					wideOuts.add(player);
+//					break;
+//				case "TE":
+//					tightEnds.add(player);
+//					break;
+//				case "QB":
+//					quartBacks.add(player);
+//					break;
+//				case "K":
+//					kickers.add(player);
+//					break;
+//				case "RB":
+//					runBacks.add(player);
+//					break;
+//				default:
+//					break;
+//				}
 			}
 			
-			players.add(quartBacks);
-			players.add(runBacks);
-			players.add(wideOuts);
-			players.add(tightEnds);
-			players.add(kickers);
+//			players.add(quartBacks);
+//			players.add(runBacks);
+//			players.add(wideOuts);
+//			players.add(tightEnds);
+//			players.add(kickers);
 			
 			pConn.close();
 			rs.close();

@@ -42,7 +42,7 @@ public class APIController {
 
 	//Draft Buddy Service
 	@RequestMapping(rest + "DraftBuddy")
-	public List<List<Player>> DraftBuddy(){
+	public List<Player> DraftBuddy(){
 		DraftBuddy draftBuddy = new DraftBuddy();
 		return draftBuddy.Players();
 	}

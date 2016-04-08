@@ -301,6 +301,15 @@
 							<button type="button pull-left" class="btn btn-danger">End
 								Draft</button>
 
+							    <!--   <h3><timer/></h3>
+       							 <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
+       							 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button> -->
+							<!-- <timer interval="1000" class="ng-binding ng-isolate-scope">
+
+								{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer> -->
+        					<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
+       						 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timers</button> -->
+
 
 							<div class="col-md-8 pull-right" style="padding-left: 15px;">
 
@@ -308,11 +317,21 @@
 	      							<input ng-model="player" style="width:100%" type="text" class="form-control" placeholder="Search for..."></input>
 	      							</form> -->
 
-									<form ng-controller="DraftBuddyController"
-										ng-submit="searchPlayer()">
-										<input type="text" ng-model="playerName" tyle="width:100%"
+									<!-- <form ng-controller="DraftBuddyController" ng-submit="searchPlayer()">
+										<input st-search="" type="text" ng-model="playerName" tyle="width:100%"
 											class="form-control" placeholder="Search for player" />
-									</form>
+									</form> -->
+
+									 <form>
+    									<div class="form-group">
+    									  <div class="input-group">
+     									   <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+    									    <input type="text" class="form-control" placeholder="Search players" ng-model="searchPlayer" ng-click="setSelected"></input>
+
+    									  </div>      
+    									</div>
+ 								 	</form>
 
 								</span>
 							</div>
@@ -321,18 +340,45 @@
 						</div>
 						<form ng-controller="DraftBuddyController" class="">
 							<div class="col-md-12" style="margin: 10px"></div>
-							<div class="col-md-3" style="text-align: center">
-								<h4>QB's</h4>
+							<div class="col-md-12" style="text-align: center">
+								<h4>Overall Rankings</h4>
 								<table class="table-bordered">
+								<thead>
 									<tr>
-										<td>Rank</td>
-										<td>Name</td>
-										<td>Position</td>
-										<td>NFLTeamName</td>
-										<td>InjuryCode</td>
+										<td >
+											<a href="#" ng-click="sortType = 'Rank'">
+          									  Rank
+            									<span ng-show="sortType == 'Rank'" class="fa fa-caret-down"></span>
+          									</a>
+										</td>
+										<td >
+											<a href="#" ng-click="sortType = 'Name'">
+												Name
+												<span ng-show="sortType == 'Name'" class="fa fa-caret-down"></span>
+											</a>
+										</td>
+										<td >
+											<a href="#" ng-click="sortType = 'Position'">
+												Position
+												<span ng-show="sortType == 'Position'" class="fa fa-caret-down"></span>
+											</a>
+										</td>
+										<td >
+											<a href="#" ng-click="sortType = 'NFLTeamName'">
+												Team
+												<span ng-show="sortType == 'NFLTeamName'" class="fa fa-caret-down"></span>
+											</a>
+										</td>
+										<td >
+											<a href="#" ng-click="sortType = 'injuryCode'">
+												Injury Update
+												<span ng-show="sortType == 'Injury Update'" class="fa fa-caret-down"></span>
+											</a>
+										</td>
 									</tr>
-									<tr ng-repeat="player in players[0]">
-										<td></td>
+								</thead>
+									<tr ng-click="setSelected()" class="{{selected}}" ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer ">
+										<td> 0 </td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
@@ -340,7 +386,7 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-md-3" style="text-align: center">
+<!-- 							<div class="col-md-3" style="text-align: center">
 								<h4>RB's</h4>
 								<table class="table-bordered">
 									<tr>
@@ -350,7 +396,7 @@
 										<td>NFLTeamName</td>
 										<td>InjuryCode</td>
 									</tr>
-									<tr ng-repeat="player in players[1]">
+									<tr ng-repeat="player in players[1] | filter: searchKeyword ">
 										<td></td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
@@ -369,7 +415,7 @@
 										<td>NFLTeamName</td>
 										<td>InjuryCode</td>
 									</tr>
-									<tr ng-repeat="player in players[2]">
+									<tr ng-repeat="player in players[2] | filter: searchKeyword ">
 										<td></td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
@@ -378,7 +424,7 @@
 									</tr>
 								</table>
 							</div>
-							<div class="col-md-3" style="text-align: center">
+							<div class="col-md-3" style="text-align: center ">
 								<h4>TE's</h4>
 								<table class="table-bordered">
 									<tr>
@@ -388,15 +434,15 @@
 										<td>NFLTeamName</td>
 										<td>InjuryCode</td>
 									</tr>
-									<tr ng-repeat="player in players[3]">
+									<tr ng-repeat="player in players[3] | filter: searchKeyword ">
 										<td></td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
 										<td>{{player.InjuryCode}}</td>
 									</tr>
-								</table>
-							</div>
+								</table> -->
+							<!-- </div> -->
 						</form>
 					</div>
 					<div class="tab-pane" id="tab4">
