@@ -237,7 +237,7 @@ public class TestApplicationTests {
 			assertEquals(testTeam.Losses, 5);
 			assertEquals(testTeam.Wins, 11);
 			assertEquals(testTeam.Ties, 0);
-			assertNotNull(testTeam.toString());
+			
 			System.out.println("Test Viking Team passes");
 		}
 		
