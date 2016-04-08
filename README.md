@@ -11,3 +11,27 @@ Current requirments are:
 To run and deploy simply use <b>mvn spring-boot:run</b> or use a maven build with a goal listed as <b>spring-boot:run</b>
 
 Navagate to localhost:8080/ to view the first iteration landing page
+
+Run in terminal on MAC
+
+1. install homebrew: http://brew.sh/
+2. open command line and run 'brew install maven'
+3. go to project root directory and run: mvn spring-boot:run
+
+
+JUnit Testing
+build tests with @Test reference
+use values like assertNotNull() to check return values of functions
+run specific tests in eclipse by going to run->run as-> JUnit Test
+should show test report
+
+Code Coverage Tool
+...joey has info
+
+
+
+
+
+
+
+

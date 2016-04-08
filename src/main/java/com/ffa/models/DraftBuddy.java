@@ -50,8 +50,6 @@ public class DraftBuddy {
 				player.Position = rs.getString(3);
 				player.PlayerID = rs.getInt(1);
 				player.NFLTeam_NFLTeamID = rs.getInt(6);
-//				players.add(player);
-				
 				//add to respective arrays
 				switch(player.Position){
 				case "WR":
@@ -74,11 +72,11 @@ public class DraftBuddy {
 				}
 			}
 			
+			players.add(quartBacks);
+			players.add(runBacks);
 			players.add(wideOuts);
 			players.add(tightEnds);
-			players.add(quartBacks);
 			players.add(kickers);
-			players.add(runBacks);
 			
 			pConn.close();
 			rs.close();
@@ -98,13 +96,14 @@ public class DraftBuddy {
 		return players;
 	}
 	
-	public static void selectPlayer(int playerID){
-		//remove player from array
-	}
-	
-	public static void addPlayer(int PlayerID){
-		
-		
-	}
+//	public static void selectPlayer(int playerID){
+//		//remove player from array
+//		
+//	}
+//	
+//	public static void addPlayer(int PlayerID){
+//		
+//		
+//	}
 
 }
