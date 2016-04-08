@@ -13,16 +13,18 @@ To run and deploy simply use <b>mvn spring-boot:run</b> or use a maven build wit
 Navagate to localhost:8080/ to view the first iteration landing page
 
 Launching Application:
-	Via Eclipse:
-		1. import project into eclipse (file­>import­>git and add the above link to path)
-		2. Checkout Iteration2 branch
-		3. Right click project directory and select Run As..­>Maven Build… (notice the …)
-		4. In Goals add “spring­boot:run” and select apply
-		5. Open browser and go to localhost:8080/dashboard for main dashboard page
-	Run in terminal on MAC
-		1. install homebrew: http://brew.sh/
-		2. open command line and run 'brew install maven'
-		3. go to project root directory and run: mvn spring-boot:run
+
+Via Eclipse:
+1. import project into eclipse (file­>import­>git and add the above link to path)
+2. Checkout Iteration2 branch
+3. Right click project directory and select Run As..­>Maven Build… (notice the …)
+4. In Goals add “spring­boot:run” and select apply
+5. Open browser and go to localhost:8080/dashboard for main dashboard page
+
+Run in terminal on MAC
+1. install homebrew: http://brew.sh/
+2. open command line and run 'brew install maven'
+3. go to project root directory and run: mvn spring-boot:run
 
 
 JUnit Testing
