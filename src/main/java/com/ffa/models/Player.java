@@ -21,7 +21,7 @@ public class Player {
 		this.Injured = Injured;
 		this.NFLTeam_NFLTeamID = NFLTeam_NFLTeamID;
 	}
-	@Override
+	/*@Override
 	public String toString(){
 		String ts = "";
 		ts += "PlayerID: " + new Integer(this.PlayerID).toString() + "\n";
@@ -32,5 +32,5 @@ public class Player {
 		ts += "NFLTeam_NFL_TeamID: " + new Integer(this.NFLTeam_NFLTeamID).toString() + "\n";
 		
 		return ts;
-	}
+	}*/
 }

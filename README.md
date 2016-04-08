@@ -26,9 +26,12 @@ run specific tests in eclipse by going to run->run as-> JUnit Test
 should show test report
 
 Code Coverage Tool
-...joey has info
-
-
+ 1. Used EclEmma inside eclipese: http://eclemma.org
+ 2. Downloaded using Install New software tool inside eclipse
+ 3. Clicked coverage run on tool bar
+ 4. Selected "Run all tests in the selected project, package or source folder
+ 5. Added directory: src/test/java/com.ffa package
+ 6. Select Coverage
 
 
 
