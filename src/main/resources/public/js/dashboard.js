@@ -224,3 +224,52 @@ myApp.controller('INSULTController', function($scope, $http) {
 
 });
 
+
+myApp.controller('PollsController', function($scope, $http){
+	$scope.weeks = [{"week": 1},
+	                {"week": 2},
+	                {"week": 3},
+	                {"week": 4},
+	                {"week": 5},
+	                {"week": 6},
+	                {"week": 7},
+	                {"week": 8},
+	                {"week": 9},
+	                {"week": 10},
+	                {"week": 11},
+	                {"week": 12},
+	                {"week": 13},
+	                {"week": 14},
+	                {"week": 15},
+	                {"week": 16},
+	                {"week": 17}];
+	$scope.ranks = [{"rank": 1},
+	                {"rank": 2},
+	                {"rank": 3},
+	                {"rank": 4},
+	                {"rank": 5},
+	                {"rank": 6},
+	                {"rank": 7},
+	                {"rank": 8},
+	                {"rank": 9},
+	                {"rank": 10},
+	                {"rank": 11},
+	                {"rank": 12}];
+	$http({
+		method: 'GET',
+		url: './rest/LeagueTeams?LeagueID=1682132'
+	}).success(function (result) {
+		$scope.teams = result;
+	});
+	
+	$scope.submitPoll = function(week, ranks){
+		console.log("in submit poll");
+		$http({
+			method: 'POST',
+			url: './rest/InsertPoll?LeagueID=1682132&WeekID='
+		}).success(function (result) {
+			$scope.teams = result;
+		});
+	}
+});
+

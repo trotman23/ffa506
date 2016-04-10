@@ -1,6 +1,10 @@
 package com.ffa.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ffa.models.*;
@@ -68,9 +72,6 @@ public class APIController {
 		
 	}
 
-	
-
-
 	@RequestMapping(rest + "LeagueInsult")
 	public   Map<String,String> LeagueInsult(
 			@RequestParam(value = "TeamID", defaultValue = "1") String TeamID
@@ -107,7 +108,18 @@ public class APIController {
 		CompositeRankings cr = new CompositeRankings();
 		return cr.getCompositeRankings(Integer.parseInt(LeagueID), Integer.parseInt(Week));	
 	}
-	
+	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.POST)
+	public boolean InsertPoll(
+			@RequestBody List<Poll> p
+			){
+		if(PollHelper.pollExists(p)){
+			return false;
+		} else {
+			PollHelper.insertPoll(p);
+			return true;
+		}
+		
+	}
 	
 
 }

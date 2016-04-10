@@ -465,6 +465,44 @@
 					</div>
 					<div class="tab-pane" id="tab6">
 						<h3>League Poll</h3>
+						<div ng-controller="PollsController">
+						<select ng-model="pWeek"
+								ng-options="item as item.week for item in weeks"
+								ng-change="changeWeek(pWeek)">
+								<option value="">Week #</option>
+						</select>
+						<div class="row">
+							<div class="col-md-4">
+								<h4>Rank</h4>
+							</div>
+							<div class="col-md-4">
+								<h4>Team Name</h4>
+							</div>
+							<div class="col-md-4">
+								<h4>Team Owner</h4>
+							</div>
+						</div>
+						<div class="row" ng-repeat="team in teams" ng-model="pRanks">
+							<div class="col-md-4">
+								<select ng-model="pRank"
+								ng-options="item as item.rank for item in ranks" >
+								<option value="">Rank</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								{{team.teamName}}
+							</div>
+							<div class="col-md-4">
+								Owner (figure out later)
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<input type="button" ng-click="submitPoll(pWeek, pRank)" value="submit poll"></input>
+							</div>
+						</div>
+						
+						</div>
 					</div>
 					<div class="tab-pane" id="tab7">
 						<h3>Smart Rankings</h3>
