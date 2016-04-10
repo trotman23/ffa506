@@ -108,7 +108,7 @@ public class APIController {
 		CompositeRankings cr = new CompositeRankings();
 		return cr.getCompositeRankings(Integer.parseInt(LeagueID), Integer.parseInt(Week));	
 	}
-	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.POST)
+	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.PUT)
 	public boolean InsertPoll(
 			@RequestBody List<Poll> p
 			){

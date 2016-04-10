@@ -57,15 +57,14 @@
 							class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
 					<li><a href="top-performers"><i
 							class="fa fa-fw fa-bar-chart-o"></i> Top Performers</a></li>
-					<li><a href="fantasy-news"><i
-							class="fa fa-newspaper-o"></i> Fantasy News</a></li>
+					<li><a href="fantasy-news"><i class="fa fa-newspaper-o"></i>
+							Fantasy News</a></li>
 					<li><a href="javascript:;" data-toggle="collapse"
 						data-target="#demo"><i class="fa fa-fw fa-wrench"></i> Fantasy
 							Tools <i class="fa fa-fw fa-caret-down"></i></a></li>
-					<li><a href="help"><i class="fa fa-question"></i>
-							Help</a></li>
-					<li><a href="request-feature"><i
-							class="fa fa-fw fa-edit"></i> Request Feature</a></li>
+					<li><a href="help"><i class="fa fa-question"></i> Help</a></li>
+					<li><a href="request-feature"><i class="fa fa-fw fa-edit"></i>
+							Request Feature</a></li>
 					<li><a href="report-bug"><i
 							class="fa fa-exclamation-triangle"></i>WReport Bug</a></li>
 				</ul>
@@ -85,8 +84,7 @@
 								help you gain the advantage)</small>
 						</h1>
 						<ol class="breadcrumb">
-							<li><i class="fa fa-dashboard"></i> <a href="../">Home</a>
-							</li>
+							<li><i class="fa fa-dashboard"></i> <a href="../">Home</a></li>
 							<li class="active"><i class="fa fa-fw fa-wrench"></i>
 								Fantasy Tools</li>
 						</ol>
@@ -301,13 +299,13 @@
 							<button type="button pull-left" class="btn btn-danger">End
 								Draft</button>
 
-							    <!--   <h3><timer/></h3>
+							<!--   <h3><timer/></h3>
        							 <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
        							 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button> -->
 							<!-- <timer interval="1000" class="ng-binding ng-isolate-scope">
 
 								{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer> -->
-        					<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
+							<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
        						 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timers</button> -->
 
 
@@ -315,23 +313,25 @@
 
 								<span> <!-- <form ng-submit="search(playerName)">
 	      							<input ng-model="player" style="width:100%" type="text" class="form-control" placeholder="Search for..."></input>
-	      							</form> -->
-
-									<!-- <form ng-controller="DraftBuddyController" ng-submit="searchPlayer()">
+	      							</form> --> <!-- <form ng-controller="DraftBuddyController" ng-submit="searchPlayer()">
 										<input st-search="" type="text" ng-model="playerName" tyle="width:100%"
 											class="form-control" placeholder="Search for player" />
 									</form> -->
 
-									 <form>
-    									<div class="form-group">
-    									  <div class="input-group">
-     									   <div class="input-group-addon"><i class="fa fa-search"></i></div>
+									<form>
+										<div class="form-group">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-search"></i>
+												</div>
 
-    									    <input type="text" class="form-control" placeholder="Search players" ng-model="searchPlayer" ng-click="setSelected"></input>
+												<input type="text" class="form-control"
+													placeholder="Search players" ng-model="searchPlayer"
+													ng-click="setSelected"></input>
 
-    									  </div>      
-    									</div>
- 								 	</form>
+											</div>
+										</div>
+									</form>
 
 								</span>
 							</div>
@@ -343,42 +343,31 @@
 							<div class="col-md-12" style="text-align: center">
 								<h4>Overall Rankings</h4>
 								<table class="table-bordered">
-								<thead>
-									<tr>
-										<td >
-											<a href="#" ng-click="sortType = 'Rank'">
-          									  Rank
-            									<span ng-show="sortType == 'Rank'" class="fa fa-caret-down"></span>
-          									</a>
-										</td>
-										<td >
-											<a href="#" ng-click="sortType = 'Name'">
-												Name
-												<span ng-show="sortType == 'Name'" class="fa fa-caret-down"></span>
-											</a>
-										</td>
-										<td >
-											<a href="#" ng-click="sortType = 'Position'">
-												Position
-												<span ng-show="sortType == 'Position'" class="fa fa-caret-down"></span>
-											</a>
-										</td>
-										<td >
-											<a href="#" ng-click="sortType = 'NFLTeamName'">
-												Team
-												<span ng-show="sortType == 'NFLTeamName'" class="fa fa-caret-down"></span>
-											</a>
-										</td>
-										<td >
-											<a href="#" ng-click="sortType = 'injuryCode'">
-												Injury Update
-												<span ng-show="sortType == 'Injury Update'" class="fa fa-caret-down"></span>
-											</a>
-										</td>
-									</tr>
-								</thead>
-									<tr ng-click="setSelected()" class="{{selected}}" ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer ">
-										<td> 0 </td>
+									<thead>
+										<tr>
+											<td><a href="#" ng-click="sortType = 'Rank'"> Rank
+													<span ng-show="sortType == 'Rank'" class="fa fa-caret-down"></span>
+											</a></td>
+											<td><a href="#" ng-click="sortType = 'Name'"> Name
+													<span ng-show="sortType == 'Name'" class="fa fa-caret-down"></span>
+											</a></td>
+											<td><a href="#" ng-click="sortType = 'Position'">
+													Position <span ng-show="sortType == 'Position'"
+													class="fa fa-caret-down"></span>
+											</a></td>
+											<td><a href="#" ng-click="sortType = 'NFLTeamName'">
+													Team <span ng-show="sortType == 'NFLTeamName'"
+													class="fa fa-caret-down"></span>
+											</a></td>
+											<td><a href="#" ng-click="sortType = 'injuryCode'">
+													Injury Update <span ng-show="sortType == 'Injury Update'"
+													class="fa fa-caret-down"></span>
+											</a></td>
+										</tr>
+									</thead>
+									<tr ng-click="setSelected()" class="{{selected}}"
+										ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer ">
+										<td>0</td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
@@ -386,7 +375,7 @@
 									</tr>
 								</table>
 							</div>
-<!-- 							<div class="col-md-3" style="text-align: center">
+							<!-- 							<div class="col-md-3" style="text-align: center">
 								<h4>RB's</h4>
 								<table class="table-bordered">
 									<tr>
@@ -466,42 +455,41 @@
 					<div class="tab-pane" id="tab6">
 						<h3>League Poll</h3>
 						<div ng-controller="PollsController">
-						<select ng-model="pWeek"
+							<select ng-model="pWeek"
 								ng-options="item as item.week for item in weeks"
-								ng-change="changeWeek(pWeek)">
+								ng-change="updateWeeks(pWeek)">
 								<option value="">Week #</option>
-						</select>
-						<div class="row">
-							<div class="col-md-4">
-								<h4>Rank</h4>
+							</select>
+							<div class="row">
+								<div class="col-md-4">
+									<h4>Rank</h4>
+								</div>
+								<div class="col-md-4">
+									<h4>Team Name</h4>
+								</div>
+								<div class="col-md-4">
+									<h4>Team Owner</h4>
+								</div>
 							</div>
-							<div class="col-md-4">
-								<h4>Team Name</h4>
+							<div class="rankContainer" ng-model="pRanks">
+								<div class="row" ng-repeat="team in teams">
+									<div class="col-md-4">
+										<select ng-model="pRank"
+											ng-options="item as item.rank for item in ranks">
+											<option value="">Rank</option>
+										</select>
+									</div>
+									<div class="col-md-4">{{team.teamName}}</div>
+									<div class="col-md-4">Owner (figure out later)</div>
+								</div>
 							</div>
-							<div class="col-md-4">
-								<h4>Team Owner</h4>
+							<div class="row">
+								<div class="col-md-12">
+									<input type="button" ng-click="submitPoll(pWeek, pRanks)"
+										value="submit poll"></input>
+								</div>
 							</div>
-						</div>
-						<div class="row" ng-repeat="team in teams" ng-model="pRanks">
-							<div class="col-md-4">
-								<select ng-model="pRank"
-								ng-options="item as item.rank for item in ranks" >
-								<option value="">Rank</option>
-								</select>
-							</div>
-							<div class="col-md-4">
-								{{team.teamName}}
-							</div>
-							<div class="col-md-4">
-								Owner (figure out later)
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<input type="button" ng-click="submitPoll(pWeek, pRank)" value="submit poll"></input>
-							</div>
-						</div>
-						
+
 						</div>
 					</div>
 					<div class="tab-pane" id="tab7">

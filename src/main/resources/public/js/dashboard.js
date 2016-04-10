@@ -255,6 +255,7 @@ myApp.controller('PollsController', function($scope, $http){
 	                {"rank": 10},
 	                {"rank": 11},
 	                {"rank": 12}];
+	$scope.pRanks = [];
 	$http({
 		method: 'GET',
 		url: './rest/LeagueTeams?LeagueID=1682132'
@@ -265,11 +266,17 @@ myApp.controller('PollsController', function($scope, $http){
 	$scope.submitPoll = function(week, ranks){
 		console.log("in submit poll");
 		$http({
-			method: 'POST',
-			url: './rest/InsertPoll?LeagueID=1682132&WeekID='
+			method: 'PUT',
+			url: './rest/InsertPoll',
+			data: ranks
 		}).success(function (result) {
 			$scope.teams = result;
 		});
+	}
+	
+	$scope.updateWeeks = function(week){
+		var temp = $scope.weeks.indexOf(week);
+		console.log(temp);
 	}
 });
 
