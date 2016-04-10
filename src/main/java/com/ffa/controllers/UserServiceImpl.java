@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
  
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +17,10 @@ import com.ffa.models.User;
 @Transactional
 public class UserServiceImpl implements UserService{
      
-    private static final AtomicLong counter = new AtomicLong();
     private static List<User> users = new ArrayList<User>();
     
     public List<User> findAllUsers() {
+    	users.clear();
     	users = populateUsersFromDB();
     	return users;
     }
@@ -36,12 +35,49 @@ public class UserServiceImpl implements UserService{
     }
      
     public User findByEmail(String email) {
-        for(User user : users){
-            if(user.getEmail().equalsIgnoreCase(email)){
-                return user;
-            }
-        }
-        return null;
+    	Connection pConn = null;
+		Statement pStmt = null;
+		
+		User user = new User();
+		int id = 0;
+		String name = "";
+		String emailCopy = "";
+		String password = "";
+		
+		try{
+
+			Class.forName("com.mysql.jdbc.Driver");
+			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
+			//select on team name, given team id
+
+			String sql = "SELECT * FROM users WHERE Email = " + "\"" + email + "\";";
+			System.out.println(sql);
+			ResultSet rs = pStmt.executeQuery(sql);
+			if (!rs.next()) {
+				return null;
+			}
+			else {
+				id = rs.getInt(1);
+				name = rs.getString(2);
+				emailCopy = rs.getString(3);
+				password = rs.getString(4);
+				System.out.println(id + " " + name + " " + emailCopy);
+				pConn.close();
+				rs.close();
+			}
+
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+
+		}
+		user.setId(id);
+		user.setName(name);
+		user.setPassword(password);
+		user.setEmail(emailCopy);
+		
+		return user;
     }
      
     public void saveUser(User user) {
@@ -89,9 +125,6 @@ public class UserServiceImpl implements UserService{
 				  String name = rs.getString("name");
 				  String email = rs.getString("email");
 				  String password = rs.getString("password");
-				  
-				  System.out.print(id + " " + email + " " + password);
-				  System.out.println();
 
 				  //Assuming you have a user object
 				  User user = new User(id, name, email, password);
@@ -122,9 +155,10 @@ public class UserServiceImpl implements UserService{
 			pStmt.setString(1, user.getName());
 		    pStmt.setString(2, user.getEmail());
 		    pStmt.setString(3, user.getPassword());
-		    pStmt.execute();
+		    pStmt.executeUpdate();
 		    
 			pConn.close();
+			pStmt.close();
 
 		} catch (Exception e){
 			e.printStackTrace();

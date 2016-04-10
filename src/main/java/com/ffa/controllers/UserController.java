@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
  
@@ -38,8 +39,8 @@ public class UserController {
      
     //-------------------Retrieve Single User--------------------------------------------------------
       
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("id") int id) {
+    @RequestMapping(value = "/user", params = "userID", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUser(@RequestParam("userID") int id) {
         System.out.println("Fetching User with id " + id);
         User user = userService.findById(id);
         if (user == null) {
@@ -48,7 +49,40 @@ public class UserController {
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
+    
+  //-------------------Retrieve Single User By Email--------------------------------------------------------
+    
+    @RequestMapping(value = "/user", params = "emailID", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserByEmail(@RequestParam("emailID") String email) {
+        System.out.println("Fetching User with email " + email);
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            System.out.println("User with email " + email + " not found");
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
   
+  //-------------------Authenticate User (without encryption)--------------------------------------------------------
+    
+    @RequestMapping(value = "/user/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<Void> authenticateUser(@RequestParam("emailID") String email, @RequestParam("passwordID") String password) {
+    	System.out.println("Autheticating User with email " + email);
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            System.out.println("User with email " + email + " not found");
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        
+        
+        if (!user.getPassword().equals(password)) {
+        	return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+        }
+        else {
+        	HttpHeaders headers = new HttpHeaders();
+        	return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        }
+    }
       
       
     //-------------------Create a User--------------------------------------------------------
@@ -58,7 +92,7 @@ public class UserController {
         System.out.println("Creating User " + user.getEmail());
   
         if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getEmail() + " already exist");
+            System.out.println("A User with name " + user.getEmail() + " already exists");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
   
@@ -71,7 +105,7 @@ public class UserController {
   
      
       
-    //------------------- Update a User --------------------------------------------------------
+    //-------------------Update a User--------------------------------------------------------
       
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
@@ -92,7 +126,7 @@ public class UserController {
   
      
      
-    //------------------- Delete a User --------------------------------------------------------
+    //-------------------Delete a User--------------------------------------------------------
       
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteUser(@PathVariable("id") int id) {
@@ -110,7 +144,7 @@ public class UserController {
   
       
      
-    //------------------- Delete All Users --------------------------------------------------------
+    //-------------------Delete All Users--------------------------------------------------------
       
     @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteAllUsers() {

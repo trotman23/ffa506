@@ -15,31 +15,10 @@
  
         return service;
  
-        function Login(email, password, callback) {
- 
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-             ----------------------------------------------*/
-            $timeout(function () {
-                var response;
-                UserService.GetByEmail(email)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
-                            response = { success: true };
-                        } else {
-                            response = { success: false, message: 'Email or password is incorrect' };
-                        }
-                        callback(response);
-                    });
-            }, 1000);
- 
-            /* Use this for real authentication
-             ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
- 
+        function Login(email, password) {
+            return $http.post('/user/authenticate?emailID=' + email + "&passwordID=" + password).then(handleSuccess, handleError('Error authenticating user'));
         }
+        
  
         function SetCredentials(email, password) {
             var authdata = Base64.encode(email + ':' + password);
@@ -59,6 +38,18 @@
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
+        }
+        
+     // private functions
+        
+        function handleSuccess(res) {
+            return res;
+        }
+ 
+        function handleError(error) {
+            return function () {
+                return { success: false, message: error };
+            };
         }
     }
  

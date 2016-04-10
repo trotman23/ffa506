@@ -1,12 +1,11 @@
 (function () {
     'use strict';
-    console.log("cunt");
     angular
         .module('app')
-        .controller('UserController', UserController);
+        .controller('HomeController', HomeController);
 
-    UserController.$inject = ['UserService', '$rootScope'];
-    function UserController(UserService, $rootScope) {
+    HomeController.$inject = ['UserService', '$rootScope'];
+    function HomeController(UserService, $rootScope) {
         var vm = this;
 
         vm.user = null;
@@ -17,22 +16,12 @@
 
         function initController() {
             loadCurrentUser();
-            loadAllUsers();
         }
-        
-        /*
+       
         function loadCurrentUser() {
             UserService.GetByEmail($rootScope.globals.currentUser.email)
                 .then(function (user) {
-                    vm.user = user;
-                });
-        }
-        */
-
-        function loadAllUsers() {
-            UserService.GetAll()
-                .then(function (users) {
-                    vm.allUsers = users;
+                    vm.user = user.data;
                 });
         }
 

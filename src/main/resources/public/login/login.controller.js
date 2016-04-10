@@ -18,8 +18,8 @@
 
         function login() {
             vm.dataLoading = true;
-            AuthenticationService.Login(vm.email, vm.password, function (response) {
-                if (response.success) {
+            AuthenticationService.Login(vm.email, vm.password).then( function (response) {
+                if (response.status == "201") {
                     AuthenticationService.SetCredentials(vm.email, vm.password);
                     $location.path('/');
                 } else {
