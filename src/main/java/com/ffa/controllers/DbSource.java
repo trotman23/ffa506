@@ -14,15 +14,19 @@ public final class DbSource {
 
 	private static final DbSource INSTANCE = new DbSource();
 	
-	private static ComboPooledDataSource DATA_SOURCE;
+	private static ComboPooledDataSource dataSource;
 	
 	private DbSource() {
-		DATA_SOURCE = new ComboPooledDataSource();
+		dataSource = new ComboPooledDataSource();
 		try {
-			DATA_SOURCE.setDriverClass("com.mysql.jdbc.Driver");
-			DATA_SOURCE.setJdbcUrl("jdbc:mysql://aaxd0xqcmiqmgi.c0fxx6pghrju.us-west-2.rds.amazonaws.com/ffadb");
-			DATA_SOURCE.setUser("master");
-			DATA_SOURCE.setPassword("eric2mad");
+			dataSource.setDriverClass("com.mysql.jdbc.Driver");
+			dataSource.setJdbcUrl("jdbc:mysql://aaxd0xqcmiqmgi.c0fxx6pghrju.us-west-2.rds.amazonaws.com/ffadb");
+			dataSource.setUser("master");
+			dataSource.setPassword("eric2mad");
+			dataSource.setMaxPoolSize(1000);
+			dataSource.setMinPoolSize(10);
+			dataSource.setAcquireIncrement(10);
+			
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
@@ -34,7 +38,7 @@ public final class DbSource {
 
 	@Bean
 	public static ComboPooledDataSource getDataSource() {
-		return DATA_SOURCE;
+		return dataSource;
 	}
 	
 }
