@@ -1,13 +1,10 @@
 package com.ffa.controllers;
 
 import java.beans.PropertyVetoException;
-import java.sql.SQLException;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.mysql.jdbc.Connection;
 
 @Component
 public final class DbSource {
@@ -26,6 +23,9 @@ public final class DbSource {
 			dataSource.setMaxPoolSize(1000);
 			dataSource.setMinPoolSize(10);
 			dataSource.setAcquireIncrement(10);
+			dataSource.setTestConnectionOnCheckin(true);
+			dataSource.setIdleConnectionTestPeriod(300);
+			dataSource.setMaxIdleTimeExcessConnections(240);
 			
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
