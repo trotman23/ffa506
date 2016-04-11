@@ -1,31 +1,31 @@
 DashboardController.$inject = ['UserService', '$rootScope'];
 function DashboardController(UserService, $rootScope) {
-    var vm = this;
+	var vm = this;
 
-    vm.user = null;
-    vm.allUsers = [];
-    vm.deleteUser = deleteUser;
+	vm.user = null;
+	vm.allUsers = [];
+	vm.deleteUser = deleteUser;
 
-    initController();
+	initController();
 
-    function initController() {
-        loadCurrentUser();
-        
-    }
-   
-    function loadCurrentUser() {
-        UserService.GetByEmail($rootScope.globals.currentUser.email)
-            .then(function (user) {
-                vm.user = user.data;
-            });
-    }
+	function initController() {
+		loadCurrentUser();
 
-    function deleteUser(id) {
-        UserService.Delete(id)
-        .then(function () {
-            loadAllUsers();
-        });
-    }
+	}
+
+	function loadCurrentUser() {
+		UserService.GetByEmail($rootScope.globals.currentUser.email)
+		.then(function (user) {
+			vm.user = user.data;
+		});
+	}
+
+	function deleteUser(id) {
+		UserService.Delete(id)
+		.then(function () {
+			loadAllUsers();
+		});
+	}
 }
 
 FTJController.$inject = ['$scope', '$http'];
@@ -102,7 +102,7 @@ function FTJController($scope, $http) {
 DraftBuddyController.$inject = ['$scope', '$http'];
 function DraftBuddyController($scope, $http) {
 	$scope.sortType = 'Name'
-	$scope.players =[];
+		$scope.players =[];
 	$scope.player = "Insult here";
 	$http({
 		method: 'GET',
@@ -136,20 +136,29 @@ function SRController($scope, $http, $rootScope, UserService){
 	                {"week": 16},
 	                {"week": 17}];
 	console.log($rootScope.globals.currentUser.id);
-	var temp = UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id);
-	console.log(temp);
-	$http({
-		method: 'GET',
-		url: './rest/SmartRank?LeagueID=' + UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id) + '&Week=1'
-	}).then(function (result){
-		$scope.smartrankings = result.data;
-		console.log($scope.smartrankings);
+	UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
+		$scope.tempLeagueID = data;
 	});
+	$scope.$watch('tempLeagueID', function (cast) {
+		// When $scope.tempLeagueID  has data, then run these functions
+		if (angular.isDefined(cast)) {          
+			console.log("$scope.tempLeagueID has data");
+			console.log("$scope.tempLeagueID" + $scope.tempLeagueID);
+			$http({
+				method: 'GET',
+				url: './rest/SmartRank?LeagueID=' + $scope.tempLeagueID + '&Week=1'
+			}).then(function (result){
+				$scope.smartrankings = result.data;
+				console.log("$scope.smartrankings: " + $scope.smartrankings);
+			});
+		}
+	});
+
 	$scope.updateSmartRankings = function(week){
 		console.log(week);
 		$http({
 			method: 'GET',
-			url: './rest/SmartRank?LeagueID=' + UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id) + '&Week=' + week.week
+			url: './rest/SmartRank?LeagueID=' + $scope.teampLeagueID + '&Week=' + week.week
 		}).then(function (result){
 			$scope.smartrankings = result.data;
 		});
@@ -263,5 +272,5 @@ function INSULTController($scope, $http) {
 
 
 jQuery(function () {
-    jQuery('#list a:last').tab('show');
+	jQuery('#list a:last').tab('show');
 })

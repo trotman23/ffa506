@@ -39,15 +39,9 @@
         }
         
         function GetLeagueIDFromUser(id){
-        	$http({
-        		method: 'GET',
-        		url: '/user/getLeagueIDFromUser?UserID=' + id
-        	}).then(function (result){
-        		console.log(result.data);
-        		console.log(result.data[0]);
-        		console.log(result.data[0].LeagueID);
-        		return result.data[0].LeagueID;
-        	});
+        	return $http.get('/user/getLeagueIDFromUser?UserID=' + id).then(function (result) {
+                return result.data[0].LeagueID;
+            });
         }
         /*
         function Delete(id) {
