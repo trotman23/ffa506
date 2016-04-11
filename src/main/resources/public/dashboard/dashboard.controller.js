@@ -257,3 +257,8 @@ function INSULTController($scope, $http) {
 	}
 
 }
+
+
+jQuery(function () {
+    jQuery('#list a:last').tab('show');
+})

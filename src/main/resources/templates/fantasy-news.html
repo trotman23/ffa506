@@ -1,131 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-
-<title>FFA Fantasy News</title>
-
-<!-- Bootstrap Core CSS -->
-<link href="/css/bootstrap.min.css" rel="stylesheet" />
-
-<!-- Custom CSS -->
-<link href="/css/sb-admin.css" rel="stylesheet" />
-
-<!-- Custom CSS -->
-<link href="/css/dashboard.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body ng-app="RSSFeedApp">
-	<div id="wrapper">
-
-		<!-- Navigation -->
-		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-
-			<!-- This will make the navbar when the screen size changes or is smaller -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-ex1-collapse">
-
-					<!-- This will create the three bars (like a menu) for the nav button -->
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="../">FFA Home</a>
-			</div>
-
-			<!-- Account Settings -->
-			<ul class="nav navbar-right top-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
-						class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#"><i class="fa fa-fw fa-user"></i> Account</a></li>
-						<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li>
-						<li class="divider"></li>
-						<li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log
-								Out</a></li>
-					</ul></li>
-			</ul>
-
-			<!-- Menu Items - These collapse to the responsive navigation menu on small screens -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav side-nav">
-					<li><a href="/dashboard"><i class="fa fa-fw fa-dashboard"></i>
-							Dashboard</a></li>
-					<li><a href="top-performers"><i
-							class="fa fa-fw fa-bar-chart-o"></i> Top Performers</a></li>
-					<li class="active"><a href="fantasy-news"><i
-							class="fa fa-newspaper-o"></i> Fantasy News</a></li>
-					<li><a href="/dashboard" data-toggle="collapse"
-						data-target="#demo"><i class="fa fa-fw fa-wrench"></i> Fantasy
-							Tools <i class="fa fa-fw fa-caret-down"></i></a></li>
-					<li><a href="help"><i class="fa fa-question"></i> Help</a></li>
-					<li><a href="request-feature"><i class="fa fa-fw fa-edit"></i>
-							Request Feature</a></li>
-					<li><a href="report-bug">Report Bug</a></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</nav>
-
-		<div id="page-wrapper" style="padding-top:50px">
-
-			<div class="container-fluid">
-				<div data-ng-controller="FeedCtrl">
-					<div class="row">
-						<h1>Fantasy News Feed Reader</h1>
-						<form>
-							<div class="col-md-12">
-								<div class="btn-group">
-									<button class="btn btn-info" type="button" tabindex="-1">{{loadButonText}}</button>
-									<button class="btn btn-info dropdown-toggle"
-										data-toggle="dropdown" tabindex="-1">
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a href="#" ng-click="feedSrc='http://espn.go.com/espn/rss/nfl/news';loadFeed($event)">ESPN NFL Headlines</a></li>
-										<li><a href="#" ng-click="feedSrc='http://espn.go.com/espnradio/feeds/rss/podcast.xml?id=2942325';loadFeed($event)">ESPN Fantasy Focus Podcast</a></li>
-										<li><a href="#" ng-click="feedSrc='http://www.nfl.com/rss/rsslanding?searchString=home';loadFeed($event)">NFL.com Top Headlines</a></li>
-										<li><a href="#" ng-click="feedSrc='http://www.nfl.com/rss/rsslanding?searchString=gamehighlightsVideo';loadFeed($event)">NFL.com Game Highlights</a></li>
-										<li><a href="#" ng-click="feedSrc='http://www.cbssports.com/partners/feeds/rss/football_fantasy_news';loadFeed($event)">CBS Sports Fantasy News</a></li>
-										<li><a href="#" ng-click="feedSrc='http://feeds.feedburner.com/FFToolboxFantasyFootballUpdates';loadFeed($event)">Scout.com Fantasy Headlines</a></li>
-									</ul>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<span class="add-on"><i class="icon-search"></i></span>Search: <input type="text" data-ng-model="filterText" />
-									<span class="badge badge-warning" ng-show="feeds.length > 0">{{(feeds | filter:filterText).length}} Items</span>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="row" ng-repeat="feed in feeds | filter:filterText">
-						<div class="col-md-12">
-							<h5><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h5>
-							<p>{{feed.contentSnippet}}</p>
-							<span>{{feed.publishedDate}}</span>
-							<hr />
-						</div>
+<div class="container-fluid">
+	<div data-ng-controller="FeedCtrl">
+		<div class="row">
+			<h1>Fantasy News Feed Reader</h1>
+			<form>
+				<div class="col-md-12">
+					<div class="btn-group">
+						<button class="btn btn-info" type="button" tabindex="-1">{{loadButonText}}</button>
+						<button class="btn btn-info dropdown-toggle"
+							data-toggle="dropdown" tabindex="-1">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#"
+								ng-click="feedSrc='http://espn.go.com/espn/rss/nfl/news';loadFeed($event)">ESPN
+									NFL Headlines</a></li>
+							<li><a href="#"
+								ng-click="feedSrc='http://espn.go.com/espnradio/feeds/rss/podcast.xml?id=2942325';loadFeed($event)">ESPN
+									Fantasy Focus Podcast</a></li>
+							<li><a href="#"
+								ng-click="feedSrc='http://www.nfl.com/rss/rsslanding?searchString=home';loadFeed($event)">NFL.com
+									Top Headlines</a></li>
+							<li><a href="#"
+								ng-click="feedSrc='http://www.nfl.com/rss/rsslanding?searchString=gamehighlightsVideo';loadFeed($event)">NFL.com
+									Game Highlights</a></li>
+							<li><a href="#"
+								ng-click="feedSrc='http://www.cbssports.com/partners/feeds/rss/football_fantasy_news';loadFeed($event)">CBS
+									Sports Fantasy News</a></li>
+							<li><a href="#"
+								ng-click="feedSrc='http://feeds.feedburner.com/FFToolboxFantasyFootballUpdates';loadFeed($event)">Scout.com
+									Fantasy Headlines</a></li>
+						</ul>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="add-on"><i
+							class="icon-search"></i></span>Search: <input type="text"
+							data-ng-model="filterText" /> <span class="badge badge-warning"
+							ng-show="feeds.length > 0">{{(feeds |
+							filter:filterText).length}} Items</span>
 					</div>
 				</div>
-			</div>
-			<!-- /.container-fluid -->
-
+			</form>
 		</div>
-		<!-- /#page-wrapper -->
-
+		<div class="row" ng-repeat="feed in feeds | filter:filterText">
+			<div class="col-md-12">
+				<h5>
+					<a target="_blank" href="{{feed.link}}">{{feed.title}}</a>
+				</h5>
+				<p>{{feed.contentSnippet}}</p>
+				<span>{{feed.publishedDate}}</span>
+				<hr />
+			</div>
+		</div>
 	</div>
-	<!-- /#wrapper -->
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Angular -->
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
-	<script src="js/rss.js"></script>
-</body>
-
-</html>
+</div>
+<!-- /.container-fluid -->
