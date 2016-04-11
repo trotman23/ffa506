@@ -1,8 +1,16 @@
 package com.ffa.models;
 
+import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import com.ffa.controllers.DbSource;
 
 import java.sql.*;
+import java.util.*;
 
 public class NFLTeam {
 	public int NFLTeamID;
@@ -14,16 +22,17 @@ public class NFLTeam {
 	public NFLTeam(int id){
 		this.NFLTeamID = id;
 		Connection pConn = null;
-		PreparedStatement pStmt = null;
+		Statement pStmt = null;
 		try{
+
+			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
-			String sql = "SELECT * FROM nflteam WHERE NFLTeamID = ?;";
+			String sql = "SELECT * FROM nflteam WHERE NFLTeamID = " + id + ";";
 			System.out.println(sql);
-			pStmt = pConn.prepareStatement(sql);
-			pStmt.setInt(1, id);
-			ResultSet rs = pStmt.executeQuery();
+			ResultSet rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				this.NFLTeamName = rs.getString(2);
 				this.Wins = rs.getInt(3);
@@ -54,5 +63,4 @@ public class NFLTeam {
 		return teamString;
 	}
 }
-
 

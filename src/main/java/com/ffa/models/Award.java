@@ -63,26 +63,21 @@ public class Award {
 		this.Week = w;
 		//probably a better more OOP way of doing this, but for simplicity's sake i'm just going to calculate all of the weekly awards in the constructor
 		Connection conn1 = null;
-		PreparedStatement stmt1 = null;
+		Statement stmt1 = null;
 		
 		//top weekly overall score
 		try{
 			conn1 = DbSource.getDataSource().getConnection();
+			stmt1 = conn1.createStatement();
 
 			String sql = "SELECT MAX(sumPoints), maxpoints.TeamName, maxpoints.userName " + 
 						"FROM (SELECT SUM(FantasyPointsScore) as sumPoints, TeamName, u.Name as userName FROM weeklyscores ws " + 
 						"JOIN roster r ON r.Players_PlayerID = ws.Players_PlayerID " + 
 						"JOIN teams t ON t.FFATeamId = r.Teams_FFATeamId " + 
 						"JOIN users u ON u.UserID = t.Users_UserID " +
-						"WHERE r.WeekID = ? AND ws.Week = ? AND r.Starter = true AND r.Teams_Leagues_LeagueID = ? GROUP BY r.Teams_FFATeamID) as maxpoints";
+						"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + l + " GROUP BY r.Teams_FFATeamID) as maxpoints;";
 			System.out.println(sql);
-			stmt1 = conn1.prepareStatement(sql);
-			
-			stmt1.setInt(1, w);
-			stmt1.setInt(2, w);
-			stmt1.setInt(3, l);
-			
-			ResultSet rs = stmt1.executeQuery();
+			ResultSet rs = stmt1.executeQuery(sql);
 			while(rs.next()){
 				this.topOverallScore = rs.getInt(1);
 				this.topOverallScoreTeam = rs.getString(2);
@@ -97,10 +92,11 @@ public class Award {
 		
 		//top scorer for individual person
 		Connection conn2 = null;
-		PreparedStatement stmt2 = null;
+		Statement stmt2 = null;
 		
 		try{
 			conn2 = DbSource.getDataSource().getConnection();
+			stmt2 = conn2.createStatement();
 
 			String sql ="SELECT MAX(ws.FantasyPointsScore), p.Name, u.Name,  t.TeamName " +
 						"FROM weeklyscores ws " + 
@@ -108,15 +104,9 @@ public class Award {
 						"JOIN teams t ON t.FFATeamId = r.Teams_FFATeamId " + 
 						"JOIN users u ON u.UserID = t.Users_UserID " + 
 						"JOIN players p ON p.PlayerID = ws.Players_PlayerID " + 
-						"WHERE r.WeekID = ? AND ws.Week = ? AND r.Starter = true AND r.Teams_Leagues_LeagueID = ?;";
+						"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + l + ";";
 			System.out.println(sql);
-			stmt2 = conn2.prepareStatement(sql);
-			
-			stmt2.setInt(1, w);
-			stmt2.setInt(2, w);
-			stmt2.setInt(3, l);
-			
-			ResultSet rs = stmt2.executeQuery();
+			ResultSet rs = stmt2.executeQuery(sql);
 			while(rs.next()){
 				this.topScorerPlayerPoints = rs.getInt(1);
 				this.topScorerPlayerName = rs.getString(2);
@@ -132,9 +122,10 @@ public class Award {
 		
 		//most bench points left on the bench by entire bench
 		Connection conn3 = null;
-		PreparedStatement stmt3 = null;
+		Statement stmt3 = null;
 		try{
 			conn3 = DbSource.getDataSource().getConnection();
+			stmt3 = conn3.createStatement();
 			//select on team name, given team id
 
 			String sql = "SELECT MAX(sumPoints), minpoints.TeamName, minpoints.userName " + 
@@ -142,15 +133,9 @@ public class Award {
 					"JOIN roster r ON r.Players_PlayerID = ws.Players_PlayerID " + 
 					"JOIN teams t ON t.FFATeamId = r.Teams_FFATeamId " + 
 					"JOIN users u ON u.UserID = t.Users_UserID " +
-					"WHERE r.WeekID = ? AND ws.Week = ? AND r.Starter = false AND r.Teams_Leagues_LeagueID = ? GROUP BY r.Teams_FFATeamID) as minpoints;";
+					"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = false AND r.Teams_Leagues_LeagueID = " + l + " GROUP BY r.Teams_FFATeamID) as minpoints;";
 			System.out.println(sql);
-			stmt3 = conn3.prepareStatement(sql);
-			
-			stmt3.setInt(1, w);
-			stmt3.setInt(2, w);
-			stmt3.setInt(3, l);
-			
-			ResultSet rs = stmt3.executeQuery();
+			ResultSet rs = stmt3.executeQuery(sql);
 			while(rs.next()){
 				this.mostBenchPoints = rs.getInt(1);
 				this.mostBenchPointsTeam = rs.getString(2);
@@ -165,10 +150,11 @@ public class Award {
 		
 		//most points left on the bench by one player
 		Connection conn4 = null;
-		PreparedStatement stmt4 = null;
+		Statement stmt4 = null;
 		
 		try{
 			conn4 = DbSource.getDataSource().getConnection();
+			stmt4 = conn4.createStatement();
 
 			String sql ="SELECT MAX(ws.FantasyPointsScore), p.Name, u.Name,  t.TeamName " +
 						"FROM weeklyscores ws " + 
@@ -176,15 +162,9 @@ public class Award {
 						"JOIN teams t ON t.FFATeamId = r.Teams_FFATeamId " + 
 						"JOIN users u ON u.UserID = t.Users_UserID " + 
 						"JOIN players p ON p.PlayerID = ws.Players_PlayerID " + 
-						"WHERE r.WeekID = ? AND ws.Week = ? AND r.Starter = false AND r.Teams_Leagues_LeagueID = ?;";
+						"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = false AND r.Teams_Leagues_LeagueID = " + l + ";";
 			System.out.println(sql);
-			stmt4 = conn4.prepareStatement(sql);
-			
-			stmt4.setInt(1, w);
-			stmt4.setInt(2, w);
-			stmt4.setInt(3, l);
-			
-			ResultSet rs = stmt4.executeQuery();
+			ResultSet rs = stmt4.executeQuery(sql);
 			while(rs.next()){
 				this.mostBenchPointsIndividualPlayerPoints = rs.getInt(1);
 				this.mostBenchPointsIndividualPlayerName = rs.getString(2);

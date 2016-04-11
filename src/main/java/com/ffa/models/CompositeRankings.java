@@ -1,6 +1,5 @@
 package com.ffa.models;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
@@ -34,10 +33,11 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		//iterating through the weeks, this will be painfully slow, but i can't think of a
 		//better way to write the SQL right now, so i'm just going for it
 		Connection conn = null;
-		PreparedStatement stmt = null;
+		Statement stmt = null;
 		int score = 0;
 		try {
 			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
 			String sql ="SELECT SUM(FantasyPointsScore), TeamName, u.Name, t.FFATeamID FROM weeklyscores ws " +
 					"JOIN roster r ON r.Players_PlayerID = ws.Players_PlayerID " + 
 					"JOIN teams t ON t.FFATeamId = r.Teams_FFATeamId " + 
@@ -45,13 +45,7 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 					"WHERE r.WeekID = " + Week + " AND ws.Week = " + Week + " "+  
 					"AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + LeagueID + " " +
 					"GROUP BY r.Teams_FFATeamID;";
-			stmt = conn.prepareStatement(sql);
-			
-			stmt.setInt(1, Week);
-			stmt.setInt(2, Week);
-			stmt.setInt(3, LeagueID);
-			
-			ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()){
 				CompositeRankings cr = new CompositeRankings();
@@ -101,12 +95,9 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		int numTeams = 12;
 		try{
 			Connection conn = DbSource.getDataSource().getConnection();
-			String sql = "SELECT COUNT(FFATeamID) FROM teams WHERE Leagues_LeagueID = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, LeagueID);
-			
+			Statement stmt = conn.createStatement();
+			String sql = "SELECT COUNT(FFATeamID) FROM teams WHERE Leagues_LeagueID = " + LeagueID;
 			ResultSet rs = stmt.executeQuery(sql);
-
 			while (rs.next()){
 				numTeams = rs.getInt(1);
 			}
@@ -115,7 +106,7 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		for (int a = 0; a < numTeams; a++){
+		for (int a = 0; a <12; a++){
 			CompositeRankings temp = new CompositeRankings();
 			lcr.add(temp);
 		}

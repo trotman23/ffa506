@@ -155,12 +155,23 @@ function SRController($scope, $http, $rootScope, UserService){
 	});
 
 	$scope.updateSmartRankings = function(week){
+		UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
+			$scope.tempLeagueID = data;
+		});
 		console.log(week);
-		$http({
-			method: 'GET',
-			url: './rest/SmartRank?LeagueID=' + $scope.teampLeagueID + '&Week=' + week.week
-		}).then(function (result){
-			$scope.smartrankings = result.data;
+		$scope.$watch('tempLeagueID', function (cast) {
+			// When $scope.tempLeagueID  has data, then run these functions
+			if (angular.isDefined(cast)) {          
+				console.log("$scope.tempLeagueID has data");
+				console.log("$scope.tempLeagueID" + $scope.tempLeagueID);
+				$http({
+					method: 'GET',
+					url: './rest/SmartRank?LeagueID=' + $scope.tempLeagueID + '&Week=' + week.week
+				}).then(function (result){
+					$scope.smartrankings = result.data;
+					console.log("$scope.smartrankings: " + $scope.smartrankings);
+				});
+			}
 		});
 	};
 }
