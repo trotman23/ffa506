@@ -1,6 +1,6 @@
 package com.ffa.controllers;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -65,22 +65,21 @@ public class UserController {
   
   //-------------------Authenticate User (without encryption)--------------------------------------------------------
     
-    @RequestMapping(value = "/user/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<Void> authenticateUser(@RequestParam("emailID") String email, @RequestParam("passwordID") String password) {
+    @RequestMapping(value = "/user/authenticate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> authenticateUser(@RequestParam("emailID") String email, @RequestParam("passwordID") String password) {
     	System.out.println("Autheticating User with email " + email);
         User user = userService.findByEmail(email);
         if (user == null) {
             System.out.println("User with email " + email + " not found");
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
         
-        
         if (!user.getPassword().equals(password)) {
-        	return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+        	return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }
         else {
         	HttpHeaders headers = new HttpHeaders();
-        	return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        	return new ResponseEntity<User>(user, HttpStatus.CREATED);
         }
     }
       
@@ -152,6 +151,14 @@ public class UserController {
   
         userService.deleteAllUsers();
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    }
+    
+    // ------------------------- Get leaugeID from user id------------------------
+    
+    @RequestMapping(value = "/user/getLeagueIDFromUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getLeagueIDFromUser(@RequestParam (value="UserID") String UserID ){
+    	System.out.println("asdasda");
+    	return "[{\"LeagueID\": \"" + UserServiceImpl.getLeagueIDFromUser(Integer.parseInt(UserID)) + "\"}]";
     }
   
 }

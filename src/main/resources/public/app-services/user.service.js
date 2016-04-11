@@ -15,7 +15,7 @@
         service.Create = Create;
         service.Update = Update;
         //service.Delete = Delete;
- 
+        service.GetLeagueIDFromUser = GetLeagueIDFromUser;
         return service;
  
         function GetAll() {
@@ -38,8 +38,16 @@
             return $http.put('/user/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
         
-        function GetLeagueID(user){
-        	return $http.get('user/' + user.id).then(handleSuccess, handleError('Error getting leagueID from userid'));
+        function GetLeagueIDFromUser(id){
+        	$http({
+        		method: 'GET',
+        		url: '/user/getLeagueIDFromUser?UserID=' + id
+        	}).then(function (result){
+        		console.log(result.data);
+        		console.log(result.data[0]);
+        		console.log(result.data[0].LeagueID);
+        		return result.data[0].LeagueID;
+        	});
         }
         /*
         function Delete(id) {

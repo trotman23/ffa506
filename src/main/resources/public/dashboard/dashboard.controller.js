@@ -116,8 +116,8 @@ function DraftBuddyController($scope, $http) {
 }
 
 //smart ranking controller
-SRController.$inject = ['$scope', '$http'];
-function SRController($scope, $http){
+SRController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
+function SRController($scope, $http, $rootScope, UserService){
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -135,10 +135,12 @@ function SRController($scope, $http){
 	                {"week": 15},
 	                {"week": 16},
 	                {"week": 17}];
-	
+	console.log($rootScope.globals.currentUser.id);
+	var temp = UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id);
+	console.log(temp);
 	$http({
 		method: 'GET',
-		url: './rest/SmartRank?LeagueID=' + $rootScope.globals.currentUser.getLeagueID + '1682132&Week=1'
+		url: './rest/SmartRank?LeagueID=' + UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id) + '&Week=1'
 	}).then(function (result){
 		$scope.smartrankings = result.data;
 		console.log($scope.smartrankings);
@@ -147,7 +149,7 @@ function SRController($scope, $http){
 		console.log(week);
 		$http({
 			method: 'GET',
-			url: './rest/SmartRank?LeagueID=' + $rootScope.globals.currentUser.getLeagueID() + '&Week=' + week.week
+			url: './rest/SmartRank?LeagueID=' + UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id) + '&Week=' + week.week
 		}).then(function (result){
 			$scope.smartrankings = result.data;
 		});

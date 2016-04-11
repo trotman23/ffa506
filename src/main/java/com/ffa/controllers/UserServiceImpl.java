@@ -166,4 +166,28 @@ public class UserServiceImpl implements UserService{
 			users.add(user);
 		}
     }
+
+	public static String getLeagueIDFromUser(int UserID) {
+		Connection conn = null;
+		Statement stmt = null;
+		String LeagueID = "";
+		try{
+			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
+			String sql = "SELECT DISTINCT ESPNLeagueID FROM users u, leagues_has_users lhu, leagues l " +
+						"WHERE u.UserID = " + UserID + ";";
+			System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				int temp = rs.getInt(1);
+				LeagueID = Integer.toString(temp);
+			}
+			conn.close();
+			stmt.close();
+			rs.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return LeagueID;
+	}
 }
