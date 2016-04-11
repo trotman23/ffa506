@@ -224,3 +224,22 @@ myApp.controller('INSULTController', function($scope, $http) {
 
 });
 
+
+myApp.controller('WavierController', function($scope, $http) {
+	//$scope.outputInsult =null;
+	$scope.positions =[{"position" : "QB"},{"position" : "RB"},{ "position": "WR"},{"position":"TE"},{"position":"K"}];
+	$scope.players= null;
+
+	$scope.getFreeAgents = function(selectedPos){
+		$http({
+			method: 'GET',
+			url: './rest/WavierWireAid?Position=' +selectedPos.position 
+		}).then(function (result) {
+			console.log(result.data);
+			$scope.players=result.data;
+		});
+	}
+
+});
+
+
