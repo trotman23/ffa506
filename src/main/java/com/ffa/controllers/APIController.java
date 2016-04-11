@@ -109,5 +109,15 @@ public class APIController {
 	}
 	
 	
+	@RequestMapping(rest + "WavierWireAid")
+	public List<Player> WavierWireAid(
+			@RequestParam(value="Position", defaultValue = "QB") String Position
+			){
+
+			FreeAgents fa = new FreeAgents();
+			return fa.getTopFA(Position);
+	}
+	
+	
 
 }
