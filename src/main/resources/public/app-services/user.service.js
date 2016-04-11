@@ -37,6 +37,10 @@
         function Update(user) {
             return $http.put('/user/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
+        
+        function GetLeagueID(user){
+        	return $http.get('user/' + user.id).then(handleSuccess, handleError('Error getting leagueID from userid'));
+        }
         /*
         function Delete(id) {
             return $http.delete('/ffa/user/' + id).then(handleSuccess, handleError('Error deleting user'));

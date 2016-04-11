@@ -135,9 +135,10 @@ function SRController($scope, $http){
 	                {"week": 15},
 	                {"week": 16},
 	                {"week": 17}];
+	
 	$http({
 		method: 'GET',
-		url: './rest/SmartRank?LeagueID=1682132&Week=1'
+		url: './rest/SmartRank?LeagueID=' + $rootScope.globals.currentUser.getLeagueID + '1682132&Week=1'
 	}).then(function (result){
 		$scope.smartrankings = result.data;
 		console.log($scope.smartrankings);
@@ -146,7 +147,7 @@ function SRController($scope, $http){
 		console.log(week);
 		$http({
 			method: 'GET',
-			url: './rest/SmartRank?LeagueID=1682132&Week=' + week.week
+			url: './rest/SmartRank?LeagueID=' + $rootScope.globals.currentUser.getLeagueID() + '&Week=' + week.week
 		}).then(function (result){
 			$scope.smartrankings = result.data;
 		});
