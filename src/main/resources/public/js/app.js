@@ -10,8 +10,8 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                controller: 'HomeController',
-                templateUrl: 'home/home.view.html',
+                controller: 'DashboardController',
+                templateUrl: 'dashboard/dashboard.view.html/',
                 controllerAs: 'vm'
             })
 
@@ -47,5 +47,4 @@
             }
         });
     }
-
 })();
