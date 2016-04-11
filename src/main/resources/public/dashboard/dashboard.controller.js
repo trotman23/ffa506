@@ -1,5 +1,35 @@
-var myApp = angular.module('myApp',[]);
-myApp.controller('FTJController', function($scope, $http) {
+DashboardController.$inject = ['UserService', '$rootScope'];
+function DashboardController(UserService, $rootScope) {
+    var vm = this;
+
+    vm.user = null;
+    vm.allUsers = [];
+    vm.deleteUser = deleteUser;
+
+    initController();
+
+    function initController() {
+        loadCurrentUser();
+        
+    }
+   
+    function loadCurrentUser() {
+        UserService.GetByEmail($rootScope.globals.currentUser.email)
+            .then(function (user) {
+                vm.user = user.data;
+            });
+    }
+
+    function deleteUser(id) {
+        UserService.Delete(id)
+        .then(function () {
+            loadAllUsers();
+        });
+    }
+}
+
+FTJController.$inject = ['$scope', '$http'];
+function FTJController($scope, $http) {
 	$scope.list1 = 'Select Team 1';
 	$scope.list2 = 'Select Team 2';
 	//$scope.selectedTeam = null;
@@ -66,10 +96,11 @@ myApp.controller('FTJController', function($scope, $http) {
 		$scope.players2 = s;
 		console.log($scope.players2);
 	};
-});
+}
 
 //Draft Buddy Controller
-myApp.controller('DraftBuddyController', function($scope, $http) {
+DraftBuddyController.$inject = ['$scope', '$http'];
+function DraftBuddyController($scope, $http) {
 	$scope.sortType = 'Name'
 	$scope.players =[];
 	$scope.player = "Insult here";
@@ -82,10 +113,11 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		console.log('success');
 	});
 
-});
+}
 
 //smart ranking controller
-myApp.controller("SRController", function($scope, $http){
+SRController.$inject = ['$scope', '$http'];
+function SRController($scope, $http){
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -119,12 +151,12 @@ myApp.controller("SRController", function($scope, $http){
 			$scope.smartrankings = result.data;
 		});
 	};
-});
+}
 
 
 //awards controller
-
-myApp.controller("AwardsController", function($scope, $http){
+AwardsController.$inject = ['$scope', '$http'];
+function AwardsController($scope, $http){
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -159,9 +191,10 @@ myApp.controller("AwardsController", function($scope, $http){
 			$scope.awards = result.data;
 		});
 	};
-});
+}
 
-myApp.controller("CPController", function($scope, $http){
+CPController.$inject = ['$scope', '$http'];
+function CPController($scope, $http){
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -196,9 +229,10 @@ myApp.controller("CPController", function($scope, $http){
 			console.log(result.data);
 		});
 	};
-});
+}
 
-myApp.controller('INSULTController', function($scope, $http) {
+INSULTController.$inject = ['$scope', '$http'];
+function INSULTController($scope, $http) {
 	$scope.list = 'Select Team';
 	$scope.teams = [];
 	$scope.outputInsult =null;
@@ -222,5 +256,4 @@ myApp.controller('INSULTController', function($scope, $http) {
 		});
 	}
 
-});
-
+}

@@ -17,11 +17,6 @@ public class LandingPageController {
 		return "signin";
 	}
 	
-	@RequestMapping("/dashboard")
-	public String dashboard(Model model){
-		return "dashboard";
-	}
-	
 	@RequestMapping("/LandingPage")
 	public String LandingPage(Model model){
 		return "LandingPage";

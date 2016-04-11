@@ -14,17 +14,17 @@ public class APIController {
 	private static final String rest = "/rest/";
 	
 	@RequestMapping(rest + "NFLTeam")
-    public NFLTeam team(@RequestParam(value="TeamID", defaultValue = "1") String id) {
+    public NFLTeam team(@RequestParam(value="TeamID") String id) {
         return new NFLTeam(Integer.parseInt(id));
     }
 	
 
 	@RequestMapping(rest + "Roster")
 	public List<Roster> roster(
-			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
-			@RequestParam(value = "TeamID", defaultValue = "1") String TeamID,
-			@RequestParam(value = "Week", defaultValue = "1") String Week,
-			@RequestParam(value = "Year", defaultValue = "1") String Year
+			@RequestParam(value="LeagueID") String LeagueID,
+			@RequestParam(value = "TeamID") String TeamID,
+			@RequestParam(value = "Week") String Week,
+			@RequestParam(value = "Year") String Year
 			) {
 		Roster r = new Roster();
 		return r.getRoster(LeagueID, TeamID, Week, Year);
