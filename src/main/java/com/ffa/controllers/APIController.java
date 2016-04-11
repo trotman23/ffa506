@@ -1,6 +1,8 @@
 package com.ffa.controllers;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ffa.models.*;
@@ -117,7 +119,18 @@ public class APIController {
 			FreeAgents fa = new FreeAgents();
 			return fa.getTopFA(Position);
 	}
-	
+	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.PUT)
+	public boolean InsertPoll(
+			@RequestBody List<Poll> p
+			){
+		if(PollHelper.pollExists(p)){
+			return false;
+		} else {
+			PollHelper.insertPoll(p);
+			return true;
+		}
+		
+	}
 	
 
 }
