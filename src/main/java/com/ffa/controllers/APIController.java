@@ -14,12 +14,12 @@ import java.util.*;
 public class APIController {
 
 	private static final String rest = "/rest/";
-	
+
 	@RequestMapping(rest + "NFLTeam")
-    public NFLTeam team(@RequestParam(value="TeamID") String id) {
-        return new NFLTeam(Integer.parseInt(id));
-    }
-	
+	public NFLTeam team(@RequestParam(value="TeamID") String id) {
+		return new NFLTeam(Integer.parseInt(id));
+	}
+
 
 	@RequestMapping(rest + "Roster")
 	public List<Roster> roster(
@@ -59,7 +59,7 @@ public class APIController {
 		int temp2 = Integer.parseInt(PlayerID2);
 		return ftj.isFair(Integer.parseInt(PlayerID1), Integer.parseInt(PlayerID2));
 	}
-	
+
 	@RequestMapping(rest + "SmartRank")
 	public List<SmartRankings> SmartRank(
 			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
@@ -67,10 +67,10 @@ public class APIController {
 			){
 		SmartRankings sr = new SmartRankings();
 		return sr.getSmartRankingsList(Integer.parseInt(LeagueID), Integer.parseInt(Week));
-		
+
 	}
 
-	
+
 
 
 	@RequestMapping(rest + "LeagueInsult")
@@ -109,16 +109,18 @@ public class APIController {
 		CompositeRankings cr = new CompositeRankings();
 		return cr.getCompositeRankings(Integer.parseInt(LeagueID), Integer.parseInt(Week));	
 	}
-	
-	
+
+
 	@RequestMapping(rest + "WavierWireAid")
 	public List<Player> WavierWireAid(
 			@RequestParam(value="Position", defaultValue = "QB") String Position
 			){
 
-			FreeAgents fa = new FreeAgents();
-			return fa.getTopFA(Position);
+		FreeAgents fa = new FreeAgents();
+		return fa.getTopFA(Position);
 	}
+
+
 	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.PUT)
 	public boolean InsertPoll(
 			@RequestBody List<Poll> p
@@ -129,8 +131,8 @@ public class APIController {
 			PollHelper.insertPoll(p);
 			return true;
 		}
-		
+
 	}
-	
+
 
 }

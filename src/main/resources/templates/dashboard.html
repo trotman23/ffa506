@@ -375,8 +375,8 @@
 									</tr>
 								</table>
 							</div>
-							
-							
+
+
 							<!-- 	COMMMENTED OUT FOR NOW, MAY ADD LATER			
 							
 							
@@ -531,9 +531,9 @@
 									ng-change="getFreeAgents(selectedPos)">
 									<option value="">Select Position</option>
 								</select>
-								<div ng-repeat="player in players" class="row">
+								<div ng-repeat="player in players">
 									<div class="col-md-1">&nbsp;</div>
-									<div class="col-md-2">{{$index+1}}.&nbsp;{{player.Name}}</div>
+									<div class="col">{{$index+1}}.&nbsp;{{player.Name}}</div>
 								</div>
 							</div>
 						</div>
