@@ -28,9 +28,8 @@ public class DraftBuddy {
 //	public static void main (String [] args){
 //		
 //		Players();
-//		
 //	}
-	
+//	
 	public static List<Player> Players(){
 		Connection pConn = null;
 		Statement pStmt = null;
@@ -47,7 +46,13 @@ public class DraftBuddy {
 				Player player = new Player();
 				player.OverallRank = rs.getString(7);
 				player.Name = rs.getString(2);
-				player.NFLTeamName = rs.getString(4);
+
+				if (rs.getString(4).equals("null")){
+					player.NFLTeamName = "Free Agent";
+				} else {
+					player.NFLTeamName = rs.getString(4);
+				}
+				
 				if (rs.getInt(5) == 0){
 					player.Injured = true;
 				} else {
@@ -58,8 +63,8 @@ public class DraftBuddy {
 				player.NFLTeam_NFLTeamID = rs.getInt(6);
 				players.add(player);
 				System.out.println(player);
+				
 			}
-		
 			
 			pConn.close();
 			rs.close();
