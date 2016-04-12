@@ -28,5 +28,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/resources/templates/index.html"/>
+	<classpathentry kind="lib" path="src/main/resources/templates/help.html"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
