@@ -83,16 +83,21 @@
 
 
 			<ul class="nav nav-pills" id="list">
-				<li class="active"><a data-target="#tab0"data-toggle="tab">Tools Home</a></li>
-				<li><a data-target="#tab1" data-toggle="tab">Fair Trade Judge</a></li>
+				<li class="active"><a data-target="#tab0" data-toggle="tab">Tools
+						Home</a></li>
+				<li><a data-target="#tab1" data-toggle="tab">Fair Trade
+						Judge</a></li>
 				<li><a data-target="#tab2" data-toggle="tab">Awards</a></li>
 				<li><a data-target="#tab3" data-toggle="tab">Draft Buddy</a></li>
 				<li><a data-target="#tab4" data-toggle="tab">Add A League</a></li>
-				<li><a data-target="#tab5" data-toggle="tab">Insult Generator</a></li>
+				<li><a data-target="#tab5" data-toggle="tab">Insult
+						Generator</a></li>
 				<li><a data-target="#tab6" data-toggle="tab">League Poll</a></li>
 				<li><a data-target="#tab7" data-toggle="tab">Smart Rankings</a></li>
-				<li><a data-target="#tab8" data-toggle="tab">Composite Rankings</a></li>
-				<li><a data-target="#tab9" data-toggle="tab">Waiver Wire Pickup Aid</a></li>
+				<li><a data-target="#tab8" data-toggle="tab">Composite
+						Rankings</a></li>
+				<li><a data-target="#tab9" data-toggle="tab">Waiver Wire
+						Pickup Aid</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab0">
@@ -439,44 +444,44 @@
 
 				</div>
 				<div class="tab-pane" id="tab6">
-											<h3>League Poll</h3>
-						<div ng-controller="PollsController">
-							<select ng-model="pWeek"
-								ng-options="item as item.week for item in weeks"
-								ng-change="updateWeeks(pWeek)">
-								<option value="">Week #</option>
-							</select>
-							<div class="row">
-								<div class="col-md-4">
-									<h4>Rank</h4>
-								</div>
-								<div class="col-md-4">
-									<h4>Team Name</h4>
-								</div>
-								<div class="col-md-4">
-									<h4>Team Owner</h4>
-								</div>
+					<h3>League Poll</h3>
+					<div ng-controller="PollsController">
+						<select ng-model="pWeek"
+							ng-options="item as item.week for item in weeks"
+							ng-change="updateWeeks(pWeek)">
+							<option value="">Week #</option>
+						</select>
+						<div class="row">
+							<div class="col-md-4">
+								<h4>Rank</h4>
 							</div>
-							<div class="rankContainer" ng-model="pRanks">
-								<div class="row" ng-repeat="team in teams">
-									<div class="col-md-4">
-										<select ng-model="pRank"
-											ng-options="item as item.rank for item in ranks">
-											<option value="">Rank</option>
-										</select>
-									</div>
-									<div class="col-md-4">{{team.teamName}}</div>
-									<div class="col-md-4">Owner (figure out later)</div>
-								</div>
+							<div class="col-md-4">
+								<h4>Team Name</h4>
 							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<input type="button" ng-click="submitPoll(pWeek, pRanks)"
-										value="submit poll"></input>
-								</div>
+							<div class="col-md-4">
+								<h4>Team Owner</h4>
 							</div>
-
 						</div>
+						<div class="rankContainer" ng-model="pRanks">
+							<div class="row" ng-repeat="team in teams">
+								<div class="col-md-4">
+									<select ng-model="pRank"
+										ng-options="item as item.rank for item in ranks">
+										<option value="">Rank</option>
+									</select>
+								</div>
+								<div class="col-md-4">{{team.teamName}}</div>
+								<div class="col-md-4">Owner (figure out later)</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<input type="button" ng-click="submitPoll(pWeek, pRanks)"
+									value="submit poll"></input>
+							</div>
+						</div>
+
+					</div>
 				</div>
 				<div class="tab-pane" id="tab7">
 					<h3>Smart Rankings</h3>
@@ -540,8 +545,21 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane" id="tab8">
+				<div class="tab-pane" id="tab9">
 					<h3>Waiver Wire Pickup</h3>
+					<div ng-controller="WavierController" class="teamWrapper">
+						<div class="team" style="float: left;">
+							<select ng-model="selectedPos"
+								ng-options="item as item.position for item in positions"
+								ng-change="getFreeAgents(selectedPos)">
+								<option value="">Select Position</option>
+							</select>
+							<div ng-repeat="player in players" class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">{{$index+1}}.&nbsp;{{player.Name}}</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
