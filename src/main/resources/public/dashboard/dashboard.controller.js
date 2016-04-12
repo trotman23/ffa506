@@ -112,7 +112,7 @@ function DraftBuddyController($scope, $http, $rootScope, UserService) {
 		console.log(result);
 	});
 
-	#scope.players = [];
+	$scope.players = [];
 
 }
 
@@ -280,14 +280,15 @@ function INSULTController($scope, $http) {
 		});
 	}
 
-}
+};
 
 
 jQuery(function () {
 	jQuery('#list a:last').tab('show');
 });
 
-myApp.controller('PollsController', function($scope, $http){
+PollsController.$inject = ['$scope', '$http'];
+function PollsController($scope, $http) {
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -340,5 +341,5 @@ myApp.controller('PollsController', function($scope, $http){
 		var temp = $scope.weeks.indexOf(week);
 		console.log(temp);
 	}
-});
+};
 
