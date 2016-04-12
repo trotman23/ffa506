@@ -8,23 +8,26 @@ public class Player {
 	public String NFLTeamName;
 	public boolean Injured;
 	public int NFLTeam_NFLTeamID;
+	public String OverallRank;
 	
 	public Player(){
 
 	}
 	
-	public Player(int playerID, String Name, String Position, String NFLTeamName, boolean Injured, int NFLTeam_NFLTeamID){
+	public Player(int playerID, String Name, String Position, String NFLTeamName, boolean Injured, int NFLTeam_NFLTeamID, String OverallRank){
 		this.PlayerID = playerID;
 		this.Name = Name;
 		this.Position = Position;
 		this.NFLTeamName = NFLTeamName;
 		this.Injured = Injured;
 		this.NFLTeam_NFLTeamID = NFLTeam_NFLTeamID;
+		this.OverallRank = OverallRank;
 	}
 	@Override
 	public String toString(){
 		String ts = "";
 		ts += "PlayerID: " + new Integer(this.PlayerID).toString() + "\n";
+		ts += "Rank: " + this.OverallRank +"\n";
 		ts += "Name: " + this.Name + "\n";
 		ts += "Position: " + this.Position + "\n";
 		ts += "NFLTeamName: " + this.NFLTeamName + "\n";

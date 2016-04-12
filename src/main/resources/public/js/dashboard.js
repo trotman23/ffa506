@@ -72,7 +72,7 @@ myApp.controller('FTJController', function($scope, $http) {
 myApp.controller('DraftBuddyController', function($scope, $http) {
 	$scope.sortType = 'Name'
 	$scope.players =[];
-	$scope.player = "Insult here";
+	
 	$http({
 		method: 'GET',
 		url: './rest/DraftBuddy'
@@ -82,6 +82,7 @@ myApp.controller('DraftBuddyController', function($scope, $http) {
 		console.log('success');
 	});
 
+	$scope.players = [];
 });
 
 //smart ranking controller
@@ -202,7 +203,6 @@ myApp.controller('INSULTController', function($scope, $http) {
 	$scope.list = 'Select Team';
 	$scope.teams = [];
 	$scope.outputInsult =null;
-
 
 	$http({
 		method: 'GET',
