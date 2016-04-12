@@ -22,6 +22,11 @@ public class LandingPageController {
 		return "LandingPage";
 	}
 	
+	@RequestMapping("/main")
+	public String DashMain(Model model){
+		return "main";
+	}
+	
 	@RequestMapping("/fantasy-news")
 	public String fantasyNews(){
 		return "fantasy-news";

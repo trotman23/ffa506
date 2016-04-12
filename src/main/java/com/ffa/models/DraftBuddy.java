@@ -25,6 +25,12 @@ public class DraftBuddy {
 	public static List<Player> tightEnds = new ArrayList<Player>();
 	public static List<Player> kickers = new ArrayList<Player>();
 	
+//	public static void main (String [] args){
+//		
+//		Players();
+//		
+//	}
+	
 	public static List<Player> Players(){
 		Connection pConn = null;
 		Statement pStmt = null;
@@ -35,10 +41,11 @@ public class DraftBuddy {
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 	
-			String sql = "SELECT * FROM players ORDER BY position desc"; //eventually make it order by rank
+			String sql = "select * from players order by overallrank asc;"; //eventually make it order by rank
 			ResultSet rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Player player = new Player();
+				player.OverallRank = rs.getString(7);
 				player.Name = rs.getString(2);
 				player.NFLTeamName = rs.getString(4);
 				if (rs.getInt(5) == 0){
@@ -46,38 +53,13 @@ public class DraftBuddy {
 				} else {
 					player.Injured = false;
 				}
-				
 				player.Position = rs.getString(3);
 				player.PlayerID = rs.getInt(1);
 				player.NFLTeam_NFLTeamID = rs.getInt(6);
 				players.add(player);
-				//add to respective arrays
-//				switch(player.Position){
-//				case "WR":
-//					wideOuts.add(player);
-//					break;
-//				case "TE":
-//					tightEnds.add(player);
-//					break;
-//				case "QB":
-//					quartBacks.add(player);
-//					break;
-//				case "K":
-//					kickers.add(player);
-//					break;
-//				case "RB":
-//					runBacks.add(player);
-//					break;
-//				default:
-//					break;
-//				}
+				System.out.println(player);
 			}
-			
-//			players.add(quartBacks);
-//			players.add(runBacks);
-//			players.add(wideOuts);
-//			players.add(tightEnds);
-//			players.add(kickers);
+		
 			
 			pConn.close();
 			rs.close();

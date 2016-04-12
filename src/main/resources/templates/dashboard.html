@@ -366,8 +366,8 @@
 										</tr>
 									</thead>
 									<tr ng-click="setSelected()" class="{{selected}}"
-										ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer ">
-										<td>0</td>
+										ng-repeat="player in players | orderBy: {{player.OverallRank}} sortType:sortReverse | filter:searchPlayer ">
+										<td>12341</td>
 										<td>{{player.Name}}</td>
 										<td>{{player.Position}}</td>
 										<td>{{player.NFLTeamName}}</td>
@@ -375,7 +375,12 @@
 									</tr>
 								</table>
 							</div>
-							<!-- 							<div class="col-md-3" style="text-align: center">
+							
+							
+							<!-- 	COMMMENTED OUT FOR NOW, MAY ADD LATER			
+							
+							
+										<div class="col-md-3" style="text-align: center">
 								<h4>RB's</h4>
 								<table class="table-bordered">
 									<tr>
