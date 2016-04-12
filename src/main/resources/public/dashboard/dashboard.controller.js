@@ -101,7 +101,7 @@ function FTJController($scope, $http) {
 //Draft Buddy Controller
 DraftBuddyController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
 function DraftBuddyController($scope, $http, $rootScope, UserService) {
-	$scope.sortType = 'Name'
+	$scope.sortType = 'Rank'
 		$scope.players =[];
 	$scope.player = "Insult here";
 	$http({
@@ -110,8 +110,9 @@ function DraftBuddyController($scope, $http, $rootScope, UserService) {
 	}).success(function (result) {
 		$scope.players = result;
 		console.log(result);
-		console.log('success');
 	});
+
+	#scope.players = [];
 
 }
 
