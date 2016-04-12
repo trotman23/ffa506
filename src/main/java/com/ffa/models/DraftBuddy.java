@@ -40,7 +40,7 @@ public class DraftBuddy {
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 	
-			String sql = "select * from players order by overallrank asc;"; //eventually make it order by rank
+			String sql = "SELECT * FROM players ORDER BY OverallRank ASC;";
 			ResultSet rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Player player = new Player();
