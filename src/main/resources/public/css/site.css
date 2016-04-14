@@ -1,4 +1,16 @@
 /*custom site styling, add styles as need be */
 #page-wrapper{
 	margin-top: 50px;
+	padding-left: 50px;
+}
+
+#list li:hover{
+	cursor: pointer;
+}
+
+div.rss-item:nth-child(2n+1){
+	background-color: #f7f7f7;		
+}
+div.rss-item{
+	padding: 20px;
 }

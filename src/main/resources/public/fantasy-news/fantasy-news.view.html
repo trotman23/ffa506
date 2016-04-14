@@ -1,8 +1,39 @@
 <div id="wrapper">
 	<div ng-include="'nav'"></div>
-	<div id="page-wrapper">
-		<div class="container-fluid">
-			<h1>Fantasy News</h1>
+	<div id="page-wrapper" >
+		<div data-ng-controller="FantasyNewsController">
+			<div class="row">
+				<h1>Fantasy News Feed Reader</h1>
+				<form>
+					<div class="col-md-12">
+						<div class="btn-group">
+							<button class="btn btn-info" type="button" tabindex="-1">{{loadButtonText}}</button>
+							<button class="btn btn-info dropdown-toggle"
+								data-toggle="dropdown" tabindex="-1">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a ng-model="tempFeed" ng-click="loadFeed('http://espn.go.com/espn/rss/nfl/news', $event)">ESPN NFL Headlines</a></li>
+								<li><a ng-click="loadFeed('http://espn.go.com/espnradio/feeds/rss/podcast.xml?id=2942325', $event)">ESPN	Fantasy Focus Podcast</a></li>
+								<li><a ng-click="loadFeed('http://www.nfl.com/rss/rsslanding?searchString=home', $event)">NFL.com Top Headlines</a></li>
+								<li><a ng-click="loadFeed('http://www.nfl.com/rss/rsslanding?searchString=gamehighlightsVideo', $event)">NFL.com	Game Highlights</a></li>
+								<li><a ng-click="loadFeed('http://www.cbssports.com/partners/feeds/rss/football_fantasy_news', $event)">CBS Sports Fantasy News</a></li>
+								<li><a ng-click="loadFeed('http://feeds.feedburner.com/FFToolboxFantasyFootballUpdates', $event)">Scout.com Fantasy Headlines</a></li>
+							</ul>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="add-on"><i class="icon-search"></i></span>
+							Search: <input type="text" data-ng-model="filterText" /> 
+							<span class="badge badge-warning" ng-show="feeds.length > 0">{{(feeds | filter:filterText).length}} Items</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row rss-item" ng-repeat="feed in feeds | filter:filterText">
+				<div class="col-md-12">
+					<h4><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h4>
+					<p><b>Description:</b> {{feed.contentSnippet}}</p>
+					<span><b>Date:</b> {{feed.publishedDate}}</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
