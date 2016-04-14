@@ -58,12 +58,12 @@ public class DraftBuddy {
 				} else {
 					player.Injured = false;
 				}
+				
 				player.Position = rs.getString(3);
 				player.PlayerID = rs.getInt(1);
 				player.NFLTeam_NFLTeamID = rs.getInt(6);
 				players.add(player);
 				System.out.println(player);
-				
 			}
 			
 			pConn.close();

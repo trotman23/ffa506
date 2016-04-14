@@ -1,13 +1,18 @@
 package com.ffa.scrapers;
 
 import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.sql.*;
 import java.util.*;
+
+import jsoup.NflTeamNicknames;
+import jsoup.players;
 
 
 public class RunScrape {
@@ -53,6 +58,23 @@ public class RunScrape {
 		} finally{
 
 		}*/
+		
+		
+		/*PLAYER CRAWLERS
+		List<Players> playerList = null;
+		for (int i = 0; i <= 1700; i+=40){
+			int leagueID = 1041604;
+			int seasonID = 2015;
+			String url = "http://games.espn.go.com/ffl/tools/projections?leagueId=" + leagueID + "&seasonTotals=true&seasonId=" + seasonID + "&startIndex=" + i;
+			String url = "http://games.espn.go.com/ffl/tools/projections?&week=1&scoringPeriodId=1&seasonId=2015&startIndex=" + i;
+			playerList = CrawlPlayers(url); //NOTE: PLAYER IS STORED IN THIS FUNCTION, NO NEED TO STORE AGAIN
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		// commenting out for testing/filling localdb
 		//List<NflTeam> teams = CrawlNflTeams("http://espn.go.com/nfl/standings");
@@ -399,41 +421,47 @@ public class RunScrape {
 
 		try {
 			Document doc = Jsoup.connect(url).get();
-			//System.out.println(doc.toString());
 			Elements table = doc.select("table");
 			Elements trList = table.select("tr");
 			int numRows = 0;
 			int numCols = 0;
 
-			for (int i = 0; i < trList.size(); i++){
+			for (int i = 3; i < trList.size(); i++){
 				Element row = trList.get(i);
 				Elements cols = row.children();
 				Players p = new Players();
-				//WeeklyScores ws = new WeeklyScores();
 				NflTeamNicknames nn = new NflTeamNicknames();
-				//might not need this, but we'll see, link between the tables. i don't know how the
-				//java hash lookup functions works on non-primitive object types
-				//Map<Players, WeeklyScores> map = new HashMap<Players, WeeklyScores>();
 				boolean isPlayer = false;
+				
+				Element rank = cols.get(0).select("td.playertableData").first();
+				System.out.print(rank.text() + ". ");
+				
 				for (int j = 0; j < cols.size(); j++){
 
 					Element playername = cols.get(j).select("td.playertablePlayerName").first();
 					if (playername != null){
 						String[] rName = playername.text().split(",");	
+						//saying fuck loading D/ST for now. sick of parsing strings in shitty code. will revisit
 						//TODO: Figure out what to do with D/ST
 						if (rName.length <= 1){
 							break;
 						}
-						p.Name= rName[0];
+						//remove all hypens, periods, apastrophe's etc. from names
+						String playerName = rName[0];
+						playerName = playerName.replaceAll("[()\\-\\'\\.\\*]", "").trim();
+						p.Name= playerName;
+						System.out.println(playerName);
 						String fuck = rName[1].trim();
 						String[] extra = rName[1].split("\\p{Z}");
 						p.NFLTeamName = nn.nicknames.get(extra[1]);
 						p.Position = extra[2];
 						p.Injured = false;
 						p.NFLTeam_NFLTeamID = getNflTeamID(p.NFLTeamName);
-						//using java hashcode for playerid right now, can change in the future but
-						// idk what else to use. thought it was a good idea
+						p.OverallRank = rank.text();
+						//hash player name for playerID
 						p.PlayerID = Math.abs(p.Name.hashCode());
+						//store immediately
+						storePlayer(p);
 					}
 					//System.out.println("----------------------------------------");
 					numCols++;
@@ -665,23 +693,15 @@ public class RunScrape {
 			stmt = conn.createStatement();
 			//buil query
 			String sql = "";
-			/*
-			 * java's string.format method is a not nice, i'm just going to do it manually
-			 * sql += "INSERT INTO Players VALUES " + String.format("(%1$i,'%2$s','%3$s','%4$s',%5$b,%6$i);",
-					Players.PlayerID,
-					Players.Name,
-					Players.Position,
-					Players.NflTeamName,
-					Players.Injured,
-					Players.NflTeam_NflTeamID
-					);*/
-			sql += "INSERT INTO Players VALUES (" +
+
+			sql += "INSERT INTO players2 VALUES (" + //updates if playerID key already exists
 					p.PlayerID + "," + 
 					"'" + p.Name + "'," + 
 					"'" + p.Position + "'," +
 					"'" + p.NFLTeamName + "'," +
 					p.Injured + "," +
-					p.NFLTeam_NFLTeamID + ");";
+					p.NFLTeam_NFLTeamID + "," +
+					"'" + p.OverallRank + "');"; //added by Dylan
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 			//close up
