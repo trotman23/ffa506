@@ -2,7 +2,24 @@
 	<div ng-include="'nav'"></div>
 	<div id="page-wrapper">
 		<div class="container-fluid">
-			<h1>Report Bug</h1>
+			<div class="row">
+				<div class="col-md-12" style="padding-top: 50px;">
+					<h1>Report Bug</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<form>
+						<p>Name</p>
+						<input type="text" name="text" />
+						<p>Email</p>
+						<input type="email" name="email" />
+						<p>Bug Description</p>
+						<textarea style="height: 400px; width: 600px;">The bug I am reporting is....</textarea>
+						<br /> <input type="button" value="Submit" />
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
