@@ -343,8 +343,8 @@ function PollsController($scope, $http) {
 	}
 };
 
-WavierController.$inject= [$scope, $http];
-function WavierController($scope, $http){
+WaiverController.$inject= ['$scope', '$http'];
+function WaiverController($scope, $http){
 	$scope.positions =[{"position" : "QB"},
 	                   {"position" : "RB"},
 	                   {"position" : "WR"},

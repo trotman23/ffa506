@@ -14,7 +14,6 @@
                 templateUrl: 'dashboard/dashboard.view.html/',
                 controllerAs: 'vm'
             })
-
             .when('/login', {
                 controller: 'LoginController',
                 templateUrl: 'login/login.view.html',
@@ -26,8 +25,31 @@
                 templateUrl: 'register/register.view.html',
                 controllerAs: 'vm'
             })
-
-
+            .when('/fantasy-news', {
+                controller: 'FantasyNewsController',
+                templateUrl: 'fantasy-news/fantasy-news.view.html',
+                controllerAs: 'vm'
+            })
+            .when('/top-performers', {
+                controller: 'TopPerformersController',
+                templateUrl: 'top-performers/top-performers.view.html',
+                controllerAs: 'vm'
+            })
+            .when('/help', {
+                controller: 'HelpController',
+                templateUrl: 'help/help.view.html',
+                controllerAs: 'vm'
+            })
+            .when('/request-feature', {
+                controller: 'RequestFeatureController',
+                templateUrl: 'request-feature/request-feature.view.html',
+                controllerAs: 'vm'
+            })
+            .when('/report-bug', {
+                controller: 'ReportBugController',
+                templateUrl: 'report-bug/report-bug.view.html',
+                controllerAs: 'vm'
+            })
             .otherwise({ redirectTo: '/login' });
     }
 
