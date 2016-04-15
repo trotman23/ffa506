@@ -1,5 +1,6 @@
 package com.ffa.controllers;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,10 +70,15 @@ public class APIController {
 		return sr.getSmartRankingsList(Integer.parseInt(LeagueID), Integer.parseInt(Week));
 
 	}
+	@RequestMapping(value = rest + "SmartRankChart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String SmartRankChart(
+			@RequestParam(value="LeagueID", defaultValue = "1") String LeagueID,
+			@RequestParam(value="Week", defaultValue = "1") String Week
+			){
+		SmartRankings sr = new SmartRankings();
+		return sr.getSmartRankingsChart(Integer.parseInt(LeagueID), Integer.parseInt(Week));
 
-
-
-
+	}
 	@RequestMapping(rest + "LeagueInsult")
 	public   Map<String,String> LeagueInsult(
 			@RequestParam(value = "TeamID", defaultValue = "1") String TeamID

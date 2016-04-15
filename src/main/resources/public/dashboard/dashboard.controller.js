@@ -30,10 +30,10 @@ function DashboardController(UserService, $rootScope) {
 	function loadLeagueID(){
 		//console.log("in loadLeague");
 		$rootScope.$on('user-loaded', function(){
-				UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
-					$rootScope.tempLeagueID = data;
-					$rootScope.$broadcast('leagueID-loaded');
-				});
+			UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
+				$rootScope.tempLeagueID = data;
+				$rootScope.$broadcast('leagueID-loaded');
+			});
 		});
 	}
 
@@ -142,25 +142,35 @@ function SRController($scope, $http, $rootScope, UserService){
 	                {"week": 16},
 	                {"week": 17}];
 	$scope.$on('leagueID-loaded', function() {
-			$http({
-				method: 'GET',
-				url: './rest/SmartRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=1'
-			}).then(function (result){
-				$scope.smartrankings = result.data;
-				//console.log("$scope.smartrankings: " + $scope.smartrankings);
-			});
+		$http({
+			method: 'GET',
+			url: './rest/SmartRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=17'
+		}).then(function (result){
+			$scope.smartrankings = result.data;
+		});
 	});
 
-	$scope.updateSmartRankings = function(week){
-		//console.log(week);        
+	$scope.updateSmartRankings = function(week){       
 		$http({
 			method: 'GET',
 			url: './rest/SmartRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=' + week.week
 		}).then(function (result){
 			$scope.smartrankings = result.data;
-			//console.log("$scope.smartrankings: " + $scope.smartrankings);
 		});
 	};
+	$scope.generateSrChart = function(week){
+		var srChart1 = {};
+		srChart1.type = "LineChart";
+		$http({
+			method: 'GET',
+			url: './rest/SmartRankChart?LeagueID=' + $rootScope.tempLeagueID + '&Week=' + week.week
+		}).then(function (result){
+			//console.log(result.data);
+			srChart1.data = result.data;
+			$scope.srChart = srChart1;
+		});
+
+	}
 }
 
 
@@ -230,10 +240,11 @@ function CPController($scope, $http, $rootScope){
 			url: './rest/CompositeRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=17'
 		}).then(function (result){
 			$scope.comprankings = result.data;
+			//buildCpChart(result.data);
 			//console.log($scope.comprankings);
 		});
 	});
-	
+
 	$scope.updateCPRankings = function(week){
 		//console.log(week);
 		$http({
@@ -241,9 +252,14 @@ function CPController($scope, $http, $rootScope){
 			url: './rest/CompositeRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=' + week.week
 		}).then(function (result){
 			$scope.comprankings = result.data;
+			//buildCpChart(result.data);
 			//console.log(result.data);
 		});
 	};
+
+	function buildCpChart(json){
+
+	}
 }
 
 INSULTController.$inject = ['$scope', '$http', '$rootScope'];
@@ -251,7 +267,7 @@ function INSULTController($scope, $http, $rootScope) {
 	$scope.list = 'Select Team';
 	$scope.teams = [];
 	$scope.outputInsult =null;
-	
+
 	$scope.$on('leagueID-loaded', function() {
 		$http({
 			method: 'GET',
@@ -377,4 +393,3 @@ function PollsController($scope, $http, $rootScope) {
 	}
 
 }
-

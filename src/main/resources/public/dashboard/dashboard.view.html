@@ -442,6 +442,16 @@
 							<div class="col-md-4">{{ranking.teamName}}</div>
 							<div class="col-md-4">{{ranking.ffaPoints}}</div>
 						</div>
+						<div class="row">
+							<div class="col-md-12">
+							<button class="btn" ng-click="generateSrChart(srWeek)">Generate Graph for Week {{srWeek.week}}</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div google-chart chart="srChart"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="tab-pane" id="tab8">
