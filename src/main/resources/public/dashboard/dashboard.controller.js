@@ -39,7 +39,6 @@ function DashboardController(UserService, $rootScope) {
 
 }
 FTJController.$inject = ['$scope', '$http', '$rootScope'];
-FTJController.$inject = ['$scope', '$http'];
 function FTJController($scope, $http, $rootScope) {
 	$scope.list1 = 'Select Team 1';
 	$scope.list2 = 'Select Team 2';
@@ -113,7 +112,6 @@ function FTJController($scope, $http, $rootScope) {
 }
 
 //Draft Buddy Controller
-SRController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
 DraftBuddyController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
 function DraftBuddyController($scope, $http, $rootScope, UserService) {
 	$scope.sortType = 'Rank'
@@ -256,8 +254,8 @@ function CPController($scope, $http, $rootScope){
 	};
 }
 
-INSULTController.$inject = ['$scope', '$http'];
-function INSULTController($scope, $http) {
+INSULTController.$inject = ['$scope', '$http', '$rootScope'];
+function INSULTController($scope, $http, $rootScope) {
 	$scope.list = 'Select Team';
 	$scope.teams = [];
 	$scope.outputInsult =null;
@@ -308,8 +306,8 @@ function WaiverController($scope, $http){
 };
 
 
-PollsController.$inject = ['$scope', '$http'];
-function PollsController($scope, $http) {
+PollsController.$inject = ['$scope', '$http', '$rootScope'];
+function PollsController($scope, $http, $rootScope) {
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
