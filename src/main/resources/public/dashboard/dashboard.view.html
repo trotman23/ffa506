@@ -202,7 +202,6 @@
 						</div>
 					</div>
 				</div>
-
 				<!--Draft Buddy-->
 				<div class="tab-pane" id="tab3">
 					<div class="col-md-12">
@@ -392,7 +391,9 @@
 							<div class="row" ng-repeat="team in teams">
 								<div class="col-md-4">
 									<select ng-model="pRank"
-										ng-options="item as item.rank for item in ranks">
+										ng-options="item as item.rank for item in ranks"
+										ng-change="selectRank(pRank)"
+										class="pollSelect">
 										<option value="">Rank</option>
 									</select>
 								</div>
@@ -404,6 +405,7 @@
 							<div class="col-md-12">
 								<input type="button" class="btn btn-success" ng-click="submitPoll(pWeek, pRanks)"
 									value="submit poll"></input>
+									<p>{{$scope.notify}}</p>
 							</div>
 						</div>
 
@@ -473,7 +475,7 @@
 				</div>
 				<div class="tab-pane" id="tab9">
 					<h3>Waiver Wire Pickup</h3>
-					<div ng-controller="WavierController" class="teamWrapper">
+					<div ng-controller="WaiverController" class="teamWrapper">
 						<div class="team" style="float: left;">
 							<select ng-model="selectedPos"
 								ng-options="item as item.position for item in positions"

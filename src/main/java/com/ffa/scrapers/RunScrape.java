@@ -11,8 +11,7 @@ import org.jsoup.select.Elements;
 import java.sql.*;
 import java.util.*;
 
-import jsoup.NflTeamNicknames;
-import jsoup.players;
+import com.ffa.scrapers.*;
 
 
 public class RunScrape {

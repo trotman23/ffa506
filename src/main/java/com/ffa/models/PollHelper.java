@@ -12,7 +12,7 @@ public class PollHelper {
 	}
 	public static void insertPoll(List<Poll> p){
 		//insert poll into db
+		
 	
 	}
-
 }

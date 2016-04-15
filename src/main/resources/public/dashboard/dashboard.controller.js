@@ -10,13 +10,14 @@ function DashboardController(UserService, $rootScope) {
 
 	function initController() {
 		loadCurrentUser();
-
+		loadLeagueID();
 	}
 
 	function loadCurrentUser() {
 		UserService.GetByEmail($rootScope.globals.currentUser.email)
 		.then(function (user) {
 			vm.user = user.data;
+			$rootScope.$broadcast('user-loaded');
 		});
 	}
 
@@ -26,10 +27,20 @@ function DashboardController(UserService, $rootScope) {
 			loadAllUsers();
 		});
 	}
-}
+	function loadLeagueID(){
+		console.log("in loadLeague");
+		$rootScope.$on('user-loaded', function(){
+				UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
+					$rootScope.tempLeagueID = data;
+					$rootScope.$broadcast('leagueID-loaded');
+				});
+		});
+	}
 
+}
+FTJController.$inject = ['$scope', '$http', '$rootScope'];
 FTJController.$inject = ['$scope', '$http'];
-function FTJController($scope, $http) {
+function FTJController($scope, $http, $rootScope) {
 	$scope.list1 = 'Select Team 1';
 	$scope.list2 = 'Select Team 2';
 	//$scope.selectedTeam = null;
@@ -38,11 +49,14 @@ function FTJController($scope, $http) {
 	$scope.players2 = [];
 	$scope.roster1 = null;
 	$scope.roster2 = null;
-	$http({
-		method: 'GET',
-		url: './rest/LeagueTeams?LeagueID=1682132'
-	}).success(function (result) {
-		$scope.teams = result;
+	$scope.$on('leagueID-loaded', function() {
+		console.log("leagueIDloaded in FTJController")
+		$http({
+			method: 'GET',
+			url: './rest/LeagueTeams?LeagueID=' + $rootScope.tempLeagueID
+		}).success(function (result) {
+			$scope.teams = result;
+		});
 	});
 	console.log("in controller");
 	$scope.getRoster1 = function(selectedTeam){
@@ -99,6 +113,7 @@ function FTJController($scope, $http) {
 }
 
 //Draft Buddy Controller
+SRController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
 DraftBuddyController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
 function DraftBuddyController($scope, $http, $rootScope, UserService) {
 	$scope.sortType = 'Rank'
@@ -136,51 +151,32 @@ function SRController($scope, $http, $rootScope, UserService){
 	                {"week": 15},
 	                {"week": 16},
 	                {"week": 17}];
-	console.log($rootScope.globals.currentUser.id);
-	UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
-		$scope.tempLeagueID = data;
-	});
-	$scope.$watch('tempLeagueID', function (cast) {
-		// When $scope.tempLeagueID  has data, then run these functions
-		if (angular.isDefined(cast)) {          
-			console.log("$scope.tempLeagueID has data");
-			console.log("$scope.tempLeagueID" + $scope.tempLeagueID);
+	$scope.$on('leagueID-loaded', function() {
 			$http({
 				method: 'GET',
-				url: './rest/SmartRank?LeagueID=' + $scope.tempLeagueID + '&Week=1'
+				url: './rest/SmartRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=1'
 			}).then(function (result){
 				$scope.smartrankings = result.data;
 				console.log("$scope.smartrankings: " + $scope.smartrankings);
 			});
-		}
 	});
 
 	$scope.updateSmartRankings = function(week){
-		UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
-			$scope.tempLeagueID = data;
-		});
-		console.log(week);
-		$scope.$watch('tempLeagueID', function (cast) {
-			// When $scope.tempLeagueID  has data, then run these functions
-			if (angular.isDefined(cast)) {          
-				console.log("$scope.tempLeagueID has data");
-				console.log("$scope.tempLeagueID" + $scope.tempLeagueID);
-				$http({
-					method: 'GET',
-					url: './rest/SmartRank?LeagueID=' + $scope.tempLeagueID + '&Week=' + week.week
-				}).then(function (result){
-					$scope.smartrankings = result.data;
-					console.log("$scope.smartrankings: " + $scope.smartrankings);
-				});
-			}
+		console.log(week);        
+		$http({
+			method: 'GET',
+			url: './rest/SmartRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=' + week.week
+		}).then(function (result){
+			$scope.smartrankings = result.data;
+			console.log("$scope.smartrankings: " + $scope.smartrankings);
 		});
 	};
 }
 
 
 //awards controller
-AwardsController.$inject = ['$scope', '$http'];
-function AwardsController($scope, $http){
+AwardsController.$inject = ['$scope', '$http', '$rootScope'];
+function AwardsController($scope, $http, $rootScope){
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -198,27 +194,28 @@ function AwardsController($scope, $http){
 	                {"week": 15},
 	                {"week": 16},
 	                {"week": 17}];
-
-	$http({
-		method: 'GET',
-		url: './rest/Awards?LeagueID=1682132&Week=1'
-	}).then(function (result){
-		$scope.awards = result.data;
-		console.log($scope.awards);
+	$scope.$on('leagueID-loaded', function() {
+		$http({
+			method: 'GET',
+			url: './rest/Awards?LeagueID=' + $rootScope.tempLeagueID + '&Week=1'
+		}).then(function (result){
+			$scope.awards = result.data;
+			console.log($scope.awards);
+		});
 	});
 	$scope.updateAwards = function(week){
 		console.log(week);
 		$http({
 			method: 'GET',
-			url: './rest/Awards?LeagueID=1682132&Week=' + week.week
+			url: './rest/Awards?LeagueID=' + $rootScope.tempLeagueID + '&Week=' + week.week
 		}).then(function (result){
 			$scope.awards = result.data;
 		});
 	};
 }
 
-CPController.$inject = ['$scope', '$http'];
-function CPController($scope, $http){
+CPController.$inject = ['$scope', '$http', '$rootScope'];
+function CPController($scope, $http, $rootScope){
 	$scope.weeks = [{"week": 1},
 	                {"week": 2},
 	                {"week": 3},
@@ -236,18 +233,22 @@ function CPController($scope, $http){
 	                {"week": 15},
 	                {"week": 16},
 	                {"week": 17}];
-	$http({
-		method: 'GET',
-		url: './rest/CompositeRank?LeagueID=1682132&Week=17'
-	}).then(function (result){
-		$scope.comprankings = result.data;
-		console.log($scope.comprankings);
+	//wait for the leagueID to be loaded before initializing data
+	$scope.$on('leagueID-loaded', function() {
+		$http({
+			method: 'GET',
+			url: './rest/CompositeRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=17'
+		}).then(function (result){
+			$scope.comprankings = result.data;
+			console.log($scope.comprankings);
+		});
 	});
+	
 	$scope.updateCPRankings = function(week){
 		console.log(week);
 		$http({
 			method: 'GET',
-			url: './rest/CompositeRank?LeagueID=1682132&Week=' + week.week
+			url: './rest/CompositeRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=' + week.week
 		}).then(function (result){
 			$scope.comprankings = result.data;
 			console.log(result.data);
@@ -260,13 +261,14 @@ function INSULTController($scope, $http) {
 	$scope.list = 'Select Team';
 	$scope.teams = [];
 	$scope.outputInsult =null;
-
-
-	$http({
-		method: 'GET',
-		url: './rest/LeagueTeams?LeagueID=1682132'
-	}).success(function (result) {
-		$scope.teams = result;
+	
+	$scope.$on('leagueID-loaded', function() {
+		$http({
+			method: 'GET',
+			url: './rest/LeagueTeams?LeagueID=' + $rootScope.tempLeagueID
+		}).success(function (result) {
+			$scope.teams = result;
+		});
 	});
 
 	$scope.insult = function(selectedTeam){
@@ -283,9 +285,28 @@ function INSULTController($scope, $http) {
 };
 
 
-jQuery(function () {
-	jQuery('#list a:last').tab('show');
-});
+WaiverController.$inject= ['$scope', '$http'];
+function WaiverController($scope, $http){
+	$scope.positions =[{"position" : "QB"},
+	                   {"position" : "RB"},
+	                   {"position" : "WR"},
+	                   {"position" : "TE"},
+	                   {"position" : "K"},
+	                   {"position" : "D/ST"}];
+	$scope.players= null;
+
+	$scope.getFreeAgents = function(selectedPos){
+		$http({
+			method: 'GET',
+			url: './rest/WavierWireAid?Position=' + selectedPos.position 
+		}).then(function (result) {
+			console.log(result.data);
+			$scope.players=result.data;
+		});
+	}
+
+};
+
 
 PollsController.$inject = ['$scope', '$http'];
 function PollsController($scope, $http) {
@@ -318,14 +339,16 @@ function PollsController($scope, $http) {
 	                {"rank": 10},
 	                {"rank": 11},
 	                {"rank": 12}];
-	$scope.pRanks = [];
-	$http({
-		method: 'GET',
-		url: './rest/LeagueTeams?LeagueID=1682132'
-	}).success(function (result) {
-		$scope.teams = result;
+
+	$scope.$on('leagueID-loaded', function() {
+		$http({
+			method: 'GET',
+			url: './rest/LeagueTeams?LeagueID=' + $rootScope.tempLeagueID
+		}).success(function (result) {
+			$scope.teams = result;
+		});
 	});
-	
+
 	$scope.submitPoll = function(week, ranks){
 		console.log("in submit poll");
 		$http({
@@ -336,32 +359,32 @@ function PollsController($scope, $http) {
 			$scope.teams = result;
 		});
 	}
-	
-	$scope.updateWeeks = function(week){
-		var temp = $scope.weeks.indexOf(week);
-		console.log(temp);
+
+
+	function checkSelected(val) {
+		var ret = false;
+		$(".pollSelect").each(function() {
+			if ($(this).val() === val) {
+				ret = true;
+			}
+		});
+		return ret;
 	}
-};
+	$scope.selectRank = function(el) {
+		console.log(el);
+		$('.pollSelect option').each(function() {
+			console.log(el);
+			var temp = checkSelected(el.rank);
 
-WaiverController.$inject= ['$scope', '$http'];
-function WaiverController($scope, $http){
-	$scope.positions =[{"position" : "QB"},
-	                   {"position" : "RB"},
-	                   {"position" : "WR"},
-	                   {"position" : "TE"},
-	                   {"position" : "K"},
-	                   {"position" : "D/ST"}];
-	$scope.players= null;
-
-	$scope.getFreeAgents = function(selectedPos){
-		$http({
-			method: 'GET',
-			url: './rest/WavierWireAid?Position=' + selectedPos.position 
-		}).then(function (result) {
-			console.log(result.data);
-			$scope.players=result.data;
+			if (checkSelected(el.rank) && el.rank != "0") {
+				var temp2 = $('.pollSelect option[value=' + el.rank + ']');
+				$('.pollSelect option[value=' + el.rank + ']').attr('disabled', true);
+			} else {
+				var temp3 = $('.pollSelect option[value=' + el.rank + ']');
+				$('.pollSelect option[value=' + el.rank + ']').removeAttr('disabled');
+			}
 		});
 	}
 
-};
+}
 
