@@ -159,6 +159,7 @@ function SRController($scope, $http, $rootScope, UserService){
 		});
 	};
 	$scope.generateSrChart = function(week){
+		$("#srButton").addClass("active");
 		var srChart1 = {};
 		srChart1.type = "LineChart";
 		$http({
@@ -167,7 +168,29 @@ function SRController($scope, $http, $rootScope, UserService){
 		}).then(function (result){
 			//console.log(result.data);
 			srChart1.data = result.data;
+			srChart1.options = {
+				chartArea: {
+					width: '70%',
+					height: '80%',
+					left: '5%'
+				},
+				height: '1200px',
+				legend: {
+					position: 'right'
+				},
+				hAxis: {
+					format: 'short',
+					title: 'Week'
+				}, 
+				vAxis: {
+					direction: -1,
+					ticks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+					title: 'SmartRank'
+				}
+				
+			}
 			$scope.srChart = srChart1;
+			$("#srButton").removeClass("active");
 		});
 
 	}

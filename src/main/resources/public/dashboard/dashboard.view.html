@@ -444,12 +444,14 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-							<button class="btn" ng-click="generateSrChart(srWeek)">Generate Graph for Week {{srWeek.week}}</button>
+							<button id="srButton" class="btn-success has-spinner" ng-click="generateSrChart(srWeek)">
+							<span class="spinner"><i class="icon-spin icon-refresh"></i></span>
+							Generate Graph for Week {{srWeek.week}}</button>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<div google-chart chart="srChart"></div>
+								<div google-chart chart="srChart" class="chart"></div>
 							</div>
 						</div>
 					</div>
