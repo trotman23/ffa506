@@ -28,5 +28,10 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/resources/public/report-bug/report-bug.view.html"/>
+	<classpathentry kind="lib" path="src/main/resources/public/request-feature/request-feature.view.html"/>
+	<classpathentry kind="lib" path="src/main/resources/public/top-performers/top-performers.view.html"/>
+	<classpathentry kind="lib" path="src/main/resources/public/help/help.view.html"/>
+	<classpathentry kind="lib" path="src/main/resources/public/dashboard/dashboard.view.html"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

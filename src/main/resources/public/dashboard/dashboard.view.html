@@ -31,36 +31,44 @@
 					<div class="row">
 						<div class="col-md-12">
 							<h2>Tool Descriptions</h2>
-							<h3>Fair Trade Judge</h3>
-							<p>This tool will help you decide whether or not a proposed
-								trade is fair</p>
-							<h3>Awards</h3>
-							<p>Weekly awards given out to teams who have the best, and
-								worst weeks in the league</p>
-							<h3>Draft Buddy</h3>
-							<p>Use this tool to aid you during your big draft day</p>
-							<h3>Add A League</h3>
-							<p>This isn't really a tool, and doesn't fit on the dashboard</p>
-							<h3>Insult Generator</h3>
-							<p>Let our team analysis algorithm pick apart any team in
-								your league with relevant insults</p>
-							<h3>League Poll</h3>
-							<p>Rank every team in your league on a weekly basis. Overall
-								rankings will be calculated based on the poll</p>
-							<h3>Smart Rankings</h3>
-							<p>This tool ranks every team in your league based on complex
-								rankings algorithm, that factors in more than just your W-L-T
-								record</p>
-							<h3>Composite Rankings</h3>
-							<p>Ever wonder what your record would be if you played every
-								team every week instead of the head to head match-up style? This
-								tool will tell you what your overall record would be</p>
-							<h3>Waiver Wire Pickup Aid</h3>
-							<p>See who our analysis of your team determines you should
-								pick up off of the waiver wire this week</p>
+								<div class="col-lg-4">
+									<h3>Fair Trade Judge</h3>
+									<p>This tool will help you decide whether or not a proposed
+									trade is fair</p>
+									<h3>Awards</h3>
+									<p>Weekly awards given out to teams who have the best, and
+									worst weeks in the league</p>
+									<h3>Draft Buddy</h3>
+									<p>Use this tool to aid you during your big draft day</p>
+								</div>
+								<div class="col-lg-4">
+									<h3>Add A League</h3>
+									<p>This isn't really a tool, and doesn't fit on the dashboard</p>
+									<h3>Insult Generator</h3>
+									<p>Let our team analysis algorithm pick apart any team in
+									your league with relevant insults</p>
+									<h3>League Poll</h3>
+									<p>Rank every team in your league on a weekly basis. Overall
+									rankings will be calculated based on the poll</p>
+								</div>
+								<div class="col-lg-4">
+									<h3>Smart Rankings</h3>
+									<p>This tool ranks every team in your league based on complex
+									rankings algorithm, that factors in more than just your W-L-T
+									record</p>
+									<h3>Composite Rankings</h3>
+									<p>Ever wonder what your record would be if you played every
+									team every week instead of the head to head match-up style? This
+									tool will tell you what your overall record would be</p>
+									<h3>Waiver Wire Pickup Aid</h3>
+									<p>See who our analysis of your team determines you should
+									pick up off of the waiver wire this week</p>
+								</div>
 						</div>
 					</div>
 				</div>
+
+				<!--Fair Trade Judge Section-->
 				<div class="tab-pane" id="tab1">
 					<h2>Select the teams that are going to do a trade, then select
 						the players</h2>
@@ -122,6 +130,8 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- The Awards Section -->
 				<div class="tab-pane" id="tab2">
 					<h3>Weekly Awards</h3>
 					<div ng-controller="AwardsController" class="awards">
@@ -202,7 +212,8 @@
 						</div>
 					</div>
 				</div>
-				<!--Draft Buddy-->
+
+				<!--Draft Buddy Section-->
 				<div class="tab-pane" id="tab3">
 					<div class="col-md-12">
 						<span class="span8" style="margin-bottom: 20p">
@@ -350,9 +361,13 @@
 						<!-- </div> -->
 					</form>
 				</div>
+
+				<!-- Add a League Section -->
 				<div class="tab-pane" id="tab4">
 					<h3>Add a league</h3>
 				</div>
+
+				<!-- Instul Generator Section -->
 				<div class="tab-pane" id="tab5">
 					<h3>Insult Generator</h3>
 					<h5>Select a team to insult!</h5>
@@ -368,6 +383,8 @@
 					</form>
 
 				</div>
+
+				<!-- League Poll Seciton -->
 				<div class="tab-pane" id="tab6">
 					<h3>League Poll</h3>
 					<div ng-controller="PollsController">
@@ -411,6 +428,8 @@
 
 					</div>
 				</div>
+
+				<!-- Smart Ranknings Section -->
 				<div class="tab-pane" id="tab7">
 					<h3>Smart Rankings</h3>
 					<div ng-controller="SRController">
@@ -456,6 +475,8 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- Composite Rankings Section -->
 				<div class="tab-pane" id="tab8">
 					<h3>Composite Rankings</h3>
 					<div ng-controller="CPController">
@@ -485,6 +506,8 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- Waiver Wire Pickup Section -->
 				<div class="tab-pane" id="tab9">
 					<h3>Waiver Wire Pickup</h3>
 					<div ng-controller="WaiverController" class="teamWrapper">
