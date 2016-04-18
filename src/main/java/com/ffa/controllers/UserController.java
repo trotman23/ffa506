@@ -78,7 +78,6 @@ public class UserController {
         	return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }
         else {
-        	HttpHeaders headers = new HttpHeaders();
         	return new ResponseEntity<User>(user, HttpStatus.CREATED);
         }
     }
@@ -106,18 +105,25 @@ public class UserController {
       
     //-------------------Update a User--------------------------------------------------------
       
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        System.out.println("Updating User " + id);
+    @RequestMapping(value = "/user/", method = RequestMethod.PUT)
+    public ResponseEntity<User> updateUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Updating User " + user.getUserId());
           
-        User currentUser = userService.findById(id);
+        User currentUser = userService.findById(user.getUserId());
           
         if (currentUser==null) {
-            System.out.println("User with id " + id + " not found");
+            System.out.println("User with id " + user.getUserId() + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
   
+        currentUser.setName(user.getName());
         currentUser.setEmail(user.getEmail());
+        currentUser.setPassword(user.getPassword());
+        
+        if (userService.isUserExist(currentUser)) {
+            System.out.println("A User with name " + user.getEmail() + " already exists");
+            return new ResponseEntity<User>(HttpStatus.CONFLICT);
+        }
           
         userService.updateUser(currentUser);
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);

@@ -57,6 +57,11 @@
 			templateUrl: 'report-bug/report-bug.view.html',
 			controllerAs: 'vm'
 		})
+		.when('/account', {
+			controller: 'AccountController',
+			templateUrl: 'account/account.view.html',
+			controllerAs: 'vm'
+		})
 		.otherwise({ redirectTo: '/login' });
 	}
 

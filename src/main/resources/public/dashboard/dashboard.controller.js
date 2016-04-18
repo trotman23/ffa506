@@ -38,6 +38,9 @@ function NavController(AuthenticationService, $scope, $location, $rootScope) {
 		AuthenticationService.ClearCredentials();
 		$location.path('/login');
 	}
+	$scope.editUser = function() {
+		$location.path('/account');
+	}
 }
 
 FTJController.$inject = ['$scope', '$http', '$rootScope'];

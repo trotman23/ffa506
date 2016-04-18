@@ -35,7 +35,7 @@
         }
  
         function Update(user) {
-            return $http.put('/user/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('/user/', user).then(handleSuccess, handleError('Error updating user'));
         }
         
         function GetLeagueIDFromUser(id){

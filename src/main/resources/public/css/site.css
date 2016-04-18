@@ -4,7 +4,7 @@
 	padding-left: 50px;
 }
 
-#list li:hover{
+.list li:hover{
 	cursor: pointer;
 }
 

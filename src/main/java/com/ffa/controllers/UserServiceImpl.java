@@ -26,12 +26,48 @@ public class UserServiceImpl implements UserService{
     }
      
     public User findById(int userId) {
-        for(User user : users){
-            if(user.getUserId() == userId){
-                return user;
-            }
-        }
-        return null;
+      	Connection pConn = null;
+    		Statement pStmt = null;
+    		
+    		User user = new User();
+    		int id = 0;
+    		String name = "";
+    		String email = "";
+    		String password = "";
+    		
+    		try{
+
+    			Class.forName("com.mysql.jdbc.Driver");
+    			pConn = DbSource.getDataSource().getConnection();
+    			pStmt = pConn.createStatement();
+    			//select on team name, given team id
+
+    			String sql = "SELECT * FROM users WHERE UserID = " + userId + ";";
+    			System.out.println(sql);
+    			ResultSet rs = pStmt.executeQuery(sql);
+    			if (!rs.next()) {
+    				return null;
+    			}
+    			else {
+    				id = rs.getInt(1);
+    				name = rs.getString(2);
+    				email = rs.getString(3);
+    				password = rs.getString(4);
+    				pConn.close();
+    				rs.close();
+    			}
+
+    		} catch (Exception e){
+    			e.printStackTrace();
+    		} finally{
+
+    		}
+    		user.setId(id);
+    		user.setName(name);
+    		user.setPassword(password);
+    		user.setEmail(email);
+    		
+    		return user;
     }
      
     public User findByEmail(String email) {
@@ -62,7 +98,6 @@ public class UserServiceImpl implements UserService{
 				name = rs.getString(2);
 				emailCopy = rs.getString(3);
 				password = rs.getString(4);
-				System.out.println(id + " " + name + " " + emailCopy);
 				pConn.close();
 				rs.close();
 			}
@@ -83,10 +118,35 @@ public class UserServiceImpl implements UserService{
     public void saveUser(User user) {
        insertUser(user);
     }
+    /*
+     * 
+     * UPDATE Customers
+		SET ContactName='Alfred Schmidt', City='Hamburg'
+		WHERE CustomerName='Alfreds Futterkiste';
+     */
  
     public void updateUser(User user) {
-        int index = users.indexOf(user);
-        users.set(index, user);
+    	Connection pConn = null;
+		PreparedStatement pStmt = null;
+		try{
+			pConn = DbSource.getDataSource().getConnection();
+			
+			String sql = "UPDATE users SET " +
+					"Name = ?, Email = ?, Password = ? WHERE UserID = " + user.getUserId() + ";";
+			System.out.println(sql);
+			pStmt = pConn.prepareStatement(sql);
+			pStmt.setString(1, user.getName());
+		    pStmt.setString(2, user.getEmail());
+		    pStmt.setString(3, user.getPassword());
+		    pStmt.executeUpdate();
+		    
+			pConn.close();
+			pStmt.close();
+
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+		}
     }
  
     public void deleteUserById(int userId) {
