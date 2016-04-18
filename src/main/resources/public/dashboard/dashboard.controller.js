@@ -4,7 +4,6 @@ function DashboardController(UserService, $rootScope) {
 
 	vm.user = null;
 	vm.allUsers = [];
-	vm.deleteUser = deleteUser;
 
 	initController();
 
@@ -21,12 +20,6 @@ function DashboardController(UserService, $rootScope) {
 		});
 	}
 
-	function deleteUser(id) {
-		UserService.Delete(id)
-		.then(function () {
-			loadAllUsers();
-		});
-	}
 	function loadLeagueID(){
 		//console.log("in loadLeague");
 		$rootScope.$on('user-loaded', function(){
@@ -38,6 +31,15 @@ function DashboardController(UserService, $rootScope) {
 	}
 
 }
+
+NavController.$inject = ['AuthenticationService', '$scope', '$location', '$rootScope'];
+function NavController(AuthenticationService, $scope, $location, $rootScope) {
+	$scope.logoutUser = function() {
+		AuthenticationService.ClearCredentials();
+		$location.path('/login');
+	}
+}
+
 FTJController.$inject = ['$scope', '$http', '$rootScope'];
 function FTJController($scope, $http, $rootScope) {
 	$scope.list1 = 'Select Team 1';

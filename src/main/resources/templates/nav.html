@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavController">
 	<!-- This will make the navbar when the screen size changes or is smaller -->
 	<div class="navbar-header page-scroll">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -14,7 +14,7 @@
 				<li><a data-target="#"><i class="fa fa-fw fa-user"></i> Account</a></li>
 				<li><a data-target="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li>
 				<li class="divider"></li>
-				<li><a data-target="#login"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+				<li><a data-target="#" ng-click="logoutUser()"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
 			</ul>
 		</li>
 	</ul>
