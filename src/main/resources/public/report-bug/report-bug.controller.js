@@ -27,3 +27,4 @@ function ReportBugController($rootScope, $http, UserService) {
 		});
 	}
 }
+
