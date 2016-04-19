@@ -163,7 +163,6 @@ public class UserController {
     
     @RequestMapping(value = "/user/getLeagueIDFromUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getLeagueIDFromUser(@RequestParam (value="UserID") String UserID ){
-    	System.out.println("asdasda");
     	return "[{\"LeagueID\": \"" + UserServiceImpl.getLeagueIDFromUser(Integer.parseInt(UserID)) + "\"}]";
     }
   
