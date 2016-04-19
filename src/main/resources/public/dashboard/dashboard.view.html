@@ -16,15 +16,15 @@
 			<!-- /.row -->
 			<ul class="nav nav-pills list">
 				<li class="active"><a data-target="#tab0" data-toggle="tab">Tools Home</a></li>
-				<li><a data-target="#tab1" data-toggle="tab">Fair Trade Judge</a></li>
-				<li><a data-target="#tab2" data-toggle="tab">Awards</a></li>
-				<li><a data-target="#tab3" data-toggle="tab">Draft Buddy</a></li>
+				<li><a ng-click="FTJController()" data-target="#tab1" data-toggle="tab">Fair Trade Judge</a></li>
+				<li><a ng-click="AwardsController()" data-target="#tab2" data-toggle="tab">Awards</a></li>
+				<li><a ng-click="DraftBuddyController()" data-target="#tab3" data-toggle="tab">Draft Buddy</a></li>
 				<li><a data-target="#tab4" data-toggle="tab">Add A League</a></li>
-				<li><a data-target="#tab5" data-toggle="tab">Insult Generator</a></li>
-				<li><a data-target="#tab6" data-toggle="tab">League Poll</a></li>
-				<li><a data-target="#tab7" data-toggle="tab">Smart Rankings</a></li>
-				<li><a data-target="#tab8" data-toggle="tab">Composite Rankings</a></li>
-				<li><a data-target="#tab9" data-toggle="tab">Waiver Wire Pickup Aid</a></li>
+				<li><a ng-click="INSULTController()" data-target="#tab5" data-toggle="tab">Insult Generator</a></li>
+				<li><a ng-click="PollsController()" data-target="#tab6" data-toggle="tab">League Poll</a></li>
+				<li><a ng-click="SRController()" data-target="#tab7" data-toggle="tab">Smart Rankings</a></li>
+				<li><a ng-click="CPController()" data-target="#tab8" data-toggle="tab">Composite Rankings</a></li>
+				<li><a ng-click="WaiverController()" data-target="#tab9" data-toggle="tab">Waiver Wire Pickup Aid</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab0">
@@ -72,7 +72,7 @@
 				<div class="tab-pane" id="tab1">
 					<h2>Select the teams that are going to do a trade, then select
 						the players</h2>
-					<div ng-controller="FTJController" class="teamWrapper">
+					<div class="teamWrapper">
 						<div class="col-md-6 team" style="float: left;">
 							{{list1}} <select ng-model="selectedTeam1"
 								ng-options="item as item.teamName for item in teams track by item.teamID"
@@ -134,7 +134,7 @@
 				<!-- The Awards Section -->
 				<div class="tab-pane" id="tab2">
 					<h3>Weekly Awards</h3>
-					<div ng-controller="AwardsController" class="awards">
+					<div class="awards">
 						<p>Week:</p>
 						<!-- use the pills when we enhance the UI in iteration 3 -->
 						<select ng-model="aWeek"
@@ -259,7 +259,7 @@
 
 
 					</div>
-					<form ng-controller="DraftBuddyController" class="">
+					<form class="">
 						<div class="col-md-12" style="margin: 10px"></div>
 						<div class="col-md-12" style="text-align: center">
 							<h4>Overall Rankings</h4>
@@ -308,7 +308,7 @@
 				<div class="tab-pane" id="tab5">
 					<h3>Insult Generator</h3>
 					<h5>Select a team to insult!</h5>
-					<form ng-controller="INSULTController" class="teamWrapper">
+					<form class="teamWrapper">
 						<div class="team" style="float: left;">
 							{{list}} <select ng-model="selectedTeam"
 								ng-options="item as item.teamName for item in teams track by item.teamID"
@@ -324,7 +324,7 @@
 				<!-- League Poll Seciton -->
 				<div class="tab-pane" id="tab6">
 					<h3>League Poll</h3>
-					<div ng-controller="PollsController">
+					<div>
 						<select ng-model="pWeek"
 							ng-options="item as item.week for item in weeks"
 							ng-change="updateWeeks(pWeek)">
@@ -366,10 +366,10 @@
 					</div>
 				</div>
 
-				<!-- Smart Ranknings Section -->
+				<!-- Smart Rankings Section -->
 				<div class="tab-pane" id="tab7">
 					<h3>Smart Rankings</h3>
-					<div ng-controller="SRController">
+					<div>
 						<p>Week:</p>
 						<!-- use the pills when we enhance the UI in iteration 3
 							ul class="nav nav-pills nav-justified">
@@ -416,7 +416,7 @@
 				<!-- Composite Rankings Section -->
 				<div class="tab-pane" id="tab8">
 					<h3>Composite Rankings</h3>
-					<div ng-controller="CPController">
+					<div>
 						<select ng-model="cpWeek"
 							ng-options="item as item.week for item in weeks"
 							ng-change="updateCPRankings(cpWeek)" ng-init="cpWeek = 17">
@@ -447,7 +447,7 @@
 				<!-- Waiver Wire Pickup Section -->
 				<div class="tab-pane" id="tab9">
 					<h3>Waiver Wire Pickup</h3>
-					<div ng-controller="WaiverController" class="teamWrapper">
+					<div class="teamWrapper">
 						<div class="team" style="float: left;">
 							<select ng-model="selectedPos"
 								ng-options="item as item.position for item in positions"

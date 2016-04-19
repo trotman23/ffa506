@@ -41,8 +41,26 @@ should show test report
 5. Added directory: src/test/java/com.ffa package
 6. Select Coverage
 
+##Test User Credentials
+We have created 12 test users that you may use to test the applications. 
 
+Login credentials are:
 
+email: team1@wisc.edu
+
+password: password
+
+And incrementing like: 
+
+email: team2@wisc.edu
+
+password: password
+
+......
+
+email: team12@wisc.edu
+
+password: password
 
 
 
