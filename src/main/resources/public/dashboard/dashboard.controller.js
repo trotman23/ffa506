@@ -16,20 +16,15 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		UserService.GetByEmail($rootScope.globals.currentUser.email)
 		.then(function (user) {
 			vm.user = user.data;
-			$rootScope.$broadcast('user-loaded');
 		});
 	}
 
 	function loadLeagueID(){
-		//console.log("in loadLeague");
-		$rootScope.$on('user-loaded', function(){
-			UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
-				$rootScope.tempLeagueID = data;
-				console.log($rootScope.tempLeagueID);
-			});
+		UserService.GetLeagueIDFromUser($rootScope.globals.currentUser.id).then(function(data){
+			$rootScope.tempLeagueID = data;
 		});
 	}
-	
+
 	$scope.FTJController = function() {
 		$scope.list1 = 'Select Team 1';
 		$scope.list2 = 'Select Team 2';
@@ -39,6 +34,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		$scope.players2 = [];
 		$scope.roster1 = null;
 		$scope.roster2 = null;
+		console.log("FUCKFUCK");
 		$http({
 			method: 'GET',
 			url: './rest/LeagueTeams?LeagueID=' + $rootScope.tempLeagueID
@@ -263,7 +259,6 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		$scope.list = 'Select Team';
 		$scope.teams = [];
 		$scope.outputInsult =null;
-
 		$http({
 			method: 'GET',
 			url: './rest/LeagueTeams?LeagueID=' + $rootScope.tempLeagueID

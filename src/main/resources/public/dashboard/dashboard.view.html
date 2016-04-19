@@ -371,7 +371,7 @@
 				<div class="tab-pane" id="tab5">
 					<h3>Insult Generator</h3>
 					<h5>Select a team to insult!</h5>
-					<form ng-controller="INSULTController" class="teamWrapper">
+					<form class="teamWrapper">
 						<div class="team" style="float: left;">
 							{{list}} <select ng-model="selectedTeam"
 								ng-options="item as item.teamName for item in teams track by item.teamID"
