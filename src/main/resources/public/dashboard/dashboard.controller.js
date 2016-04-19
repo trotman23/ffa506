@@ -108,23 +108,24 @@ function FTJController($scope, $http, $rootScope) {
 	};
 }
 
-//Draft Buddy Controller
-DraftBuddyController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
-function DraftBuddyController($scope, $http, $rootScope, UserService) {
+
+DraftBuddyController.$inject = ['$scope', '$http', '$rootScope', 'UserService', '$timeout'];
+function DraftBuddyController($scope, $http, $rootScope, UserService, $timeout) {
 	$scope.sortType = 'Rank'
-		$scope.players =[];
-	$scope.player = "Insult here";
-	$http({
-		method: 'GET',
-		url: './rest/DraftBuddy'
-	}).success(function (result) {
-		$scope.players = result;
-		//console.log(result);
-	});
+	
+	if ($scope.players == null){
+		$http({
+			method: 'GET',
+			url: './rest/DraftBuddy'
+		}).success(function (result) {
+			$scope.players = result;
+		});
+	}
 
 	$scope.players = [];
 
 }
+
 
 //smart ranking controller
 SRController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];

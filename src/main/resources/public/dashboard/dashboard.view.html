@@ -214,36 +214,30 @@
 				</div>
 
 				<!--Draft Buddy Section-->
-				<div class="tab-pane" id="tab3">
+				<div class="tab-pane" id="tab3" ng-controller="DraftBuddyController">
 					<div class="col-md-12">
 						<span class="span8" style="margin-bottom: 20p">
 							<h2>Start draft, and then enter names to see who's been
 								drafted</h2>
 						</span>
 
-						<button type="button pull-left" class="btn btn-success">Start
+						<button type="button pull-left" class="btn btn-success" ng-click="startTimer()">Start
 							Draft</button>
-						<button type="button pull-left" class="btn btn-danger">End
+						<button type="button pull-left" class="btn btn-danger" ng-click="stop()">End
 							Draft</button>
 
-						<!--   <h3><timer/></h3>
-       							 <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
-       							 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button> -->
-						<!-- <timer interval="1000" class="ng-binding ng-isolate-scope">
+						<h3 style="padding-left: 10px; display:inline" ng-bind="counter"> 00:00 minutes </h3>
 
-								{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer> -->
-						<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
-       						 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timers</button> -->
+						 <!-- <h3><timer countdown="10" interval="1000">{{countdown}}</timer></h3>
+						  <button ng-click="add5Seconds()">Add 5 Seconds</button> -->
+<!-- 						<p ng-bind="counter"></p>
+    					<button ng-click="stop()">Stop</button>
+    					<button ng-click="countdown()">Start</button>   -->
+   
+						<!-- <span style="padding-left:10px" ng-bind="counter">Here</span><span> minutes</span> -->
 
 
 						<div class="col-md-8 pull-right" style="padding-left: 15px;">
-
-							<span> <!-- <form ng-submit="search(playerName)">
-	      							<input ng-model="player" style="width:100%" type="text" class="form-control" placeholder="Search for..."></input>
-	      							</form> --> <!-- <form ng-controller="DraftBuddyController" ng-submit="searchPlayer()">
-										<input st-search="" type="text" ng-model="playerName" tyle="width:100%"
-											class="form-control" placeholder="Search for player" />
-									</form> -->
 
 								<form>
 									<div class="form-group">
@@ -302,63 +296,6 @@
 								</tr>
 							</table>
 						</div>
-						<!-- 							<div class="col-md-3" style="text-align: center">
-								<h4>RB's</h4>
-								<table class="table-bordered">
-									<tr>
-										<td>Rank</td>
-										<td>Name</td>
-										<td>Position</td>
-										<td>NFLTeamName</td>
-										<td>InjuryCode</td>
-									</tr>
-									<tr ng-repeat="player in players[1] | filter: searchKeyword ">
-										<td></td>
-										<td>{{player.Name}}</td>
-										<td>{{player.Position}}</td>
-										<td>{{player.NFLTeamName}}</td>
-										<td>{{player.InjuryCode}}</td>
-									</tr>
-								</table>
-							</div>
-							<div class="col-md-3" style="text-align: center">
-								<h4>WR's</h4>
-								<table class="table-bordered">
-									<tr>
-										<td>Rank</td>
-										<td>Name</td>
-										<td>Position</td>
-										<td>NFLTeamName</td>
-										<td>InjuryCode</td>
-									</tr>
-									<tr ng-repeat="player in players[2] | filter: searchKeyword ">
-										<td></td>
-										<td>{{player.Name}}</td>
-										<td>{{player.Position}}</td>
-										<td>{{player.NFLTeamName}}</td>
-										<td>{{player.InjuryCode}}</td>
-									</tr>
-								</table>
-							</div>
-							<div class="col-md-3" style="text-align: center ">
-								<h4>TE's</h4>
-								<table class="table-bordered">
-									<tr>
-										<td>Rank</td>
-										<td>Name</td>
-										<td>Position</td>
-										<td>NFLTeamName</td>
-										<td>InjuryCode</td>
-									</tr>
-									<tr ng-repeat="player in players[3] | filter: searchKeyword ">
-										<td></td>
-										<td>{{player.Name}}</td>
-										<td>{{player.Position}}</td>
-										<td>{{player.NFLTeamName}}</td>
-										<td>{{player.InjuryCode}}</td>
-									</tr>
-								</table> -->
-						<!-- </div> -->
 					</form>
 				</div>
 
