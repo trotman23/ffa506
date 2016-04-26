@@ -305,3 +305,12 @@ form .row:first-child .floating-label-form-group {
 .scroll-top .btn:focus {
     outline: 0;
 }
+
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}

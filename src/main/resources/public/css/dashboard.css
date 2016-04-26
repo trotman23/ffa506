@@ -10,3 +10,11 @@ div.awards span{
 	text-decoration: underline;
 	display: block;
 }
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}

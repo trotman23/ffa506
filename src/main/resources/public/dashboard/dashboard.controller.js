@@ -89,8 +89,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 	
 	$scope.DraftBuddyController = function() {
 		$scope.sortType = 'Rank'
-			$scope.players =[];
-		$scope.player = "Insult here";
+		$scope.players =[];
 		$http({
 			method: 'GET',
 			url: './rest/DraftBuddy'
@@ -98,63 +97,40 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			$scope.players = result;
 			//console.log(result);
 		});
-<<<<<<< HEAD
-	};
-	$scope.addID1 = function(s){
-		$scope.players1 = s;
-		////console.log($scope.players1);
-
-	};
-	$scope.addID2 = function(s){
-		$scope.players2 = s;
-		//console.log($scope.players2);
-	};
-}
-
-
-DraftBuddyController.$inject = ['$scope', '$http', '$rootScope', 'UserService', '$timeout'];
-function DraftBuddyController($scope, $http, $rootScope, UserService, $timeout) {
-	$scope.sortType = 'Rank'
-	
-	if ($scope.players == null){
-		$http({
-			method: 'GET',
-			url: './rest/DraftBuddy'
-		}).success(function (result) {
-			$scope.players = result;
-		});
-	}
-
-	$scope.players = [];
-=======
->>>>>>> c3e0d1e05f20d0684fbe7c96d5ce35d0c8da5247
 
 		$scope.players = [];
 
-<<<<<<< HEAD
+		$scope.sort = function(){
+			$scope.sortType = "Name";
+		}
 
-//smart ranking controller
-SRController.$inject = ['$scope', '$http', '$rootScope', 'UserService'];
-function SRController($scope, $http, $rootScope, UserService){
-	$scope.weeks = [{"week": 1},
-	                {"week": 2},
-	                {"week": 3},
-	                {"week": 4},
-	                {"week": 5},
-	                {"week": 6},
-	                {"week": 7},
-	                {"week": 8},
-	                {"week": 9},
-	                {"week": 10},
-	                {"week": 11},
-	                {"week": 12},
-	                {"week": 13},
-	                {"week": 14},
-	                {"week": 15},
-	                {"week": 16},
-	                {"week": 17}];
-	$scope.$on('leagueID-loaded', function() {
-=======
+
+
+		$scope.setSelected= function(){
+
+			console.log('selecting: ' + $scope.index);
+			//$scope.selected = "red";
+			$scope.searchPlayer = "";
+		}
+
+		$scope.select = function(index){
+			console.log('here');
+		}
+
+        $scope.selIdx= -1;
+        $scope.selectedPlayers = [];
+
+        $scope.selUser=function(player,idx){
+
+            $scope.selectedPlayers.push(player);
+            console.log("selected: " + player);
+        }
+
+        $scope.userSelected =  function(player){
+		    return $.inArray(player, $scope.selectedPlayers) > -1;
+		}
+
+
 	}
 	
 	$scope.SRController = function(){
@@ -175,7 +151,6 @@ function SRController($scope, $http, $rootScope, UserService){
 		                {"week": 15},
 		                {"week": 16},
 		                {"week": 17}];
->>>>>>> c3e0d1e05f20d0684fbe7c96d5ce35d0c8da5247
 		$http({
 			method: 'GET',
 			url: './rest/SmartRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=17'

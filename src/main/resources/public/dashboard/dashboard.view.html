@@ -214,31 +214,38 @@
 				</div>
 
 				<!--Draft Buddy Section-->
-				<div class="tab-pane" id="tab3" ng-controller="DraftBuddyController">
+				<div class="tab-pane" id="tab3">
 					<div class="col-md-12">
 						<span class="span8" style="margin-bottom: 20p">
 							<h2>Start draft, and then enter names to see who's been
 								drafted</h2>
 						</span>
 
-						<button type="button pull-left" class="btn btn-success" ng-click="startTimer()">Start
+						<button type="button pull-left" class="btn btn-success">Start
 							Draft</button>
-						<button type="button pull-left" class="btn btn-danger" ng-click="stop()">End
+						<button type="button pull-left" class="btn btn-danger">End
 							Draft</button>
 
-						<h3 style="padding-left: 10px; display:inline" ng-bind="counter"> 00:00 minutes </h3>
 
-						 <!-- <h3><timer countdown="10" interval="1000">{{countdown}}</timer></h3>
-						  <button ng-click="add5Seconds()">Add 5 Seconds</button> -->
-<!-- 						<p ng-bind="counter"></p>
-    					<button ng-click="stop()">Stop</button>
-    					<button ng-click="countdown()">Start</button>   -->
-   
-						<!-- <span style="padding-left:10px" ng-bind="counter">Here</span><span> minutes</span> -->
+						<!--   <h3><timer/></h3>
+       							 <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
+       							 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button> -->
+						<!-- <timer interval="1000" class="ng-binding ng-isolate-scope">
+
+								{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer> -->
+						<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
+       						 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timers</button> -->
+
+       						<style>
+       					
+							.sel { background-color: #bce65e; }
+							.desc { background-color: #d1e6ac; }
+							</style>
 
 
 						<div class="col-md-8 pull-right" style="padding-left: 15px;">
 
+							<span>
 								<form>
 									<div class="form-group">
 										<div class="input-group">
@@ -248,14 +255,14 @@
 
 											<input type="text" class="form-control"
 												placeholder="Search players" ng-model="searchPlayer"
-												ng-click="setSelected"></input>
-
+												 ng-submit="select()" ng-keydown="$event.which === 13 && select()"></input>
 										</div>
 									</div>
 								</form>
 
 							</span>
 						</div>
+						<span class="pull-left"><i>Click on a row or search their name and press enter to mark them as drafted</i></span>
 
 
 					</div>
@@ -266,34 +273,27 @@
 							<table class="table-bordered">
 								<thead>
 									<tr>
-										<td><a href="#" ng-click="sortType = 'Rank'"> Rank <span
-												ng-show="sortType == 'Rank'" class="fa fa-caret-down"></span>
+										<td><a href="#" ng-click="sortType = 'Rank'"> Rank <span class="fa fa-caret-down"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'Name'"> Name <span
-												ng-show="sortType == 'Name'" class="fa fa-caret-down"></span>
+										<td><a href="#" ng-click="sortType = 'Name'"> Name <span class="fa fa-caret-down"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'Position'">
-												Position <span ng-show="sortType == 'Position'"
-												class="fa fa-caret-down"></span>
+										<td><a href="#" ng-click="sortType = 'Position'"> Position <span class="fa fa-caret-down"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'NFLTeamName'">
-												Team <span ng-show="sortType == 'NFLTeamName'"
-												class="fa fa-caret-down"></span>
+										<td><a href="#" ng-click="sortType = 'NFLTeamName'">Team <span class="fa fa-caret-down"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'injuryCode'">
-												Injury Update <span ng-show="sortType == 'Injury Update'"
-												class="fa fa-caret-down"></span>
+										<td><a href="#" ng-click="sortType = 'injuryCode'"> Injury Update <span class="fa fa-caret-down"></span>
 										</a></td>
 									</tr>
 								</thead>
-								<tr ng-click="setSelected()" class="{{selected}}"
-									ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer ">
-									<td>{{player.OverallRank}}</td>
-									<td>{{player.Name}}</td>
-									<td>{{player.Position}}</td>
-									<td>{{player.NFLTeamName}}</td>
-									<td>{{player.InjuryCode}}</td>
-								</tr>
+								<tbody ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer" ng-click="selUser(player,$index)">
+        						<tr  ng-class="{sel: userSelected(player)}">
+										<td >{{player.OverallRank}}</td>
+										<td >{{player.Name}}</td>
+										<td >{{player.Position}}</td>
+										<td >{{player.NFLTeamName}}</td>
+										<td >{{player.InjuryCode}}</td>
+									</tr>
+								</tbody> 
 							</table>
 						</div>
 					</form>

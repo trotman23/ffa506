@@ -304,3 +304,11 @@ form .row:first-child .floating-label-form-group {
 .selected tr {
   background-color: red;
 }
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
