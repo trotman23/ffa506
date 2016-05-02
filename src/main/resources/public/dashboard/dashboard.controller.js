@@ -88,7 +88,8 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 	}
 	
 	$scope.DraftBuddyController = function() {
-		$scope.sortType = 'Rank'
+		$scope.sortType     = 'OverallRank';
+		$scope.sortReverse  = false;
 		$scope.players =[];
 		$http({
 			method: 'GET',
@@ -99,11 +100,6 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		});
 
 		$scope.players = [];
-
-		$scope.sort = function(){
-			$scope.sortType = "Name";
-		}
-
 
 
 		$scope.setSelected= function(){

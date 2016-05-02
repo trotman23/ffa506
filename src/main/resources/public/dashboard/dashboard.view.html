@@ -272,16 +272,21 @@
 							<h4>Overall Rankings</h4>
 							<table class="table-bordered">
 								<thead>
-									<tr>
-										<td><a href="#" ng-click="sortType = 'Rank'"> Rank <span class="fa fa-caret-down"></span>
+									<tr class="list">
+										<td><a ng-click="sortType = 'OverallRank'; sortReverse = !sortReverse"> Rank <span ng-show="sortType == 'OverallRank' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'OverallRank' && sortReverse" class="fa fa-caret-up"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'Name'"> Name <span class="fa fa-caret-down"></span>
+										<td><a ng-click="sortType = 'Name'; sortReverse = !sortReverse"> Name <span ng-show="sortType == 'Name' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'Name' && sortReverse" class="fa fa-caret-up"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'Position'"> Position <span class="fa fa-caret-down"></span>
+										<td><a ng-click="sortType = 'Position'; sortReverse = !sortReverse"> Position <span ng-show="sortType == 'Position' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'Position' && sortReverse" class="fa fa-caret-up"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'NFLTeamName'">Team <span class="fa fa-caret-down"></span>
+										<td><a ng-click="sortType = 'NFLTeamName'; sortReverse = !sortReverse">Team <span ng-show="sortType == 'Team' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'Team' && sortReverse" class="fa fa-caret-up"></span>
 										</a></td>
-										<td><a href="#" ng-click="sortType = 'injuryCode'"> Injury Update <span class="fa fa-caret-down"></span>
+										<td><a ng-click="sortType = 'InjuryCode'; sortReverse = !sortReverse"> Injury Update <span ng-show="sortType == 'InjuryCode' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'InjuryCode' && sortReverse" class="fa fa-caret-up"></span>
 										</a></td>
 									</tr>
 								</thead>
