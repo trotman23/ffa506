@@ -1,8 +1,9 @@
 package com.ffa.models;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,16 +33,15 @@ public class DraftBuddy {
 //	
 	public static List<Player> Players(){
 		Connection pConn = null;
-		Statement pStmt = null;
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
 		try{
-	
-			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
-			pStmt = pConn.createStatement();
 			//select on team name, given team id
 	
 			String sql = "SELECT * FROM players ORDER BY OverallRank ASC;";
-			ResultSet rs = pStmt.executeQuery(sql);
+			pStmt = pConn.prepareStatement(sql);
+			rs = pStmt.executeQuery();
 			while(rs.next()){
 				Player player = new Player();
 				player.OverallRank = rs.getString(7);
@@ -65,14 +65,13 @@ public class DraftBuddy {
 				players.add(player);
 				System.out.println(player);
 			}
-			
-			pConn.close();
-			rs.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-	
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		
 		com.fasterxml.jackson.databind.ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {

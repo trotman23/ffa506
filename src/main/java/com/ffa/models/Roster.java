@@ -28,11 +28,10 @@ public class Roster {
 	public List<Roster> getRoster(String LeagueID, String TeamID, String Week, String Year){
 		List<Roster> lr = new ArrayList<Roster>();
 		Connection pConn = null;
-		Statement pStmt = null;
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
-			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
 			/* sql code to try out, getting the roster of a team for a given week and year
@@ -46,12 +45,19 @@ public class Roster {
 			 * 
 			 */
 			String sql = "SELECT * FROM roster r JOIN players p ON r.Players_PlayerID = p.PlayerID WHERE " + 
-					"r.weekID = " + Week + " and " + 
-					"r.SeasonID = " + Year + " and " + 
-					"r.Teams_FFATeamID = " + TeamID + " and " + 
-					"Teams_Leagues_LeagueID = " + LeagueID + ";";
+					"r.weekID = ? and " + 
+					"r.SeasonID = ? and " + 
+					"r.Teams_FFATeamID = ? and " + 
+					"Teams_Leagues_LeagueID = ?;";
 			System.out.println(sql);
-			ResultSet rs = pStmt.executeQuery(sql);
+
+			pStmt = pConn.prepareStatement(sql);
+			pStmt.setString(1, Week);
+			pStmt.setString(2, Year);
+			pStmt.setString(3, TeamID);
+			pStmt.setString(4, LeagueID);
+			
+			rs = pStmt.executeQuery();
 			while(rs.next()){
 				Roster r = new Roster();
 				r.Players_PlayerID = rs.getInt(1);
@@ -70,14 +76,13 @@ public class Roster {
 				r.NFLTeam_NFLTeamID = rs.getInt(15);
 				lr.add(r);
 			}
-			pConn.close();
-			rs.close();
-
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		return lr;
 	}
 }

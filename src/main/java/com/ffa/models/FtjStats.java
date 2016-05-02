@@ -2,6 +2,7 @@ package com.ffa.models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,31 +35,31 @@ public class FtjStats {
 	public List<FtjStats> LeagueTeams(int LeagueID){
 		List<FtjStats> teams = new ArrayList<FtjStats>();
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try{
-
-			Class.forName("com.mysql.jdbc.Driver");
 			conn = DbSource.getDataSource().getConnection();
-			stmt = conn.createStatement();
 			//select on team name, given team id
 
-			String sql = "SELECT * FROM teams t JOIN leagues l ON t.Leagues_LeagueID = l.LeagueID WHERE l.ESPNLeagueID = " + LeagueID + ";";
+			String sql = "SELECT * FROM teams t JOIN leagues l ON t.Leagues_LeagueID = l.LeagueID WHERE l.ESPNLeagueID = ?;";
 			System.out.println(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, LeagueID);
+			rs = stmt.executeQuery();
 			while(rs.next()){
 				FtjStats temp = new FtjStats();
 				temp.teamID = rs.getInt(1);
 				temp.teamName = rs.getString(5);
 				teams.add(temp);
 			}
-			conn.close();
-			rs.close();
 
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		com.fasterxml.jackson.databind.ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {
 			String json = ow.writeValueAsString(teams);
@@ -142,35 +143,34 @@ public class FtjStats {
 
 	public int getPlayerPoints(int pID){
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try{
-
-			//Class.forName("com.mysql.jdbc.Driver");
 			conn = DbSource.getDataSource().getConnection();
-			stmt = conn.createStatement();
-
 			String sql= "SELECT SUM(ws.FantasyPointsScore) "
 					+ "FROM players p "
 					+ "JOIN weeklyscores ws "
 					+ "ON p.PlayerID = ws.Players_PlayerID "
-					+ "WHERE p.PlayerID = "+pID + ";";
+					+ "WHERE p.PlayerID = ?;";
 			System.out.println(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, pID);
+			rs = stmt.executeQuery();
 			//testing
 			int scoreSum = 0;
 			while(rs.next()){
 				scoreSum = rs.getInt(1);	
 			}
-			conn.close();
-			rs.close();
 			return scoreSum;
-
-
 		}catch (Exception e){
 			System.out.println("Caught exceptionz");
 			e.printStackTrace();
 			return 0;
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 	}
 }
 

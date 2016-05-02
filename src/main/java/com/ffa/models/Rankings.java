@@ -52,29 +52,37 @@ public class Rankings /*implements Comparator<Rankings>*/{
 	
 	public static int getTeamWeeklySumScore(int leagueID, int week, int teamID){
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		int score = 0;
 		try {
 			conn = DbSource.getDataSource().getConnection();
-			stmt = conn.createStatement();
 			String sql = "SELECT SUM(ws.FantasyPointsScore) FROM weeklyscores ws " + 
 			"JOIN roster r ON r.Players_PlayerID = ws.Players_PlayerID " + 
-			"WHERE r.Teams_Leagues_LeagueID = " + leagueID + " " +
-			"AND r.Teams_FFATeamID = " + teamID + " " +
-			"AND r.WeekID > 0 AND r.WeekID <= " + week + " " +
-			"AND ws.Week > 0 AND ws.Week <= " + week + " " +
+			"WHERE r.Teams_Leagues_LeagueID = ? " +
+			"AND r.Teams_FFATeamID = ? " +
+			"AND r.WeekID > 0 AND r.WeekID <= ? " +
+			"AND ws.Week > 0 AND ws.Week <= ? " +
 			"AND r.Starter = true;";
-			ResultSet rs = stmt.executeQuery(sql);
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, leagueID);
+			stmt.setInt(2, teamID);
+			stmt.setInt(3, week);
+			stmt.setInt(4, week);
+			rs = stmt.executeQuery();
 			
 			while (rs.next()){
 				score = rs.getInt(1);
 			}
-			stmt.close();
-			conn.close();
 		} catch (Exception e){
 			e.printStackTrace();
 			
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		return score;
 	}
 	
