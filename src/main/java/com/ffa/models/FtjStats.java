@@ -109,10 +109,9 @@ public class FtjStats {
 			System.out.println(sql);
 			 rs = stmt.executeQuery(sql);
 			//testing
-			int scoreSum = 0;
 			while(rs.next()){
 				newPlayer.Name= rs.getString(2);	
-				newPlayer.OverallRank = rs.getString(7);
+				newPlayer.OverallRank = rs.getInt(7);
 			}
 		
 			return newPlayer;

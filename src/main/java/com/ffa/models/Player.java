@@ -8,12 +8,8 @@ public class Player {
 	public String NFLTeamName;
 	public boolean Injured;
 	public int NFLTeam_NFLTeamID;
-<<<<<<< HEAD
 	public int OverallRank;
-=======
-	public String OverallRank;
 	public int ftjPoints;
->>>>>>> 09d1a01418525dfa45b9f32d4bc8e864ac7ab141
 	
 	public Player(){
 
