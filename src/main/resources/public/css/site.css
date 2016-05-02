@@ -8,6 +8,10 @@
 	cursor: pointer;
 }
 
+.list td:hover{
+	cursor: pointer;
+}
+
 div.rss-item:nth-child(2n+1){
 	background-color: #f7f7f7;		
 }
