@@ -44,7 +44,7 @@ public class DraftBuddy {
 			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Player player = new Player();
-				player.OverallRank = rs.getString(7);
+				player.OverallRank = rs.getInt(7);
 				player.Name = rs.getString(2);
 
 				if (rs.getString(4).equals("null")){

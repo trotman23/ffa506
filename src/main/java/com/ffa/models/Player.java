@@ -8,13 +8,13 @@ public class Player {
 	public String NFLTeamName;
 	public boolean Injured;
 	public int NFLTeam_NFLTeamID;
-	public String OverallRank;
+	public int OverallRank;
 	
 	public Player(){
 
 	}
 	
-	public Player(int playerID, String Name, String Position, String NFLTeamName, boolean Injured, int NFLTeam_NFLTeamID, String OverallRank){
+	public Player(int playerID, String Name, String Position, String NFLTeamName, boolean Injured, int NFLTeam_NFLTeamID, int OverallRank){
 		this.PlayerID = playerID;
 		this.Name = Name;
 		this.Position = Position;
