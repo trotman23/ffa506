@@ -2,6 +2,7 @@ package com.ffa.models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,16 +35,17 @@ public class FtjStats {
 	public List<FtjStats> LeagueTeams(int LeagueID){
 		List<FtjStats> teams = new ArrayList<FtjStats>();
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
 			conn = DbSource.getDataSource().getConnection();
-			stmt = conn.createStatement();
 			//select on team name, given team id
 
-			String sql = "SELECT * FROM teams t JOIN leagues l ON t.Leagues_LeagueID = l.LeagueID WHERE l.ESPNLeagueID = " + LeagueID + ";";
+			String sql = "SELECT * FROM teams t JOIN leagues l ON t.Leagues_LeagueID = l.LeagueID WHERE l.ESPNLeagueID = ?;";
 			System.out.println(sql);
-			rs = stmt.executeQuery(sql);
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, LeagueID);
+			rs = stmt.executeQuery();
 			while(rs.next()){
 				FtjStats temp = new FtjStats();
 				temp.teamID = rs.getInt(1);
@@ -86,21 +88,19 @@ public class FtjStats {
 
 	public int getPlayerPoints(int pID){
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
-
-			//Class.forName("com.mysql.jdbc.Driver");
 			conn = DbSource.getDataSource().getConnection();
-			stmt = conn.createStatement();
-
 			String sql= "SELECT SUM(ws.FantasyPointsScore) "
 					+ "FROM players p "
 					+ "JOIN weeklyscores ws "
 					+ "ON p.PlayerID = ws.Players_PlayerID "
-					+ "WHERE p.PlayerID = "+pID + ";";
+					+ "WHERE p.PlayerID = ?;";
 			System.out.println(sql);
-			rs = stmt.executeQuery(sql);
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, pID);
+			rs = stmt.executeQuery();
 			//testing
 			int scoreSum = 0;
 			while(rs.next()){
