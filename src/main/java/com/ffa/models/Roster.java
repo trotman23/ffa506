@@ -29,6 +29,7 @@ public class Roster {
 		List<Roster> lr = new ArrayList<Roster>();
 		Connection pConn = null;
 		Statement pStmt = null;
+		ResultSet rs = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
@@ -51,7 +52,7 @@ public class Roster {
 					"r.Teams_FFATeamID = " + TeamID + " and " + 
 					"Teams_Leagues_LeagueID = " + LeagueID + ";";
 			System.out.println(sql);
-			ResultSet rs = pStmt.executeQuery(sql);
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Roster r = new Roster();
 				r.Players_PlayerID = rs.getInt(1);
@@ -70,14 +71,13 @@ public class Roster {
 				r.NFLTeam_NFLTeamID = rs.getInt(15);
 				lr.add(r);
 			}
-			pConn.close();
-			rs.close();
-
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		return lr;
 	}
 }

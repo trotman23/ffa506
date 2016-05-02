@@ -1,6 +1,7 @@
 package com.ffa.models;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import com.ffa.controllers.DbSource;
@@ -34,6 +35,7 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		//better way to write the SQL right now, so i'm just going for it
 		Connection conn = null;
 		Statement stmt = null;
+		ResultSet rs = null;
 		int score = 0;
 		try {
 			conn = DbSource.getDataSource().getConnection();
@@ -45,7 +47,7 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 					"WHERE r.WeekID = " + Week + " AND ws.Week = " + Week + " "+  
 					"AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + LeagueID + " " +
 					"GROUP BY r.Teams_FFATeamID;";
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 
 			while (rs.next()){
 				CompositeRankings cr = new CompositeRankings();
@@ -55,9 +57,6 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 				cr.cPoints = rs.getInt(1);
 				lcr.add(cr);
 			}
-			//close out connections before post-processing
-			stmt.close();
-			conn.close();
 			Collections.sort(lcr);
 			//assign the rank based on the sort, might work, might now
 			for (int j = 0; j < lcr.size(); j++){
@@ -70,7 +69,11 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		} catch (Exception e){
 			e.printStackTrace();
 
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 
 		return lcr;
 	}
@@ -94,19 +97,25 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		//TODO: query the db for the number of teams, and use that instead of 12. 
 		//should be a really simple query like select count(*) from teams where Leagueid=LeagueID
 		int numTeams = 12;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try{
-			Connection conn = DbSource.getDataSource().getConnection();
-			Statement stmt = conn.createStatement();
+			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
 			String sql = "SELECT COUNT(*) FROM teams WHERE Leagues_LeagueID = 1";
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			while (rs.next()){
 				numTeams = rs.getInt(1);
 			}
-			stmt.close();
-			conn.close();
 		}catch(Exception e){
 			e.printStackTrace();
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
+		
 		for (int a = 0; a <numTeams; a++){
 			CompositeRankings temp = new CompositeRankings();
 			lcr.add(temp);

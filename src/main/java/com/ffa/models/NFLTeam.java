@@ -23,30 +23,28 @@ public class NFLTeam {
 		this.NFLTeamID = id;
 		Connection pConn = null;
 		Statement pStmt = null;
+		ResultSet rs = null;
 		try{
-
-			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
 			String sql = "SELECT * FROM nflteam WHERE NFLTeamID = " + id + ";";
 			System.out.println(sql);
-			ResultSet rs = pStmt.executeQuery(sql);
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				this.NFLTeamName = rs.getString(2);
 				this.Wins = rs.getInt(3);
 				this.Losses = rs.getInt(4);
 				this.Ties = rs.getInt(5);
 			}
-			pConn.close();
-			rs.close();
-
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 	}
 	public NFLTeam(){
 		

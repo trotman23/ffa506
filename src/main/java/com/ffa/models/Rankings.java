@@ -53,6 +53,7 @@ public class Rankings /*implements Comparator<Rankings>*/{
 	public static int getTeamWeeklySumScore(int leagueID, int week, int teamID){
 		Connection conn = null;
 		Statement stmt = null;
+		ResultSet rs = null;
 		int score = 0;
 		try {
 			conn = DbSource.getDataSource().getConnection();
@@ -64,17 +65,19 @@ public class Rankings /*implements Comparator<Rankings>*/{
 			"AND r.WeekID > 0 AND r.WeekID <= " + week + " " +
 			"AND ws.Week > 0 AND ws.Week <= " + week + " " +
 			"AND r.Starter = true;";
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()){
 				score = rs.getInt(1);
 			}
-			stmt.close();
-			conn.close();
 		} catch (Exception e){
 			e.printStackTrace();
 			
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		return score;
 	}
 	

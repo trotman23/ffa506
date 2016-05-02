@@ -64,6 +64,7 @@ public class Award {
 		//probably a better more OOP way of doing this, but for simplicity's sake i'm just going to calculate all of the weekly awards in the constructor
 		Connection conn1 = null;
 		Statement stmt1 = null;
+		ResultSet rs = null;
 		
 		//top weekly overall score
 		try{
@@ -77,18 +78,19 @@ public class Award {
 						"JOIN users u ON u.UserID = t.Users_UserID " +
 						"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + l + " GROUP BY r.Teams_FFATeamID) as maxpoints;";
 			System.out.println(sql);
-			ResultSet rs = stmt1.executeQuery(sql);
+			rs = stmt1.executeQuery(sql);
 			while(rs.next()){
 				this.topOverallScore = rs.getInt(1);
 				this.topOverallScoreTeam = rs.getString(2);
 				this.topOverallScoreOwner = rs.getString(3);
 			}
-			conn1.close();
-			stmt1.close();
-			rs.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt1 != null) try { stmt1.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn1 != null) try { conn1.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		
 		//top scorer for individual person
 		Connection conn2 = null;
@@ -106,19 +108,20 @@ public class Award {
 						"JOIN players p ON p.PlayerID = ws.Players_PlayerID " + 
 						"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + l + ";";
 			System.out.println(sql);
-			ResultSet rs = stmt2.executeQuery(sql);
+			rs = stmt2.executeQuery(sql);
 			while(rs.next()){
 				this.topScorerPlayerPoints = rs.getInt(1);
 				this.topScorerPlayerName = rs.getString(2);
 				this.topScorerPlayerOwner = rs.getString(3);
 				this.topScorerPlayerTeam = rs.getString(4);
 			}
-			conn2.close();
-			stmt2.close();
-			rs.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt2 != null) try { stmt2.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn2 != null) try { conn2.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		
 		//most bench points left on the bench by entire bench
 		Connection conn3 = null;
@@ -135,18 +138,19 @@ public class Award {
 					"JOIN users u ON u.UserID = t.Users_UserID " +
 					"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = false AND r.Teams_Leagues_LeagueID = " + l + " GROUP BY r.Teams_FFATeamID) as minpoints;";
 			System.out.println(sql);
-			ResultSet rs = stmt3.executeQuery(sql);
+			rs = stmt3.executeQuery(sql);
 			while(rs.next()){
 				this.mostBenchPoints = rs.getInt(1);
 				this.mostBenchPointsTeam = rs.getString(2);
 				this.mostBenchPointsOwner = rs.getString(3);
 			}
-			conn3.close();
-			stmt3.close();
-			rs.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt3 != null) try { stmt3.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn3 != null) try { conn3.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		
 		//most points left on the bench by one player
 		Connection conn4 = null;
@@ -164,19 +168,20 @@ public class Award {
 						"JOIN players p ON p.PlayerID = ws.Players_PlayerID " + 
 						"WHERE r.WeekID = " + w + " AND ws.Week = " + w + " AND r.Starter = false AND r.Teams_Leagues_LeagueID = " + l + ";";
 			System.out.println(sql);
-			ResultSet rs = stmt4.executeQuery(sql);
+			rs = stmt4.executeQuery(sql);
 			while(rs.next()){
 				this.mostBenchPointsIndividualPlayerPoints = rs.getInt(1);
 				this.mostBenchPointsIndividualPlayerName = rs.getString(2);
 				this.mostBenchPointsIndividualPlayerOwner = rs.getString(3);
 				this.mostBenchPointsIndividualPlayerTeam = rs.getString(4);
 			}
-			conn4.close();
-			stmt4.close();
-			rs.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt4 != null) try { stmt4.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn4 != null) try { conn4.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		
 	}
 	
