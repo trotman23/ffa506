@@ -123,7 +123,6 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		$scope.selIdx= -1;
 		$scope.selectedPlayers = [];
 
-<<<<<<< HEAD
         $scope.selUser=function(player,idx){
         	if ($.inArray(player, $scope.selectedPlayers) > -1){
         		var index = $scope.selectedPlayers.indexOf(player);
@@ -133,13 +132,6 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
            	 	console.log("selected: " + player);
            	 }
         }
-=======
-		$scope.selUser=function(player,idx){
-
-			$scope.selectedPlayers.push(player);
-			console.log("selected: " + player);
-		}
->>>>>>> 09d1a01418525dfa45b9f32d4bc8e864ac7ab141
 
 		$scope.userSelected =  function(player){
 			return $.inArray(player, $scope.selectedPlayers) > -1;
