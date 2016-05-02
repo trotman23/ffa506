@@ -90,17 +90,17 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 	$scope.DraftBuddyController = function() {
 		$scope.sortType     = 'OverallRank';
 		$scope.sortReverse  = false;
-		$scope.players =[];
-		$http({
-			method: 'GET',
-			url: './rest/DraftBuddy'
-		}).success(function (result) {
-			$scope.players = result;
-			//console.log(result);
-		});
+		$scope.players = []
+			console.log('here');
+			$http({
+				method: 'GET',
+				url: './rest/DraftBuddy'
+			}).success(function (result) {
+				$scope.players = result;
+			});
 
-		$scope.players = [];
 
+		//$scope.players.length = 0;
 
 		$scope.setSelected= function(){
 
@@ -117,13 +117,13 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
         $scope.selectedPlayers = [];
 
         $scope.selUser=function(player,idx){
-        	// if ($.inArray(player, $scope.selectedPlayers) > -1){
-        	// 	console.log ("remove player " + player);
-        	// 	$scope.selectedPlayers.remove(player);
-        	// } else {
+        	if ($.inArray(player, $scope.selectedPlayers) > -1){
+        		var index = $scope.selectedPlayers.indexOf(player);
+ 				 $scope.selectedPlayers.splice(index, 1); 
+        	} else {
            	 	$scope.selectedPlayers.push(player);
            	 	console.log("selected: " + player);
-           	// }
+           	 }
         }
 
         $scope.userSelected =  function(player){
