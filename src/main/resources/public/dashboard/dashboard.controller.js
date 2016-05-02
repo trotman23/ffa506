@@ -34,7 +34,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		$scope.players2 = [];
 		$scope.roster1 = null;
 		$scope.roster2 = null;
-		console.log("FUCKFUCK");
+		$scope.players =[];
 		$http({
 			method: 'GET',
 			url: './rest/LeagueTeams?LeagueID=' + $rootScope.tempLeagueID
@@ -68,8 +68,15 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			$http({
 				method: 'GET',
 				url: './rest/FTJ?PlayerID1=' + $scope.players1 + '&PlayerID2=' + $scope.players2
-			}).then(function (result){
-				if (result.data){
+			}).success(function (result){
+				$scope.players = result;
+				//players
+				if ((($scope.players[0].ftjPoints/($scope.players[0].ftjPoints + 
+						$scope.players[1].ftjPoints))>0.45) &&
+						($scope.players[0].ftjPoints/($scope.players[0].ftjPoints + 
+								$scope.players[1].ftjPoints))<0.55)
+
+				{
 					$scope.FTJ = "Hell yea";
 				} else {
 					$scope.FTJ = "f no";
@@ -86,7 +93,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			//console.log($scope.players2);
 		};
 	}
-	
+
 	$scope.DraftBuddyController = function() {
 		$scope.sortType     = 'OverallRank';
 		$scope.sortReverse  = false;
@@ -113,22 +120,22 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			console.log('here');
 		}
 
-        $scope.selIdx= -1;
-        $scope.selectedPlayers = [];
+		$scope.selIdx= -1;
+		$scope.selectedPlayers = [];
 
-        $scope.selUser=function(player,idx){
+		$scope.selUser=function(player,idx){
 
-            $scope.selectedPlayers.push(player);
-            console.log("selected: " + player);
-        }
+			$scope.selectedPlayers.push(player);
+			console.log("selected: " + player);
+		}
 
-        $scope.userSelected =  function(player){
-		    return $.inArray(player, $scope.selectedPlayers) > -1;
+		$scope.userSelected =  function(player){
+			return $.inArray(player, $scope.selectedPlayers) > -1;
 		}
 
 
 	}
-	
+
 	$scope.SRController = function(){
 		$scope.weeks = [{"week": 1},
 		                {"week": 2},
@@ -173,25 +180,25 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 				//console.log(result.data);
 				srChart1.data = result.data;
 				srChart1.options = {
-					chartArea: {
-						width: '70%',
-						height: '80%',
-						left: '5%'
-					},
-					height: '1200px',
-					legend: {
-						position: 'right'
-					},
-					hAxis: {
-						format: 'short',
-						title: 'Week'
-					}, 
-					vAxis: {
-						direction: -1,
-						ticks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-						title: 'SmartRank'
-					}
-					
+						chartArea: {
+							width: '70%',
+							height: '80%',
+							left: '5%'
+						},
+						height: '1200px',
+						legend: {
+							position: 'right'
+						},
+						hAxis: {
+							format: 'short',
+							title: 'Week'
+						}, 
+						vAxis: {
+							direction: -1,
+							ticks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+							title: 'SmartRank'
+						}
+
 				}
 				$scope.srChart = srChart1;
 				$("#srButton").removeClass("active");
@@ -199,7 +206,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 
 		}
 	}
-	
+
 	$scope.AwardsController = function(){
 		$scope.weeks = [{"week": 1},
 		                {"week": 2},
@@ -235,7 +242,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			});
 		};
 	}
-	
+
 	$scope.CPController = function(){
 		$scope.weeks = [{"week": 1},
 		                {"week": 2},
@@ -254,7 +261,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		                {"week": 15},
 		                {"week": 16},
 		                {"week": 17}];
-		
+
 		$http({
 			method: 'GET',
 			url: './rest/CompositeRank?LeagueID=' + $rootScope.tempLeagueID + '&Week=17'
@@ -280,7 +287,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 
 		}
 	}
-	
+
 	$scope.INSULTController = function() {
 		$scope.list = 'Select Team';
 		$scope.teams = [];
@@ -324,7 +331,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		}
 
 	}
-	
+
 	$scope.PollsController = function() {
 		$scope.weeks = [{"week": 1},
 		                {"week": 2},

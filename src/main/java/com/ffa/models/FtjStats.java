@@ -3,6 +3,7 @@ package com.ffa.models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,18 +71,73 @@ public class FtjStats {
 		return teams;
 	}
 	
-	public boolean isFair(int tid1, int tid2){
+	public List<Player> isFair(int tid1, int tid2){
 		//TODO: implement fair trade judge algorithm, compare lots of stats
 		int p1pts = getPlayerPoints(tid1);
 		int p2pts = getPlayerPoints(tid2);
 		System.out.println("player1"+p1pts+"player2"+p2pts);
 		
-	    double percentDiff = (double) p1pts/((double) p1pts+p2pts);
+	   /* double percentDiff = (double) p1pts/((double) p1pts+p2pts);
 	    
 	    if(percentDiff>0.4 && percentDiff<0.6)
 	    	return true;
 	    			
-		return false;
+		return false;*/
+		List<Player> ftjPlayers = new ArrayList<Player>();
+		Player p1 = createPlayer(p1pts, tid1);
+		Player p2 = createPlayer(p2pts, tid2);
+		ftjPlayers.add(p1);
+		ftjPlayers.add(p2);
+		return ftjPlayers;
+	}
+	
+	private Player createPlayer(int points,int id){
+		Player newPlayer = new Player();
+		newPlayer.ftjPoints=points;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs =null;
+		try{
+
+			//Class.forName("com.mysql.jdbc.Driver");
+			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
+
+			String sql= "SELECT * from players p "
+					+ "WHERE p.PlayerID = "+id + ";";
+			System.out.println(sql);
+			 rs = stmt.executeQuery(sql);
+			//testing
+			int scoreSum = 0;
+			while(rs.next()){
+				newPlayer.Name= rs.getString(2);	
+				newPlayer.OverallRank = rs.getString(7);
+			}
+		
+			return newPlayer;
+
+
+		}catch (Exception e){
+			System.out.println("Caught exceptionz");
+			e.printStackTrace();
+			return null;
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					return null;
+				//	e.printStackTrace();
+				}
+			if(rs!=null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					return null;
+					//e.printStackTrace();
+				}
+		}
+		
 	}
 
 	public int getPlayerPoints(int pID){
@@ -117,3 +173,4 @@ public class FtjStats {
 		}
 	}
 }
+
