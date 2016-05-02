@@ -127,6 +127,7 @@
 						<div class="button">
 							<input type="button" value="compare players" class="btn btn-success"ng-click="comparePlayers()" />
 							<div>Is this trade fair? {{FTJ}}</div>
+							<div ng-repeat="currPlayer in players">Name: {{currPlayer.Name}}, Points: {{currPlayer.ftjPoints}}, Overall Preseason Rank: {{currPlayer.OverallRank}}</div>
 						</div>
 					</div>
 				</div>
