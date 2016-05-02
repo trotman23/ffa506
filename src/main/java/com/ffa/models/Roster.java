@@ -31,7 +31,6 @@ public class Roster {
 		Statement pStmt = null;
 		ResultSet rs = null;
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
