@@ -117,9 +117,13 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
         $scope.selectedPlayers = [];
 
         $scope.selUser=function(player,idx){
-
-            $scope.selectedPlayers.push(player);
-            console.log("selected: " + player);
+        	// if ($.inArray(player, $scope.selectedPlayers) > -1){
+        	// 	console.log ("remove player " + player);
+        	// 	$scope.selectedPlayers.remove(player);
+        	// } else {
+           	 	$scope.selectedPlayers.push(player);
+           	 	console.log("selected: " + player);
+           	// }
         }
 
         $scope.userSelected =  function(player){

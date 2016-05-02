@@ -53,7 +53,7 @@ public class DraftBuddy {
 					player.NFLTeamName = rs.getString(4);
 				}
 				
-				if (rs.getInt(5) == 0){
+				if (rs.getInt(5) == 1){
 					player.Injured = true;
 				} else {
 					player.Injured = false;
