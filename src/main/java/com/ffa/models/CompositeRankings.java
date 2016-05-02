@@ -62,7 +62,7 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 			//assign the rank based on the sort, might work, might now
 			for (int j = 0; j < lcr.size(); j++){
 				lcr.get(j).cRank = j + 1;
-				lcr.get(j).cWins = lcr.size() - j;
+				lcr.get(j).cWins = lcr.size() - (j + 1);
 				lcr.get(j).cLosses = j;
 				lcr.get(j).cTies = 0; //setting ties to zero for now
 			}
@@ -76,12 +76,13 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 	}
 
 
-	public List<List<CompositeRankings>> populateCompositeRankingsRable(int LeagueID, int numWeeks){
+	public List<List<CompositeRankings>> populateCompositeRankingsTable(int LeagueID, int numWeeks){
 		List<List<CompositeRankings>> llcr = new ArrayList<List<CompositeRankings>>();
 
 		for (int i = 1; i <= numWeeks; i++){
-			llcr.add(this.populateCompositeRankingsRow(LeagueID, i));
+			llcr.add(populateCompositeRankingsRow(LeagueID, i));
 		}
+		//Collections.sort((List<T>) llcr);
 
 		return llcr;
 	}
@@ -96,7 +97,7 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		try{
 			Connection conn = DbSource.getDataSource().getConnection();
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT COUNT(FFATeamID) FROM teams WHERE Leagues_LeagueID = " + LeagueID;
+			String sql = "SELECT COUNT(*) FROM teams WHERE Leagues_LeagueID = 1";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){
 				numTeams = rs.getInt(1);
@@ -106,50 +107,43 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		for (int a = 0; a <12; a++){
+		for (int a = 0; a <numTeams; a++){
 			CompositeRankings temp = new CompositeRankings();
 			lcr.add(temp);
 		}
 		
-		List<List<CompositeRankings>> grid =  populateCompositeRankingsRable(LeagueID, Week);
-		//now this is just getting dumb
-		int counter = 0;
-		for (List<CompositeRankings> week : grid){
-			counter++;
-			//need indexing with this loop, should match 1-1 with the empty one
-			for(int j = 0; j < week.size(); j++){
-				lcr.get(j).cWins += week.get(j).cWins;
-				lcr.get(j).cLosses += week.get(j).cLosses;
-				lcr.get(j).cTies += week.get(j).cTies;
-				//temporarily setting the cRank for the average calcs
-				lcr.get(j).cRank += week.get(j).cRank;
-				if (counter == 1){
-					lcr.get(j).teamName = week.get(j).teamName;
-					lcr.get(j).teamID = week.get(j).teamID;
-					lcr.get(j).ownerName = week.get(j).ownerName;
+		List<List<CompositeRankings>> grid =  populateCompositeRankingsTable(LeagueID, Week);
+		for (int y = 0; y < grid.size(); y++){
+			if (y == 0){
+				for(int j = 0; j < grid.get(y).size(); j++){
+					lcr.get(j).teamName = grid.get(y).get(j).teamName;
+					lcr.get(j).teamID = grid.get(y).get(j).teamID;
+					lcr.get(j).ownerName = grid.get(y).get(j).ownerName;
 				}
 			}
+			for(int j = 0; j < grid.get(y).size(); j++){
+				for (int k = 0; k < lcr.size(); k++){
+					if (lcr.get(k).teamID == grid.get(y).get(j).teamID){
+						lcr.get(k).cWins += grid.get(y).get(j).cWins;
+						lcr.get(k).cLosses += grid.get(y).get(j).cLosses;
+						lcr.get(k).cTies += grid.get(y).get(j).cTies;
+						lcr.get(k).cRank = grid.get(y).get(j).cRank;
+					}
+				}
+				
+			}
+			
 		}
 		//calculate average values for simplicity
 		for (CompositeRankings avg : lcr){
 			avg.avgLosses = avg.cLosses / Week;
-			avg.avgRank = avg.cRank / Week / 16; //idk why this is 16??? 17 football week, so idk
+			avg.avgRank = avg.cRank / Week;
 			avg.avgTies = avg.cTies / Week;
 			avg.avgWins = avg.cWins / Week;
 		}
-		
-		//now i don't want to figure out how to sort by wins/losses/ties so i'm going to let angular handle that on the front end with filter
-		
-		
-		///jackson up the list to json and send it back
-		//on second thought, returning a list of objects might me easier
-		/*ObjectMapper mapper = new ObjectMapper();
-		String json = "";
-		try{
-			json = mapper.writeValueAsString
-		} catch (Exception e){
-			e.printStackTrace();;
-		}*/
+		//one last sort -_-
+		//Collections.sort(lcr);
+		//sort in the angular controller
 		return lcr;
 	}
 	
