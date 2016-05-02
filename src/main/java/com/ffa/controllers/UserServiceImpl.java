@@ -3,6 +3,7 @@ package com.ffa.controllers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService{
     public User findById(int userId) {
       	Connection pConn = null;
     		Statement pStmt = null;
+    		ResultSet rs = null;
     		
     		User user = new User();
     		int id = 0;
@@ -36,15 +38,13 @@ public class UserServiceImpl implements UserService{
     		String password = "";
     		
     		try{
-
-    			Class.forName("com.mysql.jdbc.Driver");
     			pConn = DbSource.getDataSource().getConnection();
     			pStmt = pConn.createStatement();
     			//select on team name, given team id
 
     			String sql = "SELECT * FROM users WHERE UserID = " + userId + ";";
     			System.out.println(sql);
-    			ResultSet rs = pStmt.executeQuery(sql);
+    			rs = pStmt.executeQuery(sql);
     			if (!rs.next()) {
     				return null;
     			}
@@ -53,15 +53,15 @@ public class UserServiceImpl implements UserService{
     				name = rs.getString(2);
     				email = rs.getString(3);
     				password = rs.getString(4);
-    				pConn.close();
-    				rs.close();
     			}
 
     		} catch (Exception e){
     			e.printStackTrace();
-    		} finally{
-
-    		}
+    		} finally {
+    	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+    	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+    	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+    	    }
     		user.setId(id);
     		user.setName(name);
     		user.setPassword(password);
@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService{
     public User findByEmail(String email) {
     	Connection pConn = null;
 		Statement pStmt = null;
+		ResultSet rs = null;
 		
 		User user = new User();
 		int id = 0;
@@ -81,15 +82,13 @@ public class UserServiceImpl implements UserService{
 		String password = "";
 		
 		try{
-
-			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
 			String sql = "SELECT * FROM users WHERE Email = " + "\"" + email + "\";";
 			System.out.println(sql);
-			ResultSet rs = pStmt.executeQuery(sql);
+			rs = pStmt.executeQuery(sql);
 			if (!rs.next()) {
 				return null;
 			}
@@ -98,15 +97,15 @@ public class UserServiceImpl implements UserService{
 				name = rs.getString(2);
 				emailCopy = rs.getString(3);
 				password = rs.getString(4);
-				pConn.close();
-				rs.close();
 			}
 
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		user.setId(id);
 		user.setName(name);
 		user.setPassword(password);
@@ -139,14 +138,13 @@ public class UserServiceImpl implements UserService{
 		    pStmt.setString(2, user.getEmail());
 		    pStmt.setString(3, user.getPassword());
 		    pStmt.executeUpdate();
-		    
-			pConn.close();
-			pStmt.close();
 
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-		}
+		} finally {
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
     }
  
     public void deleteUserById(int userId) {
@@ -170,16 +168,15 @@ public class UserServiceImpl implements UserService{
     private static List<User> populateUsersFromDB() {
     	Connection pConn = null;
 		Statement pStmt = null;
+		ResultSet rs = null;
 		try{
-
-			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
 			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
 			String sql = "SELECT * FROM users;";
 			System.out.println(sql);
-			ResultSet rs = pStmt.executeQuery(sql);
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				  int id = rs.getInt("userid");
 				  String name = rs.getString("name");
@@ -190,14 +187,13 @@ public class UserServiceImpl implements UserService{
 				  User user = new User(id, name, email, password);
 				  users.add(user);
 			}
-			pConn.close();
-			rs.close();
-
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		
 		return users;
     }
@@ -216,20 +212,20 @@ public class UserServiceImpl implements UserService{
 		    pStmt.setString(2, user.getEmail());
 		    pStmt.setString(3, user.getPassword());
 		    pStmt.executeUpdate();
-		    
-			pConn.close();
-			pStmt.close();
 
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally{
-			users.add(user);
+		} finally {
+		        if (pStmt != null) try { pStmt.close(); } catch (SQLException logOrIgnore) {}
+		        if (pConn != null) try { pConn.close(); } catch (SQLException logOrIgnore) {}
+		        users.add(user);
 		}
     }
 
 	public static String getLeagueIDFromUser(int UserID) {
 		Connection conn = null;
 		Statement stmt = null;
+		ResultSet rs = null;
 		String LeagueID = "";
 		try{
 			conn = DbSource.getDataSource().getConnection();
@@ -237,17 +233,18 @@ public class UserServiceImpl implements UserService{
 			String sql = "SELECT DISTINCT ESPNLeagueID FROM users u, leagues_has_users lhu, leagues l " +
 						"WHERE u.UserID = " + UserID + ";";
 			System.out.println(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				int temp = rs.getInt(1);
 				LeagueID = Integer.toString(temp);
 			}
-			conn.close();
-			stmt.close();
-			rs.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		}
+		} finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {}
+	        if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {}
+	        if (conn != null) try { conn.close(); } catch (SQLException logOrIgnore) {}
+	    }
 		return LeagueID;
 	}
 }
