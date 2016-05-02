@@ -11,12 +11,38 @@
             <input type="text" name="email" id="email" class="form-control" ng-model="vm.user.email" required />
             <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
         </div>
-        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-        </div>
-        <div class="form-actions">
+		<div class="form-group"
+			ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+			<label for="password">Password</label> <input type="password"
+				name="password" id="password" class="form-control"
+				ng-model="vm.user.password" required /> <span
+				ng-show="form.password.$dirty && form.password.$error.required"
+				class="help-block">Password is required</span>
+		</div>
+		<div
+			ng-class="{
+                        'has-error': vm.form.acceptedTerms.$invalid && (vm.form.$submitted || vm.form.acceptedTerms.$touched),
+                        'has-success': vm.form.acceptedTerms.$valid && vm.form.acceptedTerms.$touched
+                    }">
+			<div class="form-group">
+				<div class="col-sm-offset-0">
+					<div class="checkbox">
+						<label> <input type="checkbox" name="acceptedTerms"
+							ng-model="vm.acceptedTerms" required> I accept the terms of use</a>
+						</label>
+					</div>
+					<div class="row"
+						ng-show="vm.form.acceptedTerms.$error && (vm.form.$submitted || vm.form.acceptedTerms.$touched)">
+						<div class="col-sm-12">
+							<span class="help-block"
+								ng-show="vm.form.acceptedTerms.$error.required">You need
+								to accept terms of use</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
             <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <a href="#/login" class="btn btn-link">Cancel</a>
