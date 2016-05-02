@@ -437,7 +437,7 @@
 							<div class="col-md-2">Avg(W-L-T)</div>
 							<div class="col-md-1">&nbsp;</div>
 						</div>
-						<div ng-repeat="rank in comprankings" class="row">
+						<div ng-repeat="rank in comprankings | orderBy: 'cRank'" class="row">
 							<div class="col-md-1">&nbsp;</div>
 							<div class="col-md-2">{{rank.cRank}}</div>
 							<div class="col-md-2">{{rank.teamName}}</div>
