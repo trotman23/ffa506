@@ -94,6 +94,51 @@ public class FtjStats {
 			conn = DbSource.getDataSource().getConnection();
 			stmt = conn.createStatement();
 
+<<<<<<< HEAD
+=======
+			String sql= "SELECT * from players p "
+					+ "WHERE p.PlayerID = "+id + ";";
+			System.out.println(sql);
+			 rs = stmt.executeQuery(sql);
+			//testing
+			while(rs.next()){
+				newPlayer.Name= rs.getString(2);	
+				newPlayer.OverallRank = rs.getInt(7);
+			}
+		
+			return newPlayer;
+
+
+		}catch (Exception e){
+			System.out.println("Caught exceptionz");
+			e.printStackTrace();
+			return null;
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					return null;
+				//	e.printStackTrace();
+				}
+			if(rs!=null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					return null;
+					//e.printStackTrace();
+				}
+		}
+		
+	}
+
+	public int getPlayerPoints(int pID){
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			conn = DbSource.getDataSource().getConnection();
+>>>>>>> 2058aa8b1df34e2b487ca886e4d28bee1150d3bf
 			String sql= "SELECT SUM(ws.FantasyPointsScore) "
 					+ "FROM players p "
 					+ "JOIN weeklyscores ws "

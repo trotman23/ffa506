@@ -9,6 +9,10 @@ public class Player {
 	public boolean Injured;
 	public int NFLTeam_NFLTeamID;
 	public int OverallRank;
+<<<<<<< HEAD
+=======
+	public int ftjPoints;
+>>>>>>> 2058aa8b1df34e2b487ca886e4d28bee1150d3bf
 	
 	public Player(){
 
