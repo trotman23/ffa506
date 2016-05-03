@@ -32,6 +32,7 @@ public class DraftBuddy {
 //	}
 //	
 	public static List<Player> Players(){
+		players.clear();
 		Connection pConn = null;
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;

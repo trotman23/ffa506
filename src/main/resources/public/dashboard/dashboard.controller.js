@@ -99,20 +99,21 @@ $scope.sortType     = 'OverallRank';
 		$scope.sortReverse  = false;
 		$scope.players = []
 		$scope.startDraft = function (){
-			console.log('here');
+			$scope.players = []
 			$http({
 				method: 'GET',
 				url: './rest/DraftBuddy'
 			}).success(function (result) {
 				$scope.players = result;
 			});
+			$scope.buttonClicked = true;
 		}
 
 		$scope.endDraft = function (){
-			console.log ('clearing');
 			$scope.searchedPlayers = [];
 			$scope.selectedPlayers = []; 
 			$scope.players = [];
+			$scope.buttonClicked = false;
 		}
 
 		//$scope.players.length = 0;

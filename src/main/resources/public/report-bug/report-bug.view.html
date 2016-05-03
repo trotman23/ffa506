@@ -25,7 +25,7 @@
 					</form>
 					<p ng-show="mySwitch">Your response has been recorded. Thank
 						you for helping make our site great!</p>
-					<input ng-hide="mySwitch" type="button" value="Submit"
+					<input ng-disabled="myForm.$invalid"ng-hide="mySwitch" type="button" value="Submit"
 						ng-model="mySwitch" ng-click="mySwitch=true" /> <input
 						ng-show="mySwitch" type="button" value="Report Another Bug"
 						ng-model="mySwitch" ng-click="mySwitch=false" />
