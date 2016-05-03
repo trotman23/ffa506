@@ -375,41 +375,29 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 		});
 
 		$scope.submitPoll = function(week, ranks){
-			//console.log("in submit poll");
+			console.log("in submit poll");
+			console.log($scope.pRanks);
 			$http({
-				method: 'PUT',
+				method: 'POST',
 				url: './rest/InsertPoll',
-				data: ranks
+				data: $scope.pRanks
 			}).success(function (result) {
 				$scope.teams = result;
 			});
 		}
-
-
-		function checkSelected(val) {
-			var ret = false;
-			$(".pollSelect").each(function() {
-				if ($(this).val() === val) {
-					ret = true;
-				}
-			});
-			return ret;
+		$scope.selectedRanks = [];
+		$scope.addToSelectedRanks = function(rank){
+			$scope.selectedRanks.push(rank);
 		}
-		$scope.selectRank = function(el) {
-			//console.log(el);
-			$('.pollSelect option').each(function() {
-				//console.log(el);
-				var temp = checkSelected(el.rank);
-
-				if (checkSelected(el.rank) && el.rank != "0") {
-					var temp2 = $('.pollSelect option[value=' + el.rank + ']');
-					$('.pollSelect option[value=' + el.rank + ']').attr('disabled', true);
-				} else {
-					var temp3 = $('.pollSelect option[value=' + el.rank + ']');
-					$('.pollSelect option[value=' + el.rank + ']').removeAttr('disabled');
-				}
-			});
+		$scope.pollFilter = function(text){
+			for (var i = 0; i < $scope.selectedRanks.length; i++) {
+	            if (text.indexOf($scope.selectedRanks[i]) !== -1) {
+	                return false;
+	            }
+	        }
+	        return true;
 		}
+		
 
 	}
 }

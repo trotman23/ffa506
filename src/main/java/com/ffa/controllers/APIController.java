@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.ffa.models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -127,10 +128,11 @@ public class APIController {
 	}
 
 
-	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.PUT)
-	public boolean InsertPoll(
+	@RequestMapping(value = rest + "InsertPoll", method = RequestMethod.POST)
+	public @ResponseBody boolean InsertPoll(
 			@RequestBody List<Poll> p
 			){
+		System.out.println(p);
 		if(PollHelper.pollExists(p)){
 			return false;
 		} else {
@@ -139,6 +141,4 @@ public class APIController {
 		}
 
 	}
-
-
 }
