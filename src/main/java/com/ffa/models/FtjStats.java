@@ -2,6 +2,7 @@ package com.ffa.models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,16 +35,17 @@ public class FtjStats {
 	public List<FtjStats> LeagueTeams(int LeagueID){
 		List<FtjStats> teams = new ArrayList<FtjStats>();
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try{
 			conn = DbSource.getDataSource().getConnection();
-			stmt = conn.createStatement();
 			//select on team name, given team id
 
-			String sql = "SELECT * FROM teams t JOIN leagues l ON t.Leagues_LeagueID = l.LeagueID WHERE l.ESPNLeagueID = " + LeagueID + ";";
+			String sql = "SELECT * FROM teams t JOIN leagues l ON t.Leagues_LeagueID = l.LeagueID WHERE l.ESPNLeagueID = ?;";
 			System.out.println(sql);
-			rs = stmt.executeQuery(sql);
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, LeagueID);
+			rs = stmt.executeQuery();
 			while(rs.next()){
 				FtjStats temp = new FtjStats();
 				temp.teamID = rs.getInt(1);
@@ -70,32 +72,38 @@ public class FtjStats {
 		return teams;
 	}
 	
-	public boolean isFair(int tid1, int tid2){
+	public List<Player> isFair(int tid1, int tid2){
 		//TODO: implement fair trade judge algorithm, compare lots of stats
 		int p1pts = getPlayerPoints(tid1);
 		int p2pts = getPlayerPoints(tid2);
 		System.out.println("player1"+p1pts+"player2"+p2pts);
 		
-	    double percentDiff = (double) p1pts/((double) p1pts+p2pts);
+	   /* double percentDiff = (double) p1pts/((double) p1pts+p2pts);
 	    
 	    if(percentDiff>0.4 && percentDiff<0.6)
 	    	return true;
 	    			
-		return false;
+		return false;*/
+		List<Player> ftjPlayers = new ArrayList<Player>();
+		Player p1 = createPlayer(p1pts, tid1);
+		Player p2 = createPlayer(p2pts, tid2);
+		ftjPlayers.add(p1);
+		ftjPlayers.add(p2);
+		return ftjPlayers;
 	}
-
-	public int getPlayerPoints(int pID){
+	
+	private Player createPlayer(int points,int id){
+		Player newPlayer = new Player();
+		newPlayer.ftjPoints=points;
 		Connection conn = null;
 		Statement stmt = null;
-		ResultSet rs = null;
+		ResultSet rs =null;
 		try{
 
 			//Class.forName("com.mysql.jdbc.Driver");
 			conn = DbSource.getDataSource().getConnection();
 			stmt = conn.createStatement();
 
-<<<<<<< HEAD
-=======
 			String sql= "SELECT * from players p "
 					+ "WHERE p.PlayerID = "+id + ";";
 			System.out.println(sql);
@@ -138,14 +146,15 @@ public class FtjStats {
 		ResultSet rs = null;
 		try{
 			conn = DbSource.getDataSource().getConnection();
->>>>>>> 2058aa8b1df34e2b487ca886e4d28bee1150d3bf
 			String sql= "SELECT SUM(ws.FantasyPointsScore) "
 					+ "FROM players p "
 					+ "JOIN weeklyscores ws "
 					+ "ON p.PlayerID = ws.Players_PlayerID "
-					+ "WHERE p.PlayerID = "+pID + ";";
+					+ "WHERE p.PlayerID = ?;";
 			System.out.println(sql);
-			rs = stmt.executeQuery(sql);
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, pID);
+			rs = stmt.executeQuery();
 			//testing
 			int scoreSum = 0;
 			while(rs.next()){
@@ -163,3 +172,4 @@ public class FtjStats {
 	    }
 	}
 }
+

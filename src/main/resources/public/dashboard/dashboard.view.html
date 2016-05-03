@@ -127,6 +127,7 @@
 						<div class="button">
 							<input type="button" value="compare players" class="btn btn-success"ng-click="comparePlayers()" />
 							<div>Is this trade fair? {{FTJ}}</div>
+							<div ng-repeat="currPlayer in players">Name: {{currPlayer.Name}}, Points: {{currPlayer.ftjPoints}}, Overall Preseason Rank: {{currPlayer.OverallRank}}</div>
 						</div>
 					</div>
 				</div>
@@ -217,15 +218,14 @@
 				<div class="tab-pane" id="tab3">
 					<div class="col-md-12">
 						<span class="span8" style="margin-bottom: 20p">
-							<h2>Start draft, and then enter names to see who's been
-								drafted</h2>
+							<h2>To view players, select 'Start Draft' below</h2>
 						</span>
-
+						
 						<button type="button pull-left" class="btn btn-success" ng-click=startDraft()>Start
 							Draft</button>
 						<button type="button pull-left" class="btn btn-danger" ng-click=endDraft()>End
 							Draft</button>
-
+						
 
        						<style>
        					
@@ -244,7 +244,7 @@
 												<i class="fa fa-search"></i>
 											</div>
 
-											<input type="text" name="inputField" class="form-control"
+											<input type="text" class="form-control"
 												placeholder="Search players" ng-model="searchPlayer"
 												 ng-submit="select()" ng-keydown="$event.which === 13 && select()"></input>
 										</div>
@@ -253,7 +253,7 @@
 
 							</span>
 						</div>
-						<span class="pull-left"><i>Click on a row or search their name and press enter to mark them as drafted</i></span>
+						<span class="pull-left"><i>Once started, search a players name and hit enter or select a row to mark that player as drafted</i></span>
 
 
 					</div>

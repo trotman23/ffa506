@@ -58,20 +58,6 @@ public class RunScrape {
 
 		}*/
 		
-		//Defense crawlers
-		//List<players> playerList = null;
-//		//for (int i = 0; i <= 320; i+=40){
-//			System.out.println("new page");
-//			int leagueID = 1041604;
-//			int seasonID = 2015;
-//			String defenses = "http://games.espn.go.com/ffl/tools/projections?&seasonTotals=true&seasonId=2015&slotCategoryId=16";
-//			playerList = CrawlPlayers(defenses);
-//			try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 		
 		/*PLAYER CRAWLERS
 		List<Players> playerList = null;
