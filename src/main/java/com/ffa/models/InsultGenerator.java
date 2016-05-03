@@ -21,7 +21,7 @@ final String[] INSULTS= {"This team drafts worst then the browns", "0-16??",
 
   
   public String getInsults(){
-	Random rand= new Random(INSULTS.length);
+	Random rand= new Random();
 	return INSULTS[rand.nextInt(INSULTS.length)];  
   }
 	
