@@ -98,6 +98,8 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 $scope.sortType     = 'OverallRank';
 		$scope.sortReverse  = false;
 		$scope.players = []
+		$scope.notClicked = true;
+		$scope.buttonClicked = false;
 		$scope.startDraft = function (){
 			$scope.players = []
 			$http({
@@ -107,6 +109,7 @@ $scope.sortType     = 'OverallRank';
 				$scope.players = result;
 			});
 			$scope.buttonClicked = true;
+			$scope.notClicked = false;
 		}
 
 		$scope.endDraft = function (){
@@ -114,6 +117,7 @@ $scope.sortType     = 'OverallRank';
 			$scope.selectedPlayers = []; 
 			$scope.players = [];
 			$scope.buttonClicked = false;
+			$scope.notClicked = true;
 		}
 
 		//$scope.players.length = 0;
@@ -149,6 +153,8 @@ $scope.sortType     = 'OverallRank';
         	if ($.inArray(player, $scope.selectedPlayers) > -1){
         		var index = $scope.selectedPlayers.indexOf(player);
  				 $scope.selectedPlayers.splice(index, 1); 
+ 				 var index2 = $scope.searchedPlayers.indexOf(player.Name);
+ 				 $scope.searchedPlayers.splice(index2, 1);
         	} else {
            	 	$scope.selectedPlayers.push(player);
            	 	$scope.searchedPlayers.push(player.Name);
