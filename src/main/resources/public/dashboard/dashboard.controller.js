@@ -77,9 +77,9 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 								$scope.players[1].ftjPoints))<0.55)
 
 				{
-					$scope.FTJ = "Hell yea";
+					$scope.FTJ = "Yes, this is a fair trade.";
 				} else {
-					$scope.FTJ = "f no";
+					$scope.FTJ = "No, this is not a fair trade.";
 				}
 			});
 		};
