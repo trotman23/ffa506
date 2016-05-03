@@ -218,24 +218,14 @@
 				<div class="tab-pane" id="tab3">
 					<div class="col-md-12">
 						<span class="span8" style="margin-bottom: 20p">
-							<h2>Start draft, and then enter names to see who's been
-								drafted</h2>
+							<h2>To view players, select 'Start Draft' below</h2>
 						</span>
-
-						<button type="button pull-left" class="btn btn-success">Start
+						
+						<button type="button pull-left" class="btn btn-success" ng-click=startDraft()>Start
 							Draft</button>
-						<button type="button pull-left" class="btn btn-danger">End
+						<button type="button pull-left" class="btn btn-danger" ng-click=endDraft()>End
 							Draft</button>
-
-
-						<!--   <h3><timer/></h3>
-       							 <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
-       							 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button> -->
-						<!-- <timer interval="1000" class="ng-binding ng-isolate-scope">
-
-								{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer> -->
-						<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
-       						 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timers</button> -->
+						
 
        						<style>
        					
@@ -263,7 +253,7 @@
 
 							</span>
 						</div>
-						<span class="pull-left"><i>Click on a row or search their name and press enter to mark them as drafted</i></span>
+						<span class="pull-left"><i>Once started, search a players name and hit enter or select a row to mark that player as drafted</i></span>
 
 
 					</div>
@@ -292,7 +282,7 @@
 									</tr>
 								</thead>
 								<tbody ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer" ng-click="selUser(player,$index)">
-        						<tr  ng-class="{sel: userSelected(player)}">
+        						<tr  ng-class="{sel: userSelected(player.Name)}">
 										<td >{{player.OverallRank}}</td>
 										<td >{{player.Name}}</td>
 										<td >{{player.Position}}</td>

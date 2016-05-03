@@ -95,9 +95,10 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 	}
 
 	$scope.DraftBuddyController = function() {
-		$scope.sortType     = 'OverallRank';
+$scope.sortType     = 'OverallRank';
 		$scope.sortReverse  = false;
 		$scope.players = []
+		$scope.startDraft = function (){
 			console.log('here');
 			$http({
 				method: 'GET',
@@ -105,7 +106,14 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			}).success(function (result) {
 				$scope.players = result;
 			});
+		}
 
+		$scope.endDraft = function (){
+			console.log ('clearing');
+			$scope.searchedPlayers = [];
+			$scope.selectedPlayers = []; 
+			$scope.players = [];
+		}
 
 		//$scope.players.length = 0;
 
@@ -116,12 +124,25 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 			$scope.searchPlayer = "";
 		}
 
-		$scope.select = function(index){
-			console.log('here');
+
+		$scope.searchedPlayers = [];
+
+		$scope.select = function(){
+			console.log("Searching for " + $scope.searchPlayer);
+		
+			if ($.inArray($scope.searchPlayer, $scope.selectedPlayers) > -1){
+        		// var index = $scope.selectedPlayers.indexOf($scope.searchedPlayers);
+        		// console.log("found it");
+ 				// $scope.selectedPlayers.splice(index, 1); 
+        	} else {
+           	 	$scope.searchedPlayers.push($scope.searchPlayer);
+           	 	console.log("selected: " + $scope.searchPlayer);
+           	 }
+           	  $scope.searchPlayer = "";
 		}
 
-		$scope.selIdx= -1;
-		$scope.selectedPlayers = [];
+        $scope.selIdx= -1;
+        $scope.selectedPlayers = [];
 
         $scope.selUser=function(player,idx){
         	if ($.inArray(player, $scope.selectedPlayers) > -1){
@@ -129,12 +150,14 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
  				 $scope.selectedPlayers.splice(index, 1); 
         	} else {
            	 	$scope.selectedPlayers.push(player);
+           	 	$scope.searchedPlayers.push(player.Name);
            	 	console.log("selected: " + player);
            	 }
+           	 $scope.inputField = "";
         }
 
-		$scope.userSelected =  function(player){
-			return $.inArray(player, $scope.selectedPlayers) > -1;
+        $scope.userSelected =  function(playerName){
+		    return $.inArray(playerName, $scope.searchedPlayers) > -1;
 		}
 
 
