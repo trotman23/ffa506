@@ -340,11 +340,8 @@
 						<div class="rankContainer" ng-model="pRanks">
 							<div class="row" ng-repeat="team in teams">
 								<div class="col-md-4">
-									<select ng-model="pRank"
-										ng-options="item as item.rank for item in ranks"
-										ng-change="selectRank(pRank)"
-										class="pollSelect">
-										<option value="">Rank</option>
+									<select ng-model="pRank" class="pollSelect">
+										<option ng-repeat="item in ranks | filter:pollFilter" value="item.rank" ng-change="addToSelectedRanks(item.rank)">{{item.rank}}</option>
 									</select>
 								</div>
 								<div class="col-md-4">{{team.teamName}}</div>
