@@ -22,18 +22,16 @@ public class NFLTeam {
 	public NFLTeam(int id){
 		this.NFLTeamID = id;
 		Connection pConn = null;
-		PreparedStatement pStmt = null;
+		Statement pStmt = null;
 		ResultSet rs = null;
 		try{
 			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
-			String sql = "SELECT * FROM nflteam WHERE NFLTeamID = ?;";
+			String sql = "SELECT * FROM nflteam WHERE NFLTeamID = " + id + ";";
 			System.out.println(sql);
-			pStmt = pConn.prepareStatement(sql);
-			pStmt.setInt(1, id);
-			
-			rs = pStmt.executeQuery();
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				this.NFLTeamName = rs.getString(2);
 				this.Wins = rs.getInt(3);

@@ -1,9 +1,9 @@
 package com.ffa.models;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,15 +33,15 @@ public class DraftBuddy {
 //	
 	public static List<Player> Players(){
 		Connection pConn = null;
-		PreparedStatement pStmt = null;
+		Statement pStmt = null;
 		ResultSet rs = null;
 		try{
 			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
 			//select on team name, given team id
 	
 			String sql = "SELECT * FROM players ORDER BY OverallRank ASC;";
-			pStmt = pConn.prepareStatement(sql);
-			rs = pStmt.executeQuery();
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Player player = new Player();
 				player.OverallRank = rs.getInt(7);

@@ -2,7 +2,7 @@ package com.ffa.models;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.*;
 import com.ffa.controllers.DbSource;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,23 +34,20 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		//iterating through the weeks, this will be painfully slow, but i can't think of a
 		//better way to write the SQL right now, so i'm just going for it
 		Connection conn = null;
-		PreparedStatement stmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		int score = 0;
 		try {
 			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
 			String sql ="SELECT SUM(FantasyPointsScore), TeamName, u.Name, t.FFATeamID FROM weeklyscores ws " +
 					"JOIN roster r ON r.Players_PlayerID = ws.Players_PlayerID " + 
 					"JOIN teams t ON t.FFATeamId = r.Teams_FFATeamId " + 
 					"JOIN users u ON u.UserID = t.Users_UserID " +
-					"WHERE r.WeekID = ? AND ws.Week = ? "+  
-					"AND r.Starter = true AND r.Teams_Leagues_LeagueID = ? " +
+					"WHERE r.WeekID = " + Week + " AND ws.Week = " + Week + " "+  
+					"AND r.Starter = true AND r.Teams_Leagues_LeagueID = " + LeagueID + " " +
 					"GROUP BY r.Teams_FFATeamID;";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, Week);
-			stmt.setInt(2, Week);
-			stmt.setInt(3, LeagueID);
-			rs = stmt.executeQuery();
+			rs = stmt.executeQuery(sql);
 
 			while (rs.next()){
 				CompositeRankings cr = new CompositeRankings();
@@ -101,13 +98,13 @@ public class CompositeRankings extends Rankings implements Comparable<CompositeR
 		//should be a really simple query like select count(*) from teams where Leagueid=LeagueID
 		int numTeams = 12;
 		Connection conn = null;
-		PreparedStatement stmt = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		try{
 			conn = DbSource.getDataSource().getConnection();
+			stmt = conn.createStatement();
 			String sql = "SELECT COUNT(*) FROM teams WHERE Leagues_LeagueID = 1";
-			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
+			rs = stmt.executeQuery(sql);
 			while (rs.next()){
 				numTeams = rs.getInt(1);
 			}

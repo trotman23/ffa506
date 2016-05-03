@@ -28,10 +28,11 @@ public class Roster {
 	public List<Roster> getRoster(String LeagueID, String TeamID, String Week, String Year){
 		List<Roster> lr = new ArrayList<Roster>();
 		Connection pConn = null;
-		PreparedStatement pStmt = null;
+		Statement pStmt = null;
 		ResultSet rs = null;
 		try{
 			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
 			//select on team name, given team id
 
 			/* sql code to try out, getting the roster of a team for a given week and year
@@ -45,19 +46,12 @@ public class Roster {
 			 * 
 			 */
 			String sql = "SELECT * FROM roster r JOIN players p ON r.Players_PlayerID = p.PlayerID WHERE " + 
-					"r.weekID = ? and " + 
-					"r.SeasonID = ? and " + 
-					"r.Teams_FFATeamID = ? and " + 
-					"Teams_Leagues_LeagueID = ?;";
+					"r.weekID = " + Week + " and " + 
+					"r.SeasonID = " + Year + " and " + 
+					"r.Teams_FFATeamID = " + TeamID + " and " + 
+					"Teams_Leagues_LeagueID = " + LeagueID + ";";
 			System.out.println(sql);
-
-			pStmt = pConn.prepareStatement(sql);
-			pStmt.setString(1, Week);
-			pStmt.setString(2, Year);
-			pStmt.setString(3, TeamID);
-			pStmt.setString(4, LeagueID);
-			
-			rs = pStmt.executeQuery();
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Roster r = new Roster();
 				r.Players_PlayerID = rs.getInt(1);

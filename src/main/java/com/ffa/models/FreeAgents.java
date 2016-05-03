@@ -1,7 +1,6 @@
 package com.ffa.models;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,20 +22,19 @@ public class FreeAgents{
 	
 	public void getTopPlayer(String Position){
 		Connection pConn = null;
-		PreparedStatement pStmt = null;
+		Statement pStmt = null;
 		ResultSet rs = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			pConn = DbSource.getDataSource().getConnection();
+			pStmt = pConn.createStatement();
 			
 			String sql = "SELECT * from players WHERE PlayerID NOT "
 					+ "IN(SELECT Players_PlayerID FROM roster) and "
-					+ "Position = ? Order By OverallRank;";
+					+ "Position = \"" +  Position+ "\" Order By OverallRank;";
 					
 			System.out.println(sql);
-			pStmt = pConn.prepareStatement(sql);
-			pStmt.setString(1, Position);
-			rs = pStmt.executeQuery();
+			rs = pStmt.executeQuery(sql);
 			while(rs.next()){
 				Player r = new Player();
 				r.Name = rs.getString(2);

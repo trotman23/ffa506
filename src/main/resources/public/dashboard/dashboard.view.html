@@ -127,7 +127,6 @@
 						<div class="button">
 							<input type="button" value="compare players" class="btn btn-success"ng-click="comparePlayers()" />
 							<div>Is this trade fair? {{FTJ}}</div>
-							<div ng-repeat="currPlayer in players">Name: {{currPlayer.Name}}, Points: {{currPlayer.ftjPoints}}, Overall Preseason Rank: {{currPlayer.OverallRank}}</div>
 						</div>
 					</div>
 				</div>
@@ -222,20 +221,11 @@
 								drafted</h2>
 						</span>
 
-						<button type="button pull-left" class="btn btn-success">Start
+						<button type="button pull-left" class="btn btn-success" ng-click=startDraft()>Start
 							Draft</button>
-						<button type="button pull-left" class="btn btn-danger">End
+						<button type="button pull-left" class="btn btn-danger" ng-click=endDraft()>End
 							Draft</button>
 
-
-						<!--   <h3><timer/></h3>
-       							 <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
-       							 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button> -->
-						<!-- <timer interval="1000" class="ng-binding ng-isolate-scope">
-
-								{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer> -->
-						<!-- <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timers</button>
-       						 <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timers</button> -->
 
        						<style>
        					
@@ -254,7 +244,7 @@
 												<i class="fa fa-search"></i>
 											</div>
 
-											<input type="text" class="form-control"
+											<input type="text" name="inputField" class="form-control"
 												placeholder="Search players" ng-model="searchPlayer"
 												 ng-submit="select()" ng-keydown="$event.which === 13 && select()"></input>
 										</div>
@@ -292,7 +282,7 @@
 									</tr>
 								</thead>
 								<tbody ng-repeat="player in players | orderBy:sortType:sortReverse | filter:searchPlayer" ng-click="selUser(player,$index)">
-        						<tr  ng-class="{sel: userSelected(player)}">
+        						<tr  ng-class="{sel: userSelected(player.Name)}">
 										<td >{{player.OverallRank}}</td>
 										<td >{{player.Name}}</td>
 										<td >{{player.Position}}</td>

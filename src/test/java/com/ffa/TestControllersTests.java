@@ -31,7 +31,7 @@ public class TestControllersTests {
 
 		
 		//ftj
-		//assertFalse(testContr.FTJ(adrianPeterson, eddieLacy));
+		assertFalse(testContr.FTJ(adrianPeterson, eddieLacy));
 		//leagueTeams
 		assertEquals(testContr.LeagueTeams(LEAGUE_ID).size(), 12);
 		//rosters

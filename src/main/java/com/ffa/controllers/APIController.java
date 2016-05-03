@@ -51,7 +51,7 @@ public class APIController {
 	}
 
 	@RequestMapping(rest + "FTJ")
-	public List<Player> FTJ(
+	public boolean FTJ(
 			@RequestParam(value="PlayerID1", defaultValue = "1") String PlayerID1,
 			@RequestParam(value="PlayerID2", defaultValue = "1") String PlayerID2
 			){
