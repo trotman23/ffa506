@@ -95,7 +95,7 @@ function DashboardController(UserService, $rootScope, $scope, $http) {
 	}
 
 	$scope.DraftBuddyController = function() {
-$scope.sortType     = 'OverallRank';
+		$scope.sortType     = 'OverallRank';
 		$scope.sortReverse  = false;
 		$scope.players = []
 		$scope.notClicked = true;
